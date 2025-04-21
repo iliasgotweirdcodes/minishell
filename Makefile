@@ -19,3 +19,7 @@ SRCS = main.c \
 		parsing.c \
 		parsing_utils.c \
 		signal_handler.c \
+
+
+
+tstts = tetsts.h
