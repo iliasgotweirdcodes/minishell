@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:03:56 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/21 15:11:38 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/21 17:10:49 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,21 @@
 # include <fcntl.h>
 # include <signal.h>
 
+# include "readline/readline.h"
+# include "readline/history.h"
 
+
+typedef struct s_command {
+	struct t_command *prev; // Pointer to the previous command in the pipeline
+    char **cmd;     // Actual command and its arguments
+    char **in_out;   // Redirections and tokens
+	struct t_command *next; // Pointer to the next command in the pipeline
+} t_command;
+
+typedef struct s_shell {
+	char *line; // The input line from the user
+	t_command *cmd; // Pointer to the first command in the pipeline
+} t_shell;
+
+void	setup_signals(void);
 #endif

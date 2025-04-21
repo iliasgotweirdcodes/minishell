@@ -1,23 +1,25 @@
-NAME = Minishell
-
+NAME = minishell
 CC = cc
-
 CFLAGS = -Wall -Wextra -Werror
+READLINE_COMPILE = -I$(shell brew --prefix readline)/include
+READLINE_LINK = -L$(shell brew --prefix readline)/lib -lreadline -lhistory
 
-SRCS = main.c \
-		env.c \
-		builtins.c \
-		builtins_cd.c \
-		builtins_echo.c \
-		builtins_env.c \
-		builtins_exit.c \
-		builtins_export.c \
-		builtins_pwd.c \
-		builtins_unset.c \
-		exec_cmds.c \
-		exec_utils.c \
-		parsing.c \
-		parsing_utils.c \
-		signal_handler.c \
+SRC = minishell.c parsing/signal.c
+OBJ = $(SRC:.c=.o)
 
-OBJS = $(SRCS:.c=.o)
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) $(CFLAGS) $(READLINE_LINK) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(READLINE_COMPILE) -c $< -o $@
+
+clean:
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+

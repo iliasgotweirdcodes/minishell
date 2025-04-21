@@ -1,37 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/21 18:22:50 by ilel-hla         ###   ########.fr       */
+/*   Created: 2025/04/21 16:17:39 by ilel-hla          #+#    #+#             */
+/*   Updated: 2025/04/21 16:17:47 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int main()
-{
-	char *line;
-
-	setup_signals();
-	while (1)
-	{
-		line = readline("minishell> ");
-		if (!line)
-			break;
-		if (line[0] == '\0')
-		{
-			free(line);
-			continue;
-		}
-		printf("Input: %s\n", line);
-		// Parse the line into command + args
-		// execute the command
-		// free the command
-		free(line);
-	}
-	return (0);
-}
+#include "../minishell.h"
