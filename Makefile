@@ -21,3 +21,6 @@ SRCS = main.c \
 		signal_handler.c \
 
 OBJS = $(SRCS:.c=.o)
+
+
+tstts = tetsts.h
