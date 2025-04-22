@@ -4,7 +4,11 @@ CFLAGS = -Wall -Wextra -Werror
 READLINE_COMPILE = -I$(shell brew --prefix readline)/include
 READLINE_LINK = -L$(shell brew --prefix readline)/lib -lreadline -lhistory
 
-SRC = minishell.c parsing/signal.c
+SRC =	minishell.c \
+		parsing/signal.c \
+		execution/builtins_handle.c \
+		execution/exec_utils.c \
+
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
