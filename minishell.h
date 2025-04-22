@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/22 23:46:24 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/22 23:47:49 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ int		is_quote(char c);
 int		is_space(char c);
 int		validate_syntax(t_token *tokens);
 void	print_syntax_error(t_token *token);
-int	is_space(char c);
-int	is_redirection(t_token_type type);
+void	print_quote_error(void);
+int		is_space(char c);
+int		is_redirection(t_token_type type);
 void	print_quote_error(void);
 void ft_putstr_fd(char *str, int fd);
-=======
 
 
 //Garbage collector
