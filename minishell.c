@@ -6,10 +6,10 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/21 23:59:49 by aromani          ###   ########.fr       */
-/*   Updated: 2025/04/22 02:23:07 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:33:56 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 #include <string.h>
@@ -64,6 +64,7 @@ void ft_putnbr(int n)
 	write(1, &c, 1);
 }
 
+
 char	*get_token_type_str(t_token_type type)
 {
 	if (type == WORD)
@@ -110,6 +111,7 @@ void	print_tokens(t_token *tokens)
 		i++;
 	}
 }
+
 
 int main(int ac, char **av)
 {
