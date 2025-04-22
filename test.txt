@@ -1,0 +1,18 @@
+total 364
+drwxr-xr-x 7 aromani 2024_khouribga    246 Apr 22 11:44 .
+drwxr-xr-x 4 aromani 2024_khouribga     82 Apr 22 11:30 ..
+-rwxr-xr-x 1 aromani 2024_khouribga  49648 Apr 22 11:01 a.out
+-rw-r--r-- 1 aromani 2024_khouribga   5963 Apr 22 11:01 cur.tldr
+drwxr-xr-x 4 aromani 2024_khouribga    166 Apr 22 11:32 execution
+drwxr-xr-x 8 aromani 2024_khouribga    163 Apr 22 11:01 .git
+drwxr-xr-x 2 aromani 2024_khouribga   4096 Apr 22 11:01 libft
+-rw-r--r-- 1 aromani 2024_khouribga    695 Apr 22 11:01 Makefile
+-rwxr-xr-x 1 aromani 2024_khouribga  24928 Apr 22 11:06 minishell
+-rw-r--r-- 1 aromani 2024_khouribga   3495 Apr 22 11:05 minishell.c
+-rw-r--r-- 1 aromani 2024_khouribga   2785 Apr 22 11:04 minishell.h
+-rw-r--r-- 1 aromani 2024_khouribga   4472 Apr 22 11:06 minishell.o
+drwxr-xr-x 2 aromani 2024_khouribga    307 Apr 22 11:06 parsing
+-rw-r--r-- 1 aromani 2024_khouribga    248 Apr 22 11:01 test.c
+-rw-r--r-- 1 aromani 2024_khouribga      0 Apr 22 11:45 test.txt
+-rw-r--r-- 1 aromani 2024_khouribga 267015 Apr 22 11:01 tldraw.tldr
+drwxr-xr-x 2 aromani 2024_khouribga     27 Apr 22 11:01 .vscode

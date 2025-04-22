@@ -6,13 +6,10 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:03:56 by ilel-hla          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/04/21 22:00:38 by aromani          ###   ########.fr       */
-=======
-/*   Updated: 2025/04/22 02:16:34 by ilel-hla         ###   ########.fr       */
->>>>>>> b7f902c23a74570a2cd7e2173cc4da03488aefa1
+/*   Updated: 2025/04/22 11:49:16 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef MINISHELL_H
@@ -24,6 +21,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <signal.h>
+#include <stddef.h>
 
 # include "readline/readline.h"
 # include "readline/history.h"
@@ -40,6 +38,11 @@ typedef enum e_token_type {
 	DOUBLE_QUOTE,
 	SINGLE_QUOTE,
 } t_token_type;
+
+typedef struct s_env
+{
+	char **env;
+}	t_env;
 
 typedef struct s_token {
 	t_token_type type; // Type of the token (e.g., WORD, PIPE, etc.)
