@@ -6,58 +6,31 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 22:58:22 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/22 21:13:30 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/22 23:44:40 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// Check if a character is an operator
 int	is_redirection(t_token_type type)
 {
 	return (type == REDIR_IN || type == REDIR_OUT
 		|| type == APPEND || type == HEREDOC);
 }
-// Check if a TOKEN TYPE is an operator (used during syntax validation)
+
 int	is_operator(t_token_type type)
 {
 	return (type == PIPE || type == REDIR_IN ||
 			type == REDIR_OUT || type == APPEND || type == HEREDOC);
 }
 
-// Check if a character is a quote
-// int	check_redirection(t_token *token)
-// {
-// 	if (!token->next || token->next->type != WORD)
-// 	{
-// 		if (token->next)
-// 			print_syntax_error(token->next);
-// 		else
-// 			print_syntax_error(NULL);
-// 		return (1);
-// 	}
-
-// 	return (0);
-// }
-
-// Check if two consecutive tokens are operators
-// int	check_consecutive_ops(t_token *prev, t_token *current)
-// {
-// 	if (is_operator(prev->type) && is_operator(current->type))
-// 	{
-// 		print_syntax_error(current);
-// 		return (1);
-// 	}
-// 	return (0);
-// }
-
-int validate_syntax(t_token *tokens)
+int	validate_syntax(t_token *tokens)
 {
-    t_token *current = tokens;
-    t_token *prev = NULL;
+	t_token *current = tokens;
+	t_token *prev = NULL;
 
-    if (!tokens)
-        return (0);
+	if (!tokens)
+		return (0);
     // Check for leading pipe
     if (current->type == PIPE)
         return (print_syntax_error(current), 1);

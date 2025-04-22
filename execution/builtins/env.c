@@ -1,14 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/21 16:17:39 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/22 23:43:35 by ilel-hla         ###   ########.fr       */
+/*   Created: 2025/04/22 11:14:25 by aromani           #+#    #+#             */
+/*   Updated: 2025/04/22 11:21:15 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
+void builtin_env(char **env)
+{
+    int i;
+
+    i = 0;
+    while (env[i])
+        printf("%s\n", env[i++]);
+}
