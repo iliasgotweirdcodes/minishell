@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/22 02:23:07 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/22 21:11:18 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@ void ft_putnbr(int n)
 {
 	char c;
 
-	if (n < 0)
-	{
-		write(1, "-", 1);
-		n = -n;
-	}
 	if (n >= 10)
 		ft_putnbr(n / 10);
 	c = n % 10 + '0';
@@ -76,7 +71,7 @@ void	print_tokens(t_token *tokens)
 
 int main(int ac, char **av)
 {
-	char *line;
+	char	*input;
 	t_token *tokens;
 
 	(void)av;
@@ -89,25 +84,24 @@ int main(int ac, char **av)
 	setup_signals();
 	while (1)
 	{
-		line = readline("minishell> ");
-		if (!line)
+		input = readline("minishell> ");
+		if (!input)
 		{
 			write(1, "\033[1A\033[2Kminishell> exit\n", 25);
 			return (1);
 		}
-		if(line)
-			add_history(line);
-		tokens = ft_tokenization(line);
+		if(input)
+			add_history(input);
+		tokens = ft_tokenization(input);
 		if (validate_syntax(tokens))
 		{
-			print_syntax_error(tokens->value);
 			ft_clear_tokens(&tokens);
-			free(line);
+			free(input);
 			continue ;
 		}
 		print_tokens(tokens);
 		ft_clear_tokens(&tokens);
-		free(line);
+		free(input);
 	}
 	return (0);
 }

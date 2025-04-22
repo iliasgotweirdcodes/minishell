@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:03:56 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/22 02:16:34 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/22 21:16:02 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,13 @@ void	ft_clear_tokens(t_token **token_list);
 char	*ft_strndup(const char *s, size_t n);
 void	ft_error(char *msg);
 int		ft_strlen(char *str);
-int		is_operator(char c);
+int		is_operator(t_token_type type);
 int		is_quote(char c);
 int		is_space(char c);
 int		validate_syntax(t_token *tokens);
-void	print_syntax_error(char *token);
+void	print_syntax_error(t_token *token);
+int	is_space(char c);
 int	is_redirection(t_token_type type);
-
+void	print_quote_error(void);
+void ft_putstr_fd(char *str, int fd);
 #endif

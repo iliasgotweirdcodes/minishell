@@ -6,25 +6,25 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:01:13 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/22 01:36:47 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:29:21 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	is_shell_operator(char c)
+int	is_shell_operator(char c)
 {
 	return (c == '|' || c == '>' || c == '<');
 }
 
-static void	handle_escape(char *input, int *i)
+ void	handle_escape(char *input, int *i)
 {
 	(*i)++;
 	if (input[*i])
 		(*i)++;
 }
 
-static void	handle_operator(char *input, int *i, t_token **token_list)
+void	handle_operator(char *input, int *i, t_token **token_list)
 {
 	if (input[*i] == '|')
 	{
@@ -53,7 +53,7 @@ static void	handle_operator(char *input, int *i, t_token **token_list)
 	}
 }
 
-static void	handle_word(char *input, int *i, t_token **token_list)
+void	handle_word(char *input, int *i, t_token **token_list)
 {
 	int		start;
 	char	quote;
@@ -61,20 +61,20 @@ static void	handle_word(char *input, int *i, t_token **token_list)
 
 	start = *i;
 	quote = 0;
-	while (input[*i] && (quote || (!isspace(input[*i])
+	while (input[*i] && (quote || (!is_space(input[*i])
 		&& !is_shell_operator(input[*i]))))
 	{
 		if (input[*i] == '\\' && !quote)
 			handle_escape(input, i);
 		else if ((input[*i] == '\'' || input[*i] == '"') && !quote)
 			quote = input[(*i)++];
-		else if (input[*i] == quote && quote)
+		else if (input[*i] == quote)
 			quote = 0 * (*i)++;
 		else
 			(*i)++;
 	}
 	if (quote)
-		return (print_syntax_error("minishell: unclosed quote"), (void)0);
+		return (print_quote_error(), (void)0); // Changed to quote error function
 	value = ft_strndup(input + start, *i - start);
 	if (!value)
 		return (ft_clear_tokens(token_list), (void)0);
