@@ -9,6 +9,8 @@ SRC =	minishell.c \
 		execution/builtins_handle.c \
 		execution/exec_utils.c \
 
+SRC = minishell.c parsing/signal.c parsing/tokenization.c parsing/token_utils.c parsing/libft_utils.c \
+		parsing/error.c parsing/syntax_error.c parsing/syn_err_helpers.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
