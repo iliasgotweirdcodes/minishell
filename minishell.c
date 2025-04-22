@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/22 02:11:12 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/22 02:23:07 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ char	*get_token_type_str(t_token_type type)
 		return ("HEREDOC");
 	return ("UNKNOWN");
 }
-
-#include <unistd.h>
-#include "minishell.h"
 
 void	print_tokens(t_token *tokens)
 {
