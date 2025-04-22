@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   syn_err_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/21 16:31:31 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/21 19:49:45 by ilel-hla         ###   ########.fr       */
+/*   Created: 2025/04/22 01:24:43 by ilel-hla          #+#    #+#             */
+/*   Updated: 2025/04/22 02:10:36 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void sigint_handler(int sig)
+int	is_operator(char c)
 {
-	if (sig == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	return (c == '|' || c == '<' || c == '>' || c == '(' || c == ')');
 }
 
-void setup_signals(void)
+int	is_quote(char c)
 {
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
-	rl_catch_signals = 0;
+	return (c == '"' || c == '\'');
+}
+int	is_space(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n');
+}
+
+void	print_syntax_error(char *token)
+{
+	write(2, "minishell: syntax error near unexpected token `", 47);
+	if (token)
+		write(2, token, ft_strlen(token));
+	else
+		write(2, "newline", 7);
+	write(2, "'\n", 2);
 }

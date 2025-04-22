@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   libft_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/21 16:31:31 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/21 19:49:45 by ilel-hla         ###   ########.fr       */
+/*   Created: 2025/04/21 23:17:36 by ilel-hla          #+#    #+#             */
+/*   Updated: 2025/04/21 23:17:58 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void sigint_handler(int sig)
+int ft_strlen(char *str)
 {
-	if (sig == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}
+	int i;
 
-void setup_signals(void)
-{
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
-	rl_catch_signals = 0;
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
