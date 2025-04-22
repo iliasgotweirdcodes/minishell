@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:01:13 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/22 23:48:18 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/23 00:55:03 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	is_shell_operator(char c)
 {
-	return (c == '|' || c == '>' || c == '<');
+	return (c == '|' || c == '<' || c == '>'
+		|| c == '(' || c == ')');
 }
 
  void	handle_escape(char *input, int *i)
@@ -53,7 +54,7 @@ void	handle_operator(char *input, int *i, t_token **token_list)
 	}
 }
 
-void	handle_word(char *input, int *i, t_token **token_list)
+int	handle_word(char *input, int *i, t_token **token_list)
 {
 	int		start;
 	char	quote;
@@ -74,28 +75,38 @@ void	handle_word(char *input, int *i, t_token **token_list)
 			(*i)++;
 	}
 	if (quote)
-		return (print_quote_error(), (void)0);
+		return (1);
 	value = ft_strndup(input + start, *i - start);
 	if (!value)
-		return (ft_clear_tokens(token_list), (void)0);
+		return (ft_clear_tokens(token_list), 1);
 	ft_add_token(token_list, ft_create_token(WORD, value));
+	return (0);
 }
 
 t_token	*ft_tokenization(char *input)
 {
 	t_token	*token_list;
 	int		i;
+	int		error;
 
 	token_list = NULL;
 	i = 0;
-	while (input[i])
+	error = 0;
+	while (input[i] && !error)
 	{
 		while (input[i] == ' ')
 			i++;
+		if (!input[i])
+			break ;
 		if (input[i] == '|' || input[i] == '<' || input[i] == '>')
 			handle_operator(input, &i, &token_list);
 		else
-			handle_word(input, &i, &token_list);
+			error = handle_word(input, &i, &token_list);
+	}
+	if (error)
+	{
+		ft_clear_tokens(&token_list);
+		return (NULL);
 	}
 	return (token_list);
 }

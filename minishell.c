@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/22 23:46:11 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/23 00:40:49 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,16 +107,15 @@ void	print_tokens(t_token *tokens)
 }
 
 
-int main(int ac, char **av)
+int main(int ac , char **av)
 {
 	char	*input;
-	t_token *tokens;
+	t_token	*tokens;
 
 	(void)av;
-	tokens = NULL;
 	if (ac != 1)
 	{
-		write(2, "Usage: ./minishell\n", 19);
+		write(2, "Usage: ./minishell\n", 20);
 		return (1);
 	}
 	setup_signals();
@@ -126,11 +125,17 @@ int main(int ac, char **av)
 		if (!input)
 		{
 			write(1, "\033[1A\033[2Kminishell> exit\n", 25);
-			return (1);
+			break ;
 		}
-		if(input)
+		if (*input)
 			add_history(input);
 		tokens = ft_tokenization(input);
+		if (!tokens)
+		{
+			ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2);
+			free(input);
+			continue ;
+		}
 		if (validate_syntax(tokens))
 		{
 			ft_clear_tokens(&tokens);
@@ -143,3 +148,4 @@ int main(int ac, char **av)
 	}
 	return (0);
 }
+
