@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/23 15:55:32 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:13:43 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,10 @@ int main(int ac , char **av)
 		tokens = ft_tokenization(input);
 		if (!tokens)
 		{
-			ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2);
+			if (tokens == NULL && ft_strchr(input, '\''))
+				ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2);
+			else if (tokens == NULL && ft_strchr(input, '\"'))
+				ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2);
 			free(input);
 			continue ;
 		}

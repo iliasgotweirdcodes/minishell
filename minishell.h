@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/23 14:13:05 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/23 17:12:50 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int		is_space(char c);
 int		is_redirection(t_token_type type);
 void	print_quote_error(void);
 void ft_putstr_fd(char *str, int fd);
+char	*ft_strchr(const char *s, int c);
 
 
 //Garbage collector
