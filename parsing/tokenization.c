@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:01:13 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/23 00:55:03 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/23 01:18:41 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,9 @@
 
 int	is_shell_operator(char c)
 {
-	return (c == '|' || c == '<' || c == '>'
-		|| c == '(' || c == ')');
+	return (c == '|' || c == '<' || c == '>');
 }
 
- void	handle_escape(char *input, int *i)
-{
-	(*i)++;
-	if (input[*i])
-		(*i)++;
-}
 
 void	handle_operator(char *input, int *i, t_token **token_list)
 {
@@ -66,7 +59,11 @@ int	handle_word(char *input, int *i, t_token **token_list)
 		&& !is_shell_operator(input[*i]))))
 	{
 		if (input[*i] == '\\' && !quote)
-			handle_escape(input, i);
+		{
+			(*i)++;
+			if (input[*i])
+				(*i)++;
+		}
 		else if ((input[*i] == '\'' || input[*i] == '"') && !quote)
 			quote = input[(*i)++];
 		else if (input[*i] == quote)
