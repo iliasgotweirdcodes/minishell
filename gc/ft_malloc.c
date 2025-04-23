@@ -6,44 +6,46 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 18:07:14 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/22 22:20:56 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/23 15:32:01 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_addnew(t_gc **gc, void * add)
+// void	ft_addnew(t_gc **gc, void * add)
+// {
+// 	t_gc	*tmp;
+
+// 	tmp = malloc(sizeof (t_gc));
+// 	if (!tmp)
+// 		return (write (2, "Error Allocation\n", 17), exit(1));
+// 	tmp->address = add;
+// 	tmp->next = NULL;
+// 	*gc = tmp;
+// }
+
+void struct_fill(t_gc **gc, void *add)
 {
-	t_gc	*tmp;
+    t_gc    *new_node;
+    t_gc    *last;
 
-	tmp = malloc(sizeof (t_gc));
-	if (!tmp)
-		return (write (2, "Error Allocation\n", 17), exit(1));
-	tmp->address = add;
-	tmp->next = NULL;
-	*gc = tmp;
-}
-
-t_gc	*struct_fill(t_gc *gc, void* add)
-{
-	t_gc	*tmp;
-	t_gc	*tm;
-
-	if (gc == NULL)
-		ft_addnew(&gc, add);
-	else
-	{
-		tmp = malloc(sizeof (t_gc));
-		if (!tmp)
-			return (write (2, "Error Allocation\n", 17), exit(1), NULL);
-		tmp->address = add;
-		tmp->next = NULL;
-		tm = gc;
-		while (tm->next != NULL)
-			tm = tm->next;
-		tm->next = tmp;
-	}
-	return (gc);
+    new_node = malloc(sizeof(t_gc));
+    if (!new_node)
+    {
+        write(2, "Error Allocation\n", 17);
+        exit(1);
+    }
+    new_node->address = add;
+    new_node->next = NULL;
+    if (*gc == NULL)
+    {
+        *gc = new_node;
+        return ;
+    }
+    last = *gc;
+    while (last->next != NULL)
+        last = last->next;
+    last->next = new_node;
 }
 
 void *ft_malloc(size_t size, t_gc **gc)
@@ -53,60 +55,41 @@ void *ft_malloc(size_t size, t_gc **gc)
     ptr = malloc(size);
     if (!ptr)
         return (NULL);
-    *gc = struct_fill(*gc,ptr);
+    struct_fill(gc,ptr);
     return (ptr);
 }
 
 void ft_gcfree(t_gc **gc)
 {
-    t_gc *current;
-    t_gc *next;
+    t_gc *tmp;
+    t_gc *tm;
 
-    if (!gc || !*gc)
-        return;
-    
-    current = *gc;
-    while (current != NULL)
+    tmp = *gc;
+    while (tmp)
     {
-        next = current->next;
-        if (current->address)
-        {
-            free(current->address);
-            current->address = NULL;
-        }
-        free(current);
-        current = next;
-    }
-    *gc = NULL;
-}
-
-void ft_gcprint(t_gc *gc)
-{
-    int count = 0;
-    while (gc)
-    {
-        printf("Node %d: %p\n", count++, gc->address);
-        gc = gc->next;
+        tm = tmp;
+        free(tmp->address);
+        tmp = tmp->next;
+        free(tm);
     }
 }
-void f ()
-{
-    system("leaks a.out");
-}
-int main()
-{
-    t_gc *list;
 
-    
-    list = malloc(sizeof(t_gc));
-    char *str = ft_malloc(5, &list);
-    if (!str)
-        return (0);
-    str[0] = 'a';
-    str[1] = 'a';
-    str[2] = 'a';
-    str[3] = 'a';
-    str[4] = '\0';
-    ft_gcfree(&list);
-    atexit(f);
-}
+// void f ()
+// {
+//     system("leaks a.out");
+// }
+// int main()
+// {
+//     t_gc *list;
+//     list = malloc(sizeof(t_gc));
+//     char *str = ft_malloc(5, &list);
+//     if (!str)
+//         return (0);
+//     str[0] = 'a';
+//     str[1] = 'a';
+//     str[2] = 'a';
+//     str[3] = 'a';
+//     str[4] = '\0';
+//     ft_gcfree(&list);
+//     atexit(f);
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/22 23:47:49 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/23 14:13:05 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ typedef enum e_token_type {
 
 typedef struct s_env
 {
-	char **var; // for the envirement variable
-	char **values; //for the invirement values
-}	t_env;
+    char        *key;  // env param
+    char        *value; // env value
+    struct s_env *next;
+} t_env;
 
 // gc linked list
 typedef struct gc
@@ -102,9 +103,10 @@ void ft_putstr_fd(char *str, int fd);
 
 
 //Garbage collector
-void	ft_addnew(t_gc **gc, void * add);
-t_gc	*struct_fill(t_gc *gc, void * add);
+//void	ft_addnew(t_gc **gc, void * add);
+//t_gc	*struct_fill(t_gc *gc, void * add);
 void *ft_malloc(size_t size, t_gc **gc);
+void ft_gcfree(t_gc **gc);
 
 
 #endif

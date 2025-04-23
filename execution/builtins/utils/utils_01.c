@@ -6,11 +6,11 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:24:09 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/22 13:28:26 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/23 10:12:07 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../../../minishell.h"
 
 char	*ft_substr(char *s, int start, int end)
 {
