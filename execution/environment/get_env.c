@@ -6,17 +6,17 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:07:36 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/23 15:38:48 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/23 22:43:32 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <string.h>
 
-int get_len(char *str)
+int get_eqindex(char *str, char sep)
 {
     int i = 0;
-    while (str[i] && str[i] != '=')
+    while (str[i] && str[i] != sep)
         i++;
     return i;
 }
@@ -84,24 +84,6 @@ void	env_fill(t_env **env, char **key, char **val, t_gc **exec)
     last->next = new_node;
 }
 
-// void printTheSize(t_env **my_env, t_gc **exec) {
-//     size_t n1 = 0;
-//     size_t n2 = 0;
-
-//     t_env *tmp_01 = *my_env;
-//     t_gc *tmp_02 = *exec;
-//     while (tmp_01) {
-//         n1++;
-//         tmp_01 = tmp_01->next;
-//     }
-//     while (tmp_02) {
-//         n2++;
-//         tmp_02 = tmp_02->next;
-//     }
-//     printf("%zu<<<------>>>%zu", n1, n2);
-    
-// }
-
 void get_env(char **env, t_env **my_env, t_gc **exec)
 {
     size_t  i;
@@ -112,7 +94,7 @@ void get_env(char **env, t_env **my_env, t_gc **exec)
     i = 0;
     while (env[i])
     {
-        eq_del = get_len(env[i]);
+        eq_del = get_eqindex(env[i], '=');
         value = ft_strdup2(env[i] + eq_del + 1, exec);
         key = ft_strndup2(env[i],eq_del, exec);
         env_fill(my_env, &key, &value, exec);
@@ -121,34 +103,35 @@ void get_env(char **env, t_env **my_env, t_gc **exec)
     
 }
 
-// void f()
-// {
-//     system("leaks a.out");
-// }
+void f()
+{
+    system("leaks a.out");
+}
 
-// int main(int ac, char **av, char **env)
-// {
-//     atexit(f);
-//     t_gc *exec = NULL;
-//     t_env *my_env = NULL;
-//     (void)ac;
-//     (void)av;
-//     //exec = malloc(sizeof(t_gc));
-//     //my_env = malloc(sizeof(t_env));
-//     get_env(env,&my_env,&exec);
-//     // while(exec != NULL)
-//     // {
+int main(int ac, char **av, char **env)
+{
+    atexit(f);
+    t_gc *exec = NULL;
+    t_env *my_env = NULL;
+    (void)ac;
+    (void)av;
+    //exec = malloc(sizeof(t_gc));
+    //my_env = malloc(sizeof(t_env));
+    get_env(env,&my_env,&exec);
+    add_varenv(&my_env,"abbbbb=ilyas", &exec);
+    // while(exec != NULL)
+    // {
 
-//     //     printf("%p   \n", exec->address);
-//     //     exec = exec->next;
-//     // }
-//     // printTheSize(&my_env, &exec);
-//     ft_gcfree(&exec);
-//     // while (my_env)
-//     // {
-//     //     printf("%s   ||   %s\n", my_env->key, my_env->value);
-//     //     my_env = my_env->next;
-//     // }
+    //     printf("%p   \n", exec->address);
+    //     exec = exec->next;
+    // }
+    // printTheSize(&my_env, &exec);
+    while (my_env)
+    {
+        printf("%s   ||   %s\n", my_env->key, my_env->value);
+        my_env = my_env->next;
+    }
+    ft_gcfree(&exec);
 
-//     //printf("%s \n",my_env->key[0]);
-// }
+    //printf("%s \n",my_env->key[0]);
+}
