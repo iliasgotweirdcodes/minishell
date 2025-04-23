@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/23 17:13:43 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:09:21 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int main(int ac , char **av)
 		input = readline("minishell> ");
 		if (!input)
 		{
-			write(1, "\033[1A\033[2Kminishell> exit\n", 25);
+			write(1, "exit\n", 5);
 			break ;
 		}
 		if (input)
