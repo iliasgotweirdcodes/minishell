@@ -6,13 +6,10 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/04/23 22:02:18 by aromani          ###   ########.fr       */
-=======
-/*   Updated: 2025/04/23 22:23:25 by ilel-hla         ###   ########.fr       */
->>>>>>> ba81f3d6a54f7526516e7349a4eb1cab5132992e
+/*   Updated: 2025/04/23 23:47:13 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef MINISHELL_H
@@ -58,10 +55,9 @@ typedef struct gc
 
 typedef struct s_token {
 	t_token_type type; // Type of the token (e.g., WORD, PIPE, etc.)
+	struct s_token *prev; // Pointer to the previous token in the list
 	char *value;       // The actual string value of the token
 	struct s_token *next; // Pointer to the next token in the list
-	struct s_token *prev; // Pointer to the previous token in the list
-	int heredoc_fd; // File descriptor for heredoc
 } t_token;
 
 typedef struct s_command {
@@ -79,7 +75,7 @@ typedef struct s_shell {
 
 void	setup_signals(void);
 
-//execuition
+//execution
 void is_builtins(t_command *cmd);
 char    *ft_strdup2(const char *s, t_gc **exec);
 char	*last_path(char **env, char **arg);
@@ -109,6 +105,7 @@ int		is_redirection(t_token_type type);
 void	print_quote_error(void);
 void ft_putstr_fd(char *str, int fd);
 char	*ft_strchr(const char *s, int c);
+void	hanlde_here_doc(char *delimiter);
 
 
 //Garbage collector
@@ -116,12 +113,12 @@ char	*ft_strchr(const char *s, int c);
 //t_gc	*struct_fill(t_gc *gc, void * add);
 void *ft_malloc(size_t size, t_gc **gc);
 void ft_gcfree(t_gc **gc);
+
+// general purpose
 void ft_putstr(char *str);
 int	ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(char *str);
 char	*ft_substr(char *s, int start, int end);
-
-// general purpose
 
 
 
