@@ -3,12 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/04/23 22:02:18 by aromani          ###   ########.fr       */
+=======
+/*   Updated: 2025/04/23 22:23:25 by ilel-hla         ###   ########.fr       */
+>>>>>>> ba81f3d6a54f7526516e7349a4eb1cab5132992e
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -56,6 +61,7 @@ typedef struct s_token {
 	char *value;       // The actual string value of the token
 	struct s_token *next; // Pointer to the next token in the list
 	struct s_token *prev; // Pointer to the previous token in the list
+	int heredoc_fd; // File descriptor for heredoc
 } t_token;
 
 typedef struct s_command {

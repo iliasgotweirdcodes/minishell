@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 00:17:31 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/23 17:12:39 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:20:08 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,4 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)s + i);
 	return (NULL);
 }
+
