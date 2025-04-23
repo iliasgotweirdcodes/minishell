@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/23 00:40:49 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:55:32 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 // 	cmd->cmd[1] = strdup(av[2]);
 // 	cmd->cmd[2] = NULL;
 // 	is_builtins(cmd);
+
 void ft_putnbr(int n)
 {
 	char c;
@@ -127,7 +128,7 @@ int main(int ac , char **av)
 			write(1, "\033[1A\033[2Kminishell> exit\n", 25);
 			break ;
 		}
-		if (*input)
+		if (input)
 			add_history(input);
 		tokens = ft_tokenization(input);
 		if (!tokens)
@@ -148,4 +149,3 @@ int main(int ac , char **av)
 	}
 	return (0);
 }
-
