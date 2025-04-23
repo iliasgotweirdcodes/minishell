@@ -25,6 +25,7 @@
 		"ios": "c",
 		"array": "c",
 		"istream": "c",
-		"utility": "c"
+		"utility": "c",
+		"stddef.h": "c"
 	}
 }

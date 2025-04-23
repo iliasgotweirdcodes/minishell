@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/23 22:45:24 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/23 23:47:45 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,30 @@ int	ft_strcmp(const char *s1, const char *s2)
 		i++;
 	}
 	return (0);
+}
+
+int export_parcer(char *str, t_gc **exec)
+{
+    int i = 0;
+    int j = 0;
+    int e = 0;
+    int e_index;
+    char *key;
+
+    e_index = get_eqindex(str, '=');
+    key = ft_strndup2(str, e_index , exec);
+    i = 0;
+    while (key[i])
+    {
+        if (key[i] == '+')
+            e++;
+        else if (!(key[i] >= 0 && key[i] <= 9) && !(key[i] >= 'a' && str[i] <= 'z') && !(key[i] >= 'A' && str[i] <= 'Z') && str[i] != '+')
+            j++;
+        i++;
+    }
+    if (j != 0 || e > 1)
+        return (0);
+    return (1);
 }
 
 size_t len(char *str)
@@ -127,7 +151,7 @@ void ft_changeval(t_env **env, char *key_val, t_gc **exec)
     char *val;
 
     eq_index = get_eqindex(key_val, '=');
-    key = ft_strndup2(key_val, eq_index - 1, exec);
+    key = ft_strndup2(key_val, eq_index, exec);
     val = ft_strdup2(key_val + eq_index + 1, exec);
     get = *env;
     while (get)
@@ -144,18 +168,20 @@ void add_varenv(t_env **env, char *key_val, t_gc **exec)
     char *key;
     char *value;
 
+    if (export_parcer(key_val, exec) == 0)
+    {
+        write (1,"error\n",6);
+        return ;
+    }
     if (is_appended(key_val, '+') == 0)
         ft_append(env, key_val, exec);
+    else if (is_key(env,key_val, exec) == 0)
+            ft_changeval(env, key_val, exec);
     else
     {
-        if (is_key(env,key_val, exec) == 0)
-            ft_changeval(env, key_val, exec);
-        else
-        {
             eq_index = get_eqindex(key_val, '=');
             key =ft_strndup2(key_val, eq_index, exec);
             value = ft_strdup2(key_val + eq_index + 1, exec);
             env_fill(env, &key, &value, exec);
-        }
     }
 }

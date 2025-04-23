@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:07:36 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/23 22:43:32 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/23 23:49:03 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int main(int ac, char **av, char **env)
     //exec = malloc(sizeof(t_gc));
     //my_env = malloc(sizeof(t_env));
     get_env(env,&my_env,&exec);
-    add_varenv(&my_env,"abbbbb=ilyas", &exec);
+    add_varenv(&my_env,"abdo{{}}=ilyas6", &exec);
     // while(exec != NULL)
     // {
 
