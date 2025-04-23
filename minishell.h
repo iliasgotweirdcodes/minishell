@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/04/23 19:13:16 by ilel-hla         ###   ########.fr       */
+=======
+/*   Updated: 2025/04/23 17:24:42 by aromani          ###   ########.fr       */
+>>>>>>> c8bcf324cfcffb99599c67a0b553a3fa32e347ae
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +79,9 @@ void	setup_signals(void);
 
 //execuition
 void is_builtins(t_command *cmd);
-int	ft_strcmp(const char *s1, const char *s2);
-void ft_putstr(char *str);
-char	*ft_strdup(char *str);
-char	*ft_substr(char *s, int start, int end);
+char    *ft_strdup2(const char *s, t_gc **exec);
 char	*last_path(char **env, char **arg);
+char    *ft_strndup2(const char *s, size_t n, t_gc **exec);
 
 
 //parsing
@@ -108,6 +110,13 @@ char	*ft_strchr(const char *s, int c);
 //t_gc	*struct_fill(t_gc *gc, void * add);
 void *ft_malloc(size_t size, t_gc **gc);
 void ft_gcfree(t_gc **gc);
+void ft_putstr(char *str);
+int	ft_strcmp(const char *s1, const char *s2);
+char	*ft_strdup(char *str);
+char	*ft_substr(char *s, int start, int end);
+
+// general purpose
+
 
 
 #endif
