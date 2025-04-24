@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/23 23:45:36 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/24 20:30:34 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,13 @@ void	print_tokens(t_token *tokens)
 	}
 }
 
-
 int main(int ac , char **av)
 {
 	char	*input;
 	t_token	*tokens;
+	t_command	*cmd;
 
+	cmd = NULL;
 	(void)av;
 	if (ac != 1)
 	{
@@ -146,9 +147,18 @@ int main(int ac , char **av)
 			free(input);
 			continue ;
 		}
-		print_tokens(tokens);
+		prepare_cmd(&cmd, tokens);
+		int i = 0;
+		while(cmd->cmd[i])
+		{
+			printf("cmd->cmd[i] = %s , i = %d\n", cmd->cmd[i], i);
+			i++;
+		}
+		// print_tokens(tokens);
 		ft_clear_tokens(&tokens);
 		free(input);
 	}
 	return (0);
 }
+
+// 

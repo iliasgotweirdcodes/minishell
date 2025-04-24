@@ -6,13 +6,13 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:28:34 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/23 23:48:54 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:06:11 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	hanlde_here_doc(char *delimiter)
+int	hanlde_here_doc(char *delimiter)
 {
 	char *line;
 	int fd[2];
@@ -39,4 +39,5 @@ void	hanlde_here_doc(char *delimiter)
 		write(fd[0], "\n", 1);
 		free(line);
 	}
+	return (fd[1]);
 }

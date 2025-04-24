@@ -26,6 +26,12 @@
 		"array": "c",
 		"istream": "c",
 		"utility": "c",
-		"stddef.h": "c"
+		"stddef.h": "c",
+		"__hash_table": "c",
+		"__split_buffer": "c",
+		"initializer_list": "c",
+		"string": "c",
+		"string_view": "c",
+		"unordered_map": "c"
 	}
 }

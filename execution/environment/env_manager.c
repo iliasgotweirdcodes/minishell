@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/23 23:47:45 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/24 00:24:49 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-int export_parcer(char *str, t_gc **exec)
+int export_parser(char *str, t_gc **exec)
 {
     int i = 0;
     int j = 0;
@@ -168,7 +168,7 @@ void add_varenv(t_env **env, char *key_val, t_gc **exec)
     char *key;
     char *value;
 
-    if (export_parcer(key_val, exec) == 0)
+    if (export_parser(key_val, exec) == 0)
     {
         write (1,"error\n",6);
         return ;

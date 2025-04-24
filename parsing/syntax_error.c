@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 22:58:22 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/23 23:47:46 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:06:00 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	validate_syntax(t_token *tokens)
     {
          if (current->type == HEREDOC && current->next && current->next->type == WORD)
         {
-            hanlde_here_doc(current->next->value);
+            tokens->here_docfd = hanlde_here_doc(current->next->value);
             if (current->next && current->next->type == WORD)
             {
                 prev = current->next;
