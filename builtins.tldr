@@ -1,0 +1,207 @@
+{
+	"tldrawFileFormatVersion": 1,
+	"schema": {
+		"schemaVersion": 2,
+		"sequences": {
+			"com.tldraw.store": 4,
+			"com.tldraw.asset": 1,
+			"com.tldraw.camera": 1,
+			"com.tldraw.document": 2,
+			"com.tldraw.instance": 25,
+			"com.tldraw.instance_page_state": 5,
+			"com.tldraw.page": 1,
+			"com.tldraw.instance_presence": 6,
+			"com.tldraw.pointer": 1,
+			"com.tldraw.shape": 4,
+			"com.tldraw.asset.bookmark": 2,
+			"com.tldraw.asset.image": 5,
+			"com.tldraw.asset.video": 5,
+			"com.tldraw.shape.group": 0,
+			"com.tldraw.shape.text": 2,
+			"com.tldraw.shape.bookmark": 2,
+			"com.tldraw.shape.draw": 2,
+			"com.tldraw.shape.geo": 9,
+			"com.tldraw.shape.note": 8,
+			"com.tldraw.shape.line": 5,
+			"com.tldraw.shape.frame": 0,
+			"com.tldraw.shape.arrow": 5,
+			"com.tldraw.shape.highlight": 1,
+			"com.tldraw.shape.embed": 4,
+			"com.tldraw.shape.image": 4,
+			"com.tldraw.shape.video": 2,
+			"com.tldraw.binding.arrow": 0
+		}
+	},
+	"records": [
+		{
+			"gridSize": 10,
+			"name": "",
+			"meta": {},
+			"id": "document:document",
+			"typeName": "document"
+		},
+		{
+			"meta": {},
+			"id": "page:page",
+			"name": "Page 1",
+			"index": "a1",
+			"typeName": "page"
+		},
+		{
+			"id": "pointer:pointer",
+			"typeName": "pointer",
+			"x": 859.265625,
+			"y": 567.5450962218779,
+			"lastActivityTimestamp": 1745527868831,
+			"meta": {}
+		},
+		{
+			"followingUserId": null,
+			"opacityForNextShape": 1,
+			"stylesForNextShape": {
+				"tldraw:geo": "rectangle",
+				"tldraw:size": "s",
+				"tldraw:textAlign": "start"
+			},
+			"brush": null,
+			"scribbles": [],
+			"cursor": {
+				"type": "move",
+				"rotation": 0
+			},
+			"isFocusMode": false,
+			"exportBackground": true,
+			"isDebugMode": false,
+			"isToolLocked": false,
+			"screenBounds": {
+				"x": 0,
+				"y": 0,
+				"w": 1465,
+				"h": 955
+			},
+			"insets": [
+				false,
+				false,
+				true,
+				false
+			],
+			"zoomBrush": null,
+			"isGridMode": false,
+			"isPenMode": false,
+			"chatMessage": "",
+			"isChatting": false,
+			"highlightedUserIds": [],
+			"isFocused": true,
+			"devicePixelRatio": 2,
+			"isCoarsePointer": false,
+			"isHoveringCanvas": true,
+			"openMenus": [],
+			"isChangingStyle": false,
+			"isReadonly": false,
+			"meta": {},
+			"duplicateProps": null,
+			"id": "instance:instance",
+			"currentPageId": "page:page",
+			"typeName": "instance"
+		},
+		{
+			"editingShapeId": null,
+			"croppingShapeId": null,
+			"selectedShapeIds": [
+				"shape:xtYyYzKzsrGHxmyOzeFzZ"
+			],
+			"hoveredShapeId": null,
+			"erasingShapeIds": [],
+			"hintingShapeIds": [],
+			"focusedGroupId": null,
+			"meta": {},
+			"id": "instance_page_state:page:page",
+			"pageId": "page:page",
+			"typeName": "instance_page_state"
+		},
+		{
+			"x": 0,
+			"y": 234.04474752812212,
+			"z": 1,
+			"meta": {},
+			"id": "camera:page:page",
+			"typeName": "camera"
+		},
+		{
+			"x": 100.109375,
+			"y": 539.51953125,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:2jusJG7cpVJTe7tGrcXju",
+			"type": "geo",
+			"props": {
+				"w": 801.41015625,
+				"h": 2589.925955596878,
+				"geo": "rectangle",
+				"color": "black",
+				"labelColor": "black",
+				"fill": "none",
+				"dash": "draw",
+				"size": "m",
+				"font": "draw",
+				"text": "",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"growY": 0,
+				"url": "",
+				"scale": 1
+			},
+			"parentId": "page:page",
+			"index": "a1",
+			"typeName": "shape"
+		},
+		{
+			"x": 141.3046875,
+			"y": 561.484375,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:4Hy76fdw47MN7-mdZ3bJk",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "s",
+				"w": 715.65625,
+				"text": "The cd utility shall change the working directory of the current\n       shell execution environment (see Section 2.12, Shell Execution\n       Environment) by executing the following steps in sequence. (In the\n       following steps, the symbol curpath represents an intermediate\n       value used to simplify the description of the algorithm used by\n       cd.  There is no requirement that curpath be made visible to the\n       application.)\n\n        1. If no directory operand is given and the HOME environment\n           variable is empty or undefined, the default behavior is\n           implementation-defined and no further steps shall be taken.\n\n        2. If no directory operand is given and the HOME environment\n           variable is set to a non-empty value, the cd utility shall\n           behave as if the directory named in the HOME environment\n           variable was specified as the directory operand.\n\n        3. If the directory operand begins with a <slash> character, set\n           curpath to the operand and proceed to step 7.\n\n        4. If the first component of the directory operand is dot or dot-\n           dot, proceed to step 6.\n\n        5. Starting with the first pathname in the <colon>-separated\n           pathnames of CDPATH (see the ENVIRONMENT VARIABLES section) if\n           the pathname is non-null, test if the concatenation of that\n           pathname, a <slash> character if that pathname did not end\n           with a <slash> character, and the directory operand names a\n           directory. If the pathname is null, test if the concatenation\n           of dot, a <slash> character, and the operand names a\n           directory. In either case, if the resulting string names an\n           existing directory, set curpath to that string and proceed to\n           step 7. Otherwise, repeat this step with the next pathname in\n           CDPATH until all pathnames have been tested.\n\n        6. Set curpath to the directory operand.\n\n        7. If the -P option is in effect, proceed to step 10. If curpath\n           does not begin with a <slash> character, set curpath to the\n           string formed by the concatenation of the value of PWD, a\n           <slash> character if the value of PWD did not end with a\n           <slash> character, and curpath.\n\n        8. The curpath value shall then be converted to canonical form as\n           follows, considering each component from beginning to end, in\n           sequence:\n\n            a. Dot components and any <slash> characters that separate\n               them from the next component shall be deleted.\n\n            b. For each dot-dot component, if there is a preceding\n               component and it is neither root nor dot-dot, then:\n\n                i.  If the preceding component does not refer (in the\n                    context of pathname resolution with symbolic links\n                    followed) to a directory, then the cd utility shall\n                    display an appropriate error message and no further\n                    steps shall be taken.\n\n               ii.  The preceding component, all <slash> characters\n                    separating the preceding component from dot-dot, dot-\n                    dot, and all <slash> characters separating dot-dot\n                    from the following component (if any) shall be\n                    deleted.\n\n            c. An implementation may further simplify curpath by removing\n               any trailing <slash> characters that are not also leading\n               <slash> characters, replacing multiple non-leading\n               consecutive <slash> characters with a single <slash>, and\n               replacing three or more leading <slash> characters with a\n               single <slash>.  If, as a result of this canonicalization,\n               the curpath variable is null, no further steps shall be\n               taken.\n\n        9. If curpath is longer than {PATH_MAX} bytes (including the\n           terminating null) and the directory operand was not longer\n           than {PATH_MAX} bytes (including the terminating null), then\n           curpath shall be converted from an absolute pathname to an\n           equivalent relative pathname if possible. This conversion\n           shall always be considered possible if the value of PWD, with\n           a trailing <slash> added if it does not already have one, is\n           an initial substring of curpath.  Whether or not it is\n           considered possible under other circumstances is unspecified.\n           Implementations may also apply this conversion if curpath is\n           not longer than {PATH_MAX} bytes or the directory operand was\n           longer than {PATH_MAX} bytes.\n\n       10. The cd utility shall then perform actions equivalent to the\n           chdir() function called with curpath as the path argument. If\n           these actions fail for any reason, the cd utility shall\n           display an appropriate error message and the remainder of this\n           step shall not be executed. If the -P option is not in effect,\n           the PWD environment variable shall be set to the value that\n           curpath had on entry to step 9 (i.e., before conversion to a\n           relative pathname). If the -P option is in effect, the PWD\n           environment variable shall be set to the string that would be\n           output by pwd -P.  If there is insufficient permission on the\n           new directory, or on any parent of that directory, to\n           determine the current working directory, the value of the PWD\n           environment variable is unspecified.\n\n       If, during the execution of the above steps, the PWD environment\n       variable is set, the OLDPWD environment variable shall also be set\n       to the value of the old working directory (that is the current\n       working directory immediately prior to the call to cd).",
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1
+			},
+			"parentId": "page:page",
+			"index": "a2A2U",
+			"typeName": "shape"
+		},
+		{
+			"x": 818.7265625,
+			"y": 541.955010052978,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:xtYyYzKzsrGHxmyOzeFzZ",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "s",
+				"w": 22.15625,
+				"text": "cd",
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 3.038434414668547
+			},
+			"parentId": "page:page",
+			"index": "a3324",
+			"typeName": "shape"
+		}
+	]
+}
