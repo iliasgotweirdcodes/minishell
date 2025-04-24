@@ -6,7 +6,10 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/22 11:14:18 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/24 19:37:06 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../minishell.h"
+
+void cd_builtins(char *path, )
