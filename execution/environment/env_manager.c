@@ -6,7 +6,11 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/04/24 00:24:49 by ilel-hla         ###   ########.fr       */
+=======
+/*   Updated: 2025/04/24 13:13:16 by aromani          ###   ########.fr       */
+>>>>>>> dd973b8d9c8ca98fd8be9e810d7f8146205f2bb7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +165,44 @@ void ft_changeval(t_env **env, char *key_val, t_gc **exec)
         get = get->next;
     }
 }
+// env _converter to get path as **
+int ft_sizer(t_env *env)
+{
+	t_env	*tmp;
+	size_t	i;
 
+    i =0;
+	tmp = env;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
+char **env_converter(t_env **env,t_gc **exec)
+{
+	char	**new_env;
+	t_env	*tmp;
+	int		i;
+	
+	new_env = ft_malloc((ft_sizer(*env) + 1) * sizeof(char *), exec);
+	if (!new_env)
+		return (NULL);
+	i = 0;
+	tmp = *env;
+	while (tmp)
+	{
+		new_env[i] = ft_strjoinv3(ft_strjoinv3(tmp->key, "=", exec),tmp->value, exec);
+		if (!new_env[i])
+			return (NULL);
+		i++;
+		tmp = tmp->next;
+	}
+	new_env[i] = NULL;
+	return (new_env);
+}
+ // ///////////////////////////////////////////////////////////////////////////////////////
 void add_varenv(t_env **env, char *key_val, t_gc **exec)
 {
     int eq_index;

@@ -27,11 +27,15 @@
 		"istream": "c",
 		"utility": "c",
 		"stddef.h": "c",
+<<<<<<< HEAD
 		"__hash_table": "c",
 		"__split_buffer": "c",
 		"initializer_list": "c",
 		"string": "c",
 		"string_view": "c",
 		"unordered_map": "c"
+=======
+		"sstream": "c"
+>>>>>>> dd973b8d9c8ca98fd8be9e810d7f8146205f2bb7
 	}
 }
