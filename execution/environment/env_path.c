@@ -6,11 +6,11 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:26:34 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/23 11:45:08 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:12:09 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 char	*ft_strjoinv2(char *s1, char*s2)
 {
@@ -39,6 +39,7 @@ char	*ft_strjoinv2(char *s1, char*s2)
 	str[i] = '\0';
 	return (str);
 }
+
 
 static char	*access_path(char *cmd, char *path)
 {
@@ -100,6 +101,8 @@ static char	*pathchecker(char *c, char *paths)
 	}
 	return (ft_free(pth, count_words(paths, ':')), NULL);
 }
+
+
 
 char	*last_path(char **env, char **arg)
 {
