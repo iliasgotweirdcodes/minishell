@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:07:36 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/24 13:20:06 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/24 17:39:04 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,19 +131,17 @@ int main(int ac, char **av, char **env)
     //     printf("%s   ||   %s\n", my_env->key, my_env->value);
     //     my_env = my_env->next;
     // }
-    char **new_env = env_converter(&my_env, &exec);
-    int i = 0;
-    while (new_env[i] && env[i])
-    {
-        if (ft_strcmp(env[i], new_env[i]) == 0)
-        {
-            printf("*************************************************************************\n");
-            //break ;
-        }
-        printf("%s \n", new_env[i++]);
-    }
-    printf("%s \n", new_env[i]);
+    // char **new_env = env_converter(&my_env, &exec);
+    // int i = 0;
+    // while (new_env[i] && env[i])
+    // {
+    //     if (ft_strcmp(env[i], new_env[i]) == 0)
+    //     {
+    //         printf("*************************************************************************\n");
+    //         //break ;
+    //     }
+    //     printf("%s \n", new_env[i++]);
+    // }
+    // printf("%s \n", new_env[i]);
     ft_gcfree(&exec);
-
-    //printf("%s \n",my_env->key[0]);
 }
