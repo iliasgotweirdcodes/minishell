@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:07:36 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/24 17:39:04 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/25 16:47:25 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,45 +103,45 @@ void get_env(char **env, t_env **my_env, t_gc **exec)
     
 }
 
-void f()
-{
-    system("leaks a.out");
-}
+// void f()
+// {
+//     system("leaks a.out");
+// }
 
-int main(int ac, char **av, char **env)
-{
-    atexit(f);
-    t_gc *exec = NULL;
-    t_env *my_env = NULL;
-    (void)ac;
-    (void)av;
-    //exec = malloc(sizeof(t_gc));
-    //my_env = malloc(sizeof(t_env));
-    get_env(env,&my_env,&exec);
-    //add_varenv(&my_env,"abdo=ilyas6", &exec);
-    // while(exec != NULL)
-    // {
+// int main(int ac, char **av, char **env)
+// {
+//     atexit(f);
+//     t_gc *exec = NULL;
+//     t_env *my_env = NULL;
+//     (void)ac;
+//     (void)av;
+//     //exec = malloc(sizeof(t_gc));
+//     //my_env = malloc(sizeof(t_env));
+//     get_env(env,&my_env,&exec);
+//     //add_varenv(&my_env,"abdo=ilyas6", &exec);
+//     // while(exec != NULL)
+//     // {
 
-    //     printf("%p   \n", exec->address);
-    //     exec = exec->next;
-    // }
-    // printTheSize(&my_env, &exec);
-    // while (my_env)
-    // {
-    //     printf("%s   ||   %s\n", my_env->key, my_env->value);
-    //     my_env = my_env->next;
-    // }
-    // char **new_env = env_converter(&my_env, &exec);
-    // int i = 0;
-    // while (new_env[i] && env[i])
-    // {
-    //     if (ft_strcmp(env[i], new_env[i]) == 0)
-    //     {
-    //         printf("*************************************************************************\n");
-    //         //break ;
-    //     }
-    //     printf("%s \n", new_env[i++]);
-    // }
-    // printf("%s \n", new_env[i]);
-    ft_gcfree(&exec);
-}
+//     //     printf("%p   \n", exec->address);
+//     //     exec = exec->next;
+//     // }
+//     // printTheSize(&my_env, &exec);
+//     // while (my_env)
+//     // {
+//     //     printf("%s   ||   %s\n", my_env->key, my_env->value);
+//     //     my_env = my_env->next;
+//     // }
+//     // char **new_env = env_converter(&my_env, &exec);
+//     // int i = 0;
+//     // while (new_env[i] && env[i])
+//     // {
+//     //     if (ft_strcmp(env[i], new_env[i]) == 0)
+//     //     {
+//     //         printf("*************************************************************************\n");
+//     //         //break ;
+//     //     }
+//     //     printf("%s \n", new_env[i++]);
+//     // }
+//     // printf("%s \n", new_env[i]);
+//     ft_gcfree(&exec);
+// }

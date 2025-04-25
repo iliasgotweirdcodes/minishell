@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 18:07:14 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/23 15:32:01 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/25 16:40:36 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,20 @@ void struct_fill(t_gc **gc, void *add)
     last->next = new_node;
 }
 
+int isinstruct(t_gc **gc,void *add)
+{
+    t_gc *tmp;
+
+    tmp = *gc;
+    while (tmp)
+    {
+        if (ft_strcmp(tmp->address, add) == 0)
+            return (1);
+        tmp = tmp->next;
+    }
+    return (0);
+}
+
 void *ft_malloc(size_t size, t_gc **gc)
 {
     void *ptr;
@@ -55,6 +69,10 @@ void *ft_malloc(size_t size, t_gc **gc)
     ptr = malloc(size);
     if (!ptr)
         return (NULL);
+    // if (ptr_exist(gc, add) == 1)
+    //{
+    //    return (ptr) 
+    //}
     struct_fill(gc,ptr);
     return (ptr);
 }

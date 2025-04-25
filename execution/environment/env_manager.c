@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/24 22:04:29 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/25 18:06:31 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ int is_key(t_env **env, char *key_val, t_gc **exec)
 
     eq_index = get_eqindex(key_val, '=');
     key = ft_strndup2(key_val, eq_index , exec);
+    if (!key)
+        return ;
     get = *env;
     while (get)
     {
@@ -134,7 +136,11 @@ void ft_append(t_env **env, char *key_val,t_gc **exec)
 
     eq_index = get_eqindex(key_val, '=');
     key = ft_strndup2(key_val, eq_index - 1, exec);
+    if (!key)
+        return ;
     val = ft_strdup2(key_val + eq_index + 1, exec);
+    if (!val)
+        return (0);
     get = *env;
     while (get)
     {
@@ -153,7 +159,11 @@ void ft_changeval(t_env **env, char *key_val, t_gc **exec)
 
     eq_index = get_eqindex(key_val, '=');
     key = ft_strndup2(key_val, eq_index, exec);
+    if (!key)
+        return ;
     val = ft_strdup2(key_val + eq_index + 1, exec);
+    if (!val)
+        return ;
     get = *env;
     while (get)
     {
@@ -219,7 +229,11 @@ void add_varenv(t_env **env, char *key_val, t_gc **exec)
     {
             eq_index = get_eqindex(key_val, '=');
             key =ft_strndup2(key_val, eq_index, exec);
+            if (!key)
+                return ;
             value = ft_strdup2(key_val + eq_index + 1, exec);
+            if (!value)
+                return ;
             env_fill(env, &key, &value, exec);
     }
 }

@@ -6,13 +6,10 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/04/24 21:17:31 by ilel-hla         ###   ########.fr       */
-=======
-/*   Updated: 2025/04/24 21:17:25 by aromani          ###   ########.fr       */
->>>>>>> 97cd3070b43db757c253923d83c333b687608700
+/*   Updated: 2025/04/25 16:49:37 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 
@@ -89,6 +86,8 @@ void	env_fill(t_env **env, char **key, char **val, t_gc **exec);
 void	add_varenv(t_env **env, char *key_val, t_gc **exec);
 char	*ft_strjoinv3(char *s1, char*s2,t_gc **exec);
 char **env_converter(t_env **env,t_gc **exec);
+void get_env(char **env, t_env **my_env, t_gc **exec);
+
 
 //parsing
 t_token	*ft_tokenization(char *input);
