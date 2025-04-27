@@ -3,16 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   env_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/04/24 00:24:49 by ilel-hla         ###   ########.fr       */
-=======
-/*   Updated: 2025/04/24 13:13:16 by aromani          ###   ########.fr       */
->>>>>>> dd973b8d9c8ca98fd8be9e810d7f8146205f2bb7
+/*   Updated: 2025/04/25 18:06:31 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../minishell.h"
 
@@ -118,6 +115,8 @@ int is_key(t_env **env, char *key_val, t_gc **exec)
 
     eq_index = get_eqindex(key_val, '=');
     key = ft_strndup2(key_val, eq_index , exec);
+    if (!key)
+        return ;
     get = *env;
     while (get)
     {
@@ -137,7 +136,11 @@ void ft_append(t_env **env, char *key_val,t_gc **exec)
 
     eq_index = get_eqindex(key_val, '=');
     key = ft_strndup2(key_val, eq_index - 1, exec);
+    if (!key)
+        return ;
     val = ft_strdup2(key_val + eq_index + 1, exec);
+    if (!val)
+        return (0);
     get = *env;
     while (get)
     {
@@ -156,7 +159,11 @@ void ft_changeval(t_env **env, char *key_val, t_gc **exec)
 
     eq_index = get_eqindex(key_val, '=');
     key = ft_strndup2(key_val, eq_index, exec);
+    if (!key)
+        return ;
     val = ft_strdup2(key_val + eq_index + 1, exec);
+    if (!val)
+        return ;
     get = *env;
     while (get)
     {
@@ -222,7 +229,11 @@ void add_varenv(t_env **env, char *key_val, t_gc **exec)
     {
             eq_index = get_eqindex(key_val, '=');
             key =ft_strndup2(key_val, eq_index, exec);
+            if (!key)
+                return ;
             value = ft_strdup2(key_val + eq_index + 1, exec);
+            if (!value)
+                return ;
             env_fill(env, &key, &value, exec);
     }
 }
