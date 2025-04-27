@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/24 20:30:34 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:34:56 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,16 @@ void	print_tokens(t_token *tokens)
 	}
 }
 
-int main(int ac , char **av)
+int main(int ac , char **av, char **env)
 {
 	char	*input;
-	t_token	*tokens;
-	t_command	*cmd;
+	t_token	*tokens = NULL;
+	t_command	*cmd = NULL;
+	t_gc 	*gc = NULL;
+	t_env	*m_env = NULL;
 
 	cmd = NULL;
+	get_env(env, &m_env, &gc);
 	(void)av;
 	if (ac != 1)
 	{
@@ -126,12 +129,13 @@ int main(int ac , char **av)
 		input = readline("minishell> ");
 		if (!input)
 		{
-			write(1, "exit\n", 5);
+			write(1, "\033[1A\033[2Kminishell> exit\n", 25);
 			break ;
 		}
 		if (input)
 			add_history(input);
 		tokens = ft_tokenization(input);
+		expand_tokens(tokens, m_env);
 		if (!tokens)
 		{
 			if (tokens == NULL && ft_strchr(input, '\''))
@@ -147,18 +151,18 @@ int main(int ac , char **av)
 			free(input);
 			continue ;
 		}
-		prepare_cmd(&cmd, tokens);
-		int i = 0;
-		while(cmd->cmd[i])
-		{
-			printf("cmd->cmd[i] = %s , i = %d\n", cmd->cmd[i], i);
-			i++;
-		}
-		// print_tokens(tokens);
+		// prepare_cmd(&cmd, tokens);
+		// int i = 0;
+		// while(cmd->cmd[i])
+		// {
+		// 	printf("cmd->cmd[i] = %s , i = %d\n", cmd->cmd[i], i);
+		// 	i++;
+		// }
+		print_tokens(tokens);
 		ft_clear_tokens(&tokens);
 		free(input);
 	}
 	return (0);
 }
 
-// 
+//

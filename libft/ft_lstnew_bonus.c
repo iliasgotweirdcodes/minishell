@@ -6,13 +6,13 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:29:26 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/24 16:25:14 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/24 21:42:46 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(void **content)
 {
 	t_list	*node;
 

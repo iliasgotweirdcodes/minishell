@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 17:22:35 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/24 21:16:08 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:59:27 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ size_t	count_cmd(t_token **tokens)
 	return (cmd_count);
 }
 
-char *get_cmdline(t_token **tokens)
+char *get_cmdline(t_token *tokens)
 {
 	char	*cmd_line;
 	char	*temp;
 	t_token	*current;
 
 	cmd_line = NULL;
-	current = *tokens;
+	current = tokens;
 	while (current)
 	{
 		if (current->type == WORD && (!current->prev || !is_redirection(current->prev->type)))
@@ -67,7 +67,7 @@ void prepare_cmd(t_command **cmd, t_token *tokens)
 	char	**tmp;
 	char	*cmd_line;
 
-	cmd_line = get_cmdline(&tokens);
+	cmd_line = get_cmdline(tokens);
 	if (!cmd_line || !*cmd_line)
 	{
 		free(cmd_line);

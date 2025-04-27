@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 16:25:14 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/24 18:33:29 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/25 17:57:36 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,46 +20,10 @@ t_command	*ft_lstnew(char **content)
 	if (!node)
 		return (NULL);
 	node->cmd = content;
+	node->in_out = NULL;
 	node->next = NULL;
+	node->prev = NULL;
 	return (node);
+
+	// there is lot to change in this t_token  ft_lstnew(t_tokens *token);
 }
-
-// void	ft_lstadd_back(t_command **lst, t_command *new)
-// {
-// 	t_command	*node;
-
-// 	if (!*lst)
-// 	{
-// 		*lst = new;
-// 		return ;
-// 	}
-// 	node = ft_lstlast(*lst);
-// 	node->next = new;
-// 	new->next = NULL;
-// }
-
-// t_command	*ft_lstlast(t_command *lst)
-// {
-// 	if (!lst)
-// 		return (NULL);
-// 	while (lst->next)
-// 		lst = lst->next;
-// 	return (lst);
-// }
-
-// void	ft_lstclear(t_command **lst, void (*del)(void*))
-// {
-// 	t_command	*tmp;
-
-// 	if (!lst || !del)
-// 		return ;
-// 	tmp = *lst;
-// 	while (*lst)
-// 	{
-// 		tmp = tmp->next;
-// 		del((*lst)->content);
-// 		free(*lst);
-// 		*lst = tmp;
-// 	}
-// 	*lst = NULL;
-// }

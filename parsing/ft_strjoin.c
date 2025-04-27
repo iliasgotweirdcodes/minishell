@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 19:53:24 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/24 20:02:10 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:30:15 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2 && j < ft_strlen(s2))
 		result[i++] = s2[j++];
 	result[ft_strlen(s1) + ft_strlen(s2)] = '\0';
-	return (result);
+	return (free(s1), result);
 }
+
+
