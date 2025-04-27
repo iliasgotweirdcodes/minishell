@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:26:34 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/24 13:12:09 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/26 16:37:44 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,41 +39,6 @@ char	*ft_strjoinv2(char *s1, char*s2)
 	str[i] = '\0';
 	return (str);
 }
-
-
-static char	*access_path(char *cmd, char *path)
-{
-	char	*p;
-
-	p = pathchecker(cmd, path);
-	if (!p)
-		return (free(p), NULL);
-	else
-		return (p);
-}
-
-static char	*path_geter(char *str, char **ev)
-{
-	int		i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (ev[i])
-	{
-		while (ev[i][j] == str[j])
-		{
-			j++;
-			if (ev[i][j] == str[j])
-				j++;
-		}
-		if (j == ft_strlen(str))
-			return (ev[i]);
-		i++;
-	}
-	return (NULL);
-}
-
 static char	*pathchecker(char *c, char *paths)
 {
 	char	**pth;
@@ -102,7 +67,38 @@ static char	*pathchecker(char *c, char *paths)
 	return (ft_free(pth, count_words(paths, ':')), NULL);
 }
 
+static char	*access_path(char *cmd, char *path)
+{
+	char	*p;
 
+	p = pathchecker(cmd, path);
+	if (!p)
+		return (free(p), NULL);
+	else
+		return (p);
+}
+
+char	*path_geter(char *str, char **ev)
+{
+	int		i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (ev[i])
+	{
+		while (ev[i][j] == str[j])
+		{
+			j++;
+			if (ev[i][j] == str[j])
+				j++;
+		}
+		if (j == ft_strlen(str))
+			return (ev[i]);
+		i++;
+	}
+	return (NULL);
+}
 
 char	*last_path(char **env, char **arg)
 {

@@ -18,13 +18,23 @@ void printer(char *str)
 {
     int i = 0;
     int j = 0;
-
-    while (str[j])
-        j++;
+    int len = 0;
     while (str[j] && (str[j] == ' ' || str[j] == '\t'))
+        j++;
+    while (str[j])
+    {
+        j++;
+        len++;
+    }
+    //j--;
+    while (str[j] && (str[j] == ' ' || str[j] == '\t'))
+    {
         j--;
-    j++;
-    while (str[i] && i != j)
+        len--;
+    }
+    printf("%d \n", len);
+    //j++;
+    while (i < len)
     {
         while (str[i] && (str[i] == ' ' || str[i] == '\t'))
             i++;

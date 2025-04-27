@@ -6,7 +6,16 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:22 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/22 11:14:23 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/27 16:08:17 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../minishell.h"
+
+void echo_builtind(t_command *cmd)
+{
+    if (ft_strcmp(cmd->cmd[1] , "-n") == 0)
+        printf("%s",cmd->cmd[2]);
+    else
+        printf("%s\n",cmd->cmd[1]);
+}

@@ -4,6 +4,30 @@
 #include <unistd.h>
 #include <string.h>
 
+void is_builtin(t_command *cmd)
+{
+    char *str;
+    t_command *tmp;
+
+    tmp = cmd;
+    while (tmp != NULL)
+    {
+        if (ft_strcmp(tmp->cmd[0] ,"pwd") == 0)
+        {
+            str = getcwd(NULL, 0);
+            if (!str)
+                return (perror ("getcwd() error"), exit(1));
+            ft_putstr(str);
+            ft_putstr("\n");
+        }
+        // else if (ft_strcmp(tmp->cmd[0] ,"cd") == 0)
+        // {
+        //     if (chdir(tmp->cmd[1]) == -1)
+        //         return (perror ("chdir() error"), exit(1));
+        // }
+        tmp = tmp->next;
+    }
+} 
 
 void free_command_list(t_command *cmd) {
 	while (cmd) {
@@ -145,10 +169,16 @@ t_command *build_command_list() {
 int main(int argc, char *argv[], char **env) {
     (void)argc;
     (void)argv;
-    t_gc *gc;
+    t_gc *gc = NULL;
     t_env *env_struct = NULL;
 
     get_env(env, &env_struct, &gc);
+    // while (env_struct)
+    // {
+    //     printf("%s --------- %s\n", env_struct->key,env_struct->value);
+    //     env_struct = env_struct->next;
+    // }
+   //return 0;
     while (1) {
         t_command *cmd_list = build_command_list();
         if (!cmd_list)
@@ -158,14 +188,19 @@ int main(int argc, char *argv[], char **env) {
             free_command_list(cmd_list);
             continue;
         }
-
         if (strcmp(cmd_list->cmd[0], "exit") == 0) {
             free_command_list(cmd_list);
             printf("Bye 👋\n");
             break;
         }
-        
+        //printf("<<<<<<<<<<<<%s>>>>>>>>>>>>",cmd_list->cmd[1]);
+        // cd_builtins(cmd_list->cmd[1],&env_struct,&gc);
+        //echo_builtind(cmd_list);
         // excute the command
+        export(&env_struct,&cmd_list,&gc);
+        char **ma_env = env_converter(&env_struct,&gc);
+        env_builtins(ma_env);
+        //is_builtin(cmd_list);
         free_command_list(cmd_list); 
     }
 

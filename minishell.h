@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/25 16:49:37 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/27 16:47:57 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,14 @@ char	*last_path(char **env, char **arg);
 char    *ft_strndup2(const char *s, size_t n, t_gc **exec);
 int get_eqindex(char *str, char sep);
 void	env_fill(t_env **env, char **key, char **val, t_gc **exec);
-void	add_varenv(t_env **env, char *key_val, t_gc **exec);
+int	add_varenv(t_env **env, char *key_val, t_gc **exec);
 char	*ft_strjoinv3(char *s1, char*s2,t_gc **exec);
 char **env_converter(t_env **env,t_gc **exec);
 void get_env(char **env, t_env **my_env, t_gc **exec);
+void cd_builtins(char *path, t_env **s_env, t_gc **exec);
+void echo_builtind(t_command *cmd);
+int export(t_env **my_env, t_command **cmd, t_gc **exec);
+void env_builtins(char **env);
 
 
 //parsing
