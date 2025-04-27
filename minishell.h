@@ -3,16 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/04/24 21:17:31 by ilel-hla         ###   ########.fr       */
-=======
-/*   Updated: 2025/04/24 21:17:25 by aromani          ###   ########.fr       */
->>>>>>> 97cd3070b43db757c253923d83c333b687608700
+/*   Updated: 2025/04/27 16:49:01 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 
@@ -42,6 +39,7 @@ typedef enum e_token_type {
 	DOUBLE_QUOTE,
 	SINGLE_QUOTE,
 } t_token_type;
+
 
 typedef struct s_env
 {
@@ -89,6 +87,7 @@ void	env_fill(t_env **env, char **key, char **val, t_gc **exec);
 void	add_varenv(t_env **env, char *key_val, t_gc **exec);
 char	*ft_strjoinv3(char *s1, char*s2,t_gc **exec);
 char **env_converter(t_env **env,t_gc **exec);
+void get_env(char **env, t_env **my_env, t_gc **exec);
 
 //parsing
 t_token	*ft_tokenization(char *input);
@@ -110,6 +109,10 @@ void ft_putstr_fd(char *str, int fd);
 char	*ft_strchr(const char *s, int c);
 int	hanlde_here_doc(char *delimiter);
 void	prepare_cmd(t_command **cmd, t_token *tokens);
+char    *ft_strjoin_free(char *s1, char *s2);
+
+//expansion
+void	expand_tokens(t_token *token, t_env *env);
 
 
 // list tools
@@ -128,10 +131,10 @@ void ft_gcfree(t_gc **gc);
 void ft_putstr(char *str);
 int	ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(char *str);
-char	*ft_substr(char *s, int start, int end);
+char	*ft_substr(char *s, int start, size_t end);
 size_t	ft_strlen(char *str);
 char	**ft_split(char *s, char c);
 char	*ft_strjoin(char *s1, char *s2);
-
+int	ft_isalnum(int c);
 
 #endif

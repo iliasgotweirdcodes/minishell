@@ -6,32 +6,35 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:24:09 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/23 17:01:55 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/27 15:28:58 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../../minishell.h"
 
-char	*ft_substr(char *s, int start, int end)
+char	*ft_substr(char *s, int start, size_t len)
 {
-	int		i;
-	char	*ptr;
+	size_t	i;
+	size_t	j;
+	char	*sub;
 
-	i = 0;
+	i = (size_t)start;
+	j = 0;
 	if (!s)
 		return (NULL);
-	ptr = malloc(end - start + 1);
-	if (!ptr)
+	if (!len || (i >= ft_strlen(s)))
+		return (ft_strdup(""));
+	if (len > ft_strlen(start + s))
+		sub = malloc(ft_strlen(start + s) + 1);
+	else
+		sub = malloc(len + 1);
+	if (!sub)
 		return (NULL);
-	while (s[i] && i < end)
-	{
-		ptr[i] = s[start];
-		i++;
-		start++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
+	while (s[i] && j < len)
+		sub[j++] = s[i++];
+	sub[j] = '\0';
+	return (sub);
 }
 
 int	ft_search(char *str, char c)

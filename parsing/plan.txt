@@ -1,0 +1,4 @@
+A[Read Input] --> B [Tokenize]
+B [Tokenize] --> C [Expand Variables]
+C [Expand Variables] --> D [Validate Syntax]
+D [Validate Syntax] --> E [Execute Command]
