@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/28 20:08:31 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/28 23:38:29 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int export(t_env **my_env, t_command **cmd, t_gc **exec);
 void env_builtins(t_env **my_env, t_gc **gc);
 void pwd_builtins(void);
 void    unset_builtins(t_env **env, char *key);
+void exit_builtins(t_gc **gc);
 
 
 //parsing

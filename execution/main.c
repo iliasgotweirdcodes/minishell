@@ -166,12 +166,18 @@ t_command *build_command_list() {
     return head;
 }
 
+void f()
+{
+    system("leaks minishell");
+}
+
 int main(int argc, char *argv[], char **env) {
     (void)argc;
     (void)argv;
     t_gc *gc = NULL;
     t_env *env_struct = NULL;
 
+    atexit(f);
     get_env(env, &env_struct, &gc);
     // while (env_struct)
     // {
@@ -189,9 +195,7 @@ int main(int argc, char *argv[], char **env) {
             continue;
         }
         if (strcmp(cmd_list->cmd[0], "exit") == 0) {
-            free_command_list(cmd_list);
-            printf("Bye 👋\n");
-            break;
+            exit_builtins(&gc);
         }
         //printf("<<<<<<<<<<<<%s>>>>>>>>>>>>",cmd_list->cmd[1]);
         //cd_builtins(cmd_list->cmd[1],&env_struct,&gc);
