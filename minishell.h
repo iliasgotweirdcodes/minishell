@@ -3,25 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/04/27 16:47:57 by aromani          ###   ########.fr       */
-=======
-<<<<<<< HEAD
-/*   Updated: 2025/04/27 16:49:01 by ilel-hla         ###   ########.fr       */
-=======
-/*   Updated: 2025/04/25 16:49:37 by aromani          ###   ########.fr       */
->>>>>>> 24d79ba34cb4be7c8c32ec421dbec424d6e9a62f
->>>>>>> c7c322da75e376313b217e8ca3ee398189a578e1
+/*   Updated: 2025/04/28 20:08:31 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
-
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -96,17 +83,13 @@ int	add_varenv(t_env **env, char *key_val, t_gc **exec);
 char	*ft_strjoinv3(char *s1, char*s2,t_gc **exec);
 char **env_converter(t_env **env,t_gc **exec);
 void get_env(char **env, t_env **my_env, t_gc **exec);
-<<<<<<< HEAD
 void cd_builtins(char *path, t_env **s_env, t_gc **exec);
 void echo_builtind(t_command *cmd);
 int export(t_env **my_env, t_command **cmd, t_gc **exec);
-void env_builtins(char **env);
-=======
-<<<<<<< HEAD
-=======
->>>>>>> c7c322da75e376313b217e8ca3ee398189a578e1
+void env_builtins(t_env **my_env, t_gc **gc);
+void pwd_builtins(void);
+void    unset_builtins(t_env **env, char *key);
 
->>>>>>> 24d79ba34cb4be7c8c32ec421dbec424d6e9a62f
 
 //parsing
 t_token	*ft_tokenization(char *input);

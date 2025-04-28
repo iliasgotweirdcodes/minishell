@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/27 14:59:16 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/27 18:09:15 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,28 +85,35 @@ int cdcounter(char *path)
 //     while (path[])
 // }
 
+void go_home(t_env **s_env, t_gc **gc)
+{
+    char *home_path;
+    char **my_env;
+
+    my_env = env_converter(s_env, gc);
+    if (!my_env)
+        return ;
+    home_path = path_geter("HOME", my_env);
+    if(!home_path)
+        return ;
+    home_path = ft_strndup2(home_path + 5, ft_strlen(home_path) - 4, gc);
+    if (!home_path)
+        return ;
+    if (chdir(home_path) == -1)
+        perror("");
+}
+
 void cd_builtins(char *path, t_env **s_env, t_gc **gc)
 {
     char *pwd;
-    char *home_path;
-    char **my_env;
+    
 
     pwd = getcwd(NULL, 0);
     if (!pwd)
         return (perror(""));
     if (!path)
     {
-        my_env = env_converter(s_env, gc);
-        if (!my_env)
-            return ;
-        home_path = path_geter("HOME", my_env);
-        if(!home_path)
-            return ;
-        home_path = ft_strndup2(home_path + 5, ft_strlen(home_path) - 4, gc);
-        if (!home_path)
-            return ;
-        if (chdir(home_path) == -1)
-            perror("");
+        go_home(s_env,gc);
     }
     else if (get_len(pwd, '/') < cdcounter(path))
     {

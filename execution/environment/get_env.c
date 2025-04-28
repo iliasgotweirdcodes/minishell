@@ -3,16 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:07:36 by aromani           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/04/25 21:56:58 by ilel-hla         ###   ########.fr       */
-=======
-/*   Updated: 2025/04/25 16:47:25 by aromani          ###   ########.fr       */
->>>>>>> 24d79ba34cb4be7c8c32ec421dbec424d6e9a62f
+/*   Updated: 2025/04/27 20:52:40 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../minishell.h"
 #include <string.h>
@@ -31,6 +28,8 @@ char    *ft_strdup2(const char *s, t_gc **exec)
     size_t  len;
     size_t  i;
 
+    if (!s)
+        return (NULL);
     len = strlen(s);
     new = ft_malloc(len + 1, exec);
     if (!new)
@@ -50,6 +49,8 @@ char    *ft_strndup2(const char *s, size_t n, t_gc **exec)
     char    *new;
     size_t  i;
 
+    if (!s)
+        return (NULL);
     new = ft_malloc(n + 1, exec);
     if (!new)
         return NULL;
