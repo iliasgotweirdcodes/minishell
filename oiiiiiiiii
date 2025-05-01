@@ -1,5 +1,4 @@
-NAME = minishell
-CC = cc
+ana fd n : 5 dapeet fe 1
 
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 READLINE_COMPILE = -I$(shell brew --prefix readline)/include

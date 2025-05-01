@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:35 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/28 20:30:26 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/30 18:50:49 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,23 @@ int unset_parser(char *key)
     }
     return (1);
 }
-
+void printer(char *str1,char *key, int fd, char* str3)
+{
+    write(fd, str1, sizeof(str1));
+    write(fd, key, sizeof(key));
+    write(fd, str3, sizeof(str3));
+}
 void    unset_builtins(t_env **env, char *key)
 {
     t_env *tmp;
     t_env *prev;
 
     if (!env || !*env || !key)
-        return;
+        return ;
     if (unset_parser(key) == 0)
     { 
-        printf("bash: unset: `%s': not a valid identifier\n", key);
+        printer("minishell: unset: `", key,2,"': not a valid identifier\n");
+        //printf("minishell: unset: `%s': not a valid identifier\n", key);
         return ;
     }
     tmp = *env;

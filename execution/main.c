@@ -177,7 +177,7 @@ int main(int argc, char *argv[], char **env) {
     t_gc *gc = NULL;
     t_env *env_struct = NULL;
 
-    atexit(f);
+    //atexit(f);
     get_env(env, &env_struct, &gc);
     // while (env_struct)
     // {
@@ -190,25 +190,27 @@ int main(int argc, char *argv[], char **env) {
         if (!cmd_list)
             break;
 
-        if (!cmd_list->cmd || !cmd_list->cmd[0]) {
-            free_command_list(cmd_list);
-            continue;
-        }
-        if (strcmp(cmd_list->cmd[0], "exit") == 0) {
-            exit_builtins(&gc);
-        }
+        // if (!cmd_list->cmd || !cmd_list->cmd[0]) {
+        //     free_command_list(cmd_list);
+        //     continue;
+        // }
+        // if (strcmp(cmd_list->cmd[0], "exit") == 0) {
+        //     exit_builtins(&gc);
+        // }
         //printf("<<<<<<<<<<<<%s>>>>>>>>>>>>",cmd_list->cmd[1]);
         //cd_builtins(cmd_list->cmd[1],&env_struct,&gc);
         //echo_builtind(cmd_list);
         // excute the command
         //export(&env_struct,&cmd_list,&gc);
         // char **ma_env = env_converter(&env_struct,&gc);
-        unset_builtins(&env_struct, cmd_list->cmd[1]);
-        env_builtins(&env_struct, &gc);
+        // unset_builtins(&env_struct, cmd_list->cmd[1]);
+        // env_builtins(&env_struct, &gc);
         //pwd_builtins();
         // is_builtin(cmd_list);
-        free_command_list(cmd_list); 
+        cmd_execuiter(&cmd_list, &env_struct, &gc);
+        sleep(2);
+        //printf("ergergergerge\n");
+        //free_command_list(cmd_list); 
     }
-
     return 0;
 }

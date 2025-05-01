@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/27 18:09:15 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/30 18:02:30 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,27 @@ int get_len(char *str, char sep)
     return (c);
 }
 
-char	*path_geter(char *str, char **ev)
-{
-	int		i;
-	size_t	j;
+// char	*path_geter(char *str, char **ev)
+// {
+// 	int		i;
+// 	size_t	j;
 
-	i = 0;
-	j = 0;
-	while (ev[i])
-	{
-		while (ev[i][j] == str[j])
-		{
-			j++;
-			if (ev[i][j] == str[j])
-				j++;
-		}
-		if (j == ft_strlen(str))
-			return (ev[i]);
-		i++;
-	}
-	return (NULL);
-}
+// 	i = 0;
+// 	j = 0;
+// 	while (ev[i])
+// 	{
+// 		while (ev[i][j] == str[j])
+// 		{
+// 			j++;
+// 			if (ev[i][j] == str[j])
+// 				j++;
+// 		}
+// 		if (j == ft_strlen(str))
+// 			return (ev[i]);
+// 		i++;
+// 	}
+// 	return (NULL);
+// }
 
 int cdcounter(char *path)
 {
@@ -107,7 +107,7 @@ void cd_builtins(char *path, t_env **s_env, t_gc **gc)
 {
     char *pwd;
     
-
+    
     pwd = getcwd(NULL, 0);
     if (!pwd)
         return (perror(""));
@@ -118,14 +118,14 @@ void cd_builtins(char *path, t_env **s_env, t_gc **gc)
     else if (get_len(pwd, '/') < cdcounter(path))
     {
         if (access(path, F_OK) == -1 && cdcounter(path) == -1)
-            printf("bash: cd: %s: No such file or directory", path);
+            printf("minishell: cd: %s: No such file or directory", path);
         if (chdir("/") == -1)
             perror("");
     }
     else
     {
         if (access(path, F_OK) == -1)
-            printf("bash: cd: %s: No such file or directory", path);
+            printf("minishell: cd: %s: No such file or directory", path);
         if (chdir(path) == -1)
             perror("");
     }

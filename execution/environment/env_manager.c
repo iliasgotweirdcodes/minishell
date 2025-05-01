@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/28 20:29:43 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/30 18:02:42 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,12 @@ int add_varenv(t_env **env, char *key_val, t_gc **exec)
     eq_index = get_eqindex(key_val, '=');
     if (export_parser(key_val, exec) == 0)
     {
-        printf("bash: export: `%s': not a valid identifier\n",ft_strndup2(key_val, eq_index + 1, exec));
+        printf("minishell: export: `%s': not a valid identifier\n",ft_strndup2(key_val, eq_index + 1, exec));
+        return (-1);
+    }
+    else if (export_parser(key_val, exec) == -1)
+    {
+        printf("minishell: export: `%s': not a valid identifier\n",ft_strndup2((key_val + eq_index + 1), (ft_strlen(key_val) - eq_index), exec));
         return (-1);
     }
     if (is_appended(key_val, '+') == 0)
