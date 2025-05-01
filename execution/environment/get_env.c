@@ -6,13 +6,10 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:07:36 by aromani           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/04/25 21:56:58 by ilel-hla         ###   ########.fr       */
-=======
-/*   Updated: 2025/04/25 16:47:25 by aromani          ###   ########.fr       */
->>>>>>> 24d79ba34cb4be7c8c32ec421dbec424d6e9a62f
+/*   Updated: 2025/04/27 19:48:20 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../minishell.h"
 #include <string.h>

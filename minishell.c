@@ -6,12 +6,11 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/27 16:34:56 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/01 15:39:11 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <string.h>
 
 // int main(int ac,char **av)
 // {
@@ -58,7 +57,6 @@ void ft_putnbr(int n)
 	c = n % 10 + '0';
 	write(1, &c, 1);
 }
-
 
 char	*get_token_type_str(t_token_type type)
 {
@@ -112,11 +110,13 @@ int main(int ac , char **av, char **env)
 	char	*input;
 	t_token	*tokens = NULL;
 	t_command	*cmd = NULL;
+	// t_command	*in_out = NULL;
 	t_gc 	*gc = NULL;
+	t_gc 	*gc_env = NULL;
 	t_env	*m_env = NULL;
 
 	cmd = NULL;
-	get_env(env, &m_env, &gc);
+	get_env(env, &m_env, &gc_env);
 	(void)av;
 	if (ac != 1)
 	{
@@ -134,8 +134,8 @@ int main(int ac , char **av, char **env)
 		}
 		if (input)
 			add_history(input);
-		tokens = ft_tokenization(input);
-		expand_tokens(tokens, m_env);
+		tokens = ft_tokenization(input, &gc);
+		expand_tokens(tokens, m_env, &gc);
 		if (!tokens)
 		{
 			if (tokens == NULL && ft_strchr(input, '\''))
@@ -147,22 +147,28 @@ int main(int ac , char **av, char **env)
 		}
 		if (validate_syntax(tokens))
 		{
-			ft_clear_tokens(&tokens);
+			// ft_clear_tokens(&tokens);
 			free(input);
 			continue ;
 		}
-		// prepare_cmd(&cmd, tokens);
+		// prepare_cmd(&cmd, tokens, &gc);
+		// prepare_in_out(&in_out, tokens, &gc);
 		// int i = 0;
 		// while(cmd->cmd[i])
 		// {
 		// 	printf("cmd->cmd[i] = %s , i = %d\n", cmd->cmd[i], i);
 		// 	i++;
 		// }
+		// i = 0;
+		// while (in_out->in_out[i])
+		// {
+		// 	printf("in_out->in_out[i] = %s , i = %d\n", in_out->in_out[i], i);
+		// 	i++;
+		// }
 		print_tokens(tokens);
-		ft_clear_tokens(&tokens);
+		// ft_clear_tokens(&tokens);
 		free(input);
 	}
 	return (0);
 }
 
-//

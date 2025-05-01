@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:01:13 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/25 18:56:07 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/29 21:31:59 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,37 @@ int is_shell_operator(char c)
     return (c == '|' || c == '<' || c == '>');
 }
 
-int handle_operator(char *input, int i, t_token **token_list)
+int handle_operator(char *input, int i, t_token **token_list, t_gc **gc)
 {
     if (input[i] == '|')
     {
-        ft_add_token(token_list, ft_create_token(PIPE, NULL));
+        ft_add_token(token_list, ft_create_token(PIPE, NULL, gc));
         i++;
     }
     else if (input[i] == '<' && input[i + 1] == '<')
     {
-        ft_add_token(token_list, ft_create_token(HEREDOC, NULL));
+        ft_add_token(token_list, ft_create_token(HEREDOC, NULL, gc));
         i += 2;
     }
     else if (input[i] == '>' && input[i + 1] == '>')
     {
-        ft_add_token(token_list, ft_create_token(APPEND, NULL));
+        ft_add_token(token_list, ft_create_token(APPEND, NULL, gc));
         i += 2;
     }
     else if (input[i] == '<')
     {
-        ft_add_token(token_list, ft_create_token(REDIR_IN, NULL));
+        ft_add_token(token_list, ft_create_token(REDIR_IN, NULL, gc));
         i++;
     }
     else if (input[i] == '>')
     {
-        ft_add_token(token_list, ft_create_token(REDIR_OUT, NULL));
+        ft_add_token(token_list, ft_create_token(REDIR_OUT, NULL, gc));
         i++;
     }
     return (i);
 }
 
-int handle_word(char *input, int i, t_token **token_list)
+int handle_word(char *input, int i, t_token **token_list, t_gc **gc)
 {
     int start = i;
     char quote = 0;
@@ -67,17 +67,17 @@ int handle_word(char *input, int i, t_token **token_list)
     }
     if (quote)
         return (-1);
-    value = ft_strndup(input + start, i - start);
+    value = ft_strndup(input + start, i - start, gc);
     if (!value)
     {
-        ft_clear_tokens(token_list);
+        // ft_clear_tokens(token_list);
         return (-1);
     }
-    ft_add_token(token_list, ft_create_token(WORD, value));
+    ft_add_token(token_list, ft_create_token(WORD, value, gc));
     return (i);
 }
 
-t_token *ft_tokenization(char *input)
+t_token *ft_tokenization(char *input, t_gc **gc)
 {
     t_token *token_list = NULL;
     int i = 0;
@@ -90,10 +90,10 @@ t_token *ft_tokenization(char *input)
         if (!input[i])
             break;
         if (is_shell_operator(input[i]))
-            i = handle_operator(input, i, &token_list);
+            i = handle_operator(input, i, &token_list, gc);
         else
         {
-            int new_i = handle_word(input, i, &token_list);
+            int new_i = handle_word(input, i, &token_list, gc);
             if (new_i == -1)
                 error = 1;
             else
@@ -102,8 +102,8 @@ t_token *ft_tokenization(char *input)
     }
     if (error)
     {
-        ft_clear_tokens(&token_list);
+        // ft_clear_tokens(&token_list);
         return (NULL);
-    } 
+    }
     return (token_list);
 }
