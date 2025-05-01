@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/04/30 23:43:09 by ilel-hla         ###   ########.fr       */
+=======
+/*   Updated: 2025/05/01 00:56:13 by aromani          ###   ########.fr       */
+>>>>>>> 037bb1f35c3706e29a0096afd861f030fc3ff76a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +67,7 @@ typedef struct s_command {
     char **cmd;     // Actual command and its arguments
     char **in_out;   // Redirections and tokens
 	int here_docfd;   // for the heredoc fd
+	t_env **env_ptr;   //for holding the env pointer norminet
 	struct s_command *next; // Pointer to the next command in the pipeline
 } t_command;
 
@@ -70,16 +75,29 @@ typedef struct s_command {
 void	setup_signals(void);
 
 //execution
-void is_builtins(t_command *cmd);
+int is_builtinns(t_command *cmd);
 char    *ft_strdup2(const char *s, t_gc **exec);
-char	*last_path(char **env, char **arg);
+char	*last_path(char **env, char **arg, t_gc **exec);
+char	*path_geter(char *str, char **ev);
 char    *ft_strndup2(const char *s, size_t n, t_gc **exec);
 int get_eqindex(char *str, char sep);
 void	env_fill(t_env **env, char **key, char **val, t_gc **exec);
-void	add_varenv(t_env **env, char *key_val, t_gc **exec);
+int	add_varenv(t_env **env, char *key_val, t_gc **exec);
 char	*ft_strjoinv3(char *s1, char*s2,t_gc **exec);
 char **env_converter(t_env **env,t_gc **exec);
 void get_env(char **env, t_env **my_env, t_gc **exec);
+void cd_builtins(char *path, t_env **s_env, t_gc **exec);
+void echo_builtind(t_command *cmd);
+int export(t_env **my_env, t_command **cmd, t_gc **exec);
+void env_builtins(t_env **my_env, t_gc **gc);
+void pwd_builtins(void);
+void    unset_builtins(t_env **env, char *key);
+void exit_builtins(t_gc **gc);
+void single_command(t_command **cmd, char **env, t_gc **exec);
+void cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec);
+void redirection_handel(t_command **t_cmd);
+void multi_cmd(char **env, t_command **cmd,t_gc **exec);
+void builtins_execuition(t_command **cmd, t_env **env, t_gc **exec);
 
 
 //parsing

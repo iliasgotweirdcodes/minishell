@@ -6,30 +6,30 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/25 18:06:31 by aromani          ###   ########.fr       */
+/*   Updated: 2025/04/30 18:02:42 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t			i;
-	unsigned char	*st1;
-	unsigned char	*st2;
+// int	ft_strcmp(const char *s1, const char *s2)
+// {
+// 	size_t			i;
+// 	unsigned char	*st1;
+// 	unsigned char	*st2;
 
-	i = 0;
-	st1 = (unsigned char *)s1;
-	st2 = (unsigned char *)s2;
-	while (st1[i] || st2[i])
-	{
-		if (st1[i] != st2[i])
-			return (st1[i] - st2[i]);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	st1 = (unsigned char *)s1;
+// 	st2 = (unsigned char *)s2;
+// 	while (st1[i] || st2[i])
+// 	{
+// 		if (st1[i] != st2[i])
+// 			return (st1[i] - st2[i]);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 int export_parser(char *str, t_gc **exec)
 {
@@ -46,7 +46,9 @@ int export_parser(char *str, t_gc **exec)
     {
         if (key[i] == '+')
             e++;
-        else if (!(key[i] >= 0 && key[i] <= 9) && !(key[i] >= 'a' && str[i] <= 'z') && !(key[i] >= 'A' && str[i] <= 'Z') && str[i] != '+')
+        if (key[i] == '+' && key[i + 1] != '=')
+            return (0);
+        else if (!(key[i] >= 0 && key[i] <= 9) && !(key[i] >= 'a' && key[i] <= 'z') && !(key[i] >= 'A' && key[i] <= 'Z') && key[i] != '+')
             j++;
         i++;
     }
@@ -100,7 +102,7 @@ int is_appended(char *str, char sep)
     i = 0;
     while (str[i])
     {
-        if (str[i] == sep)
+        if (str[i] == sep && str[i - 1] != '=')
             return (0);
         i++;
     }
@@ -116,7 +118,7 @@ int is_key(t_env **env, char *key_val, t_gc **exec)
     eq_index = get_eqindex(key_val, '=');
     key = ft_strndup2(key_val, eq_index , exec);
     if (!key)
-        return ;
+        return (0);
     get = *env;
     while (get)
     {
@@ -140,7 +142,7 @@ void ft_append(t_env **env, char *key_val,t_gc **exec)
         return ;
     val = ft_strdup2(key_val + eq_index + 1, exec);
     if (!val)
-        return (0);
+        return ;
     get = *env;
     while (get)
     {
@@ -210,30 +212,39 @@ char **env_converter(t_env **env,t_gc **exec)
 	return (new_env);
 }
  // ///////////////////////////////////////////////////////////////////////////////////////
-void add_varenv(t_env **env, char *key_val, t_gc **exec)
+
+
+int add_varenv(t_env **env, char *key_val, t_gc **exec)
 {
     int eq_index;
     char *key;
     char *value;
 
+    eq_index = get_eqindex(key_val, '=');
     if (export_parser(key_val, exec) == 0)
     {
-        write (1,"error\n",6);
-        return ;
+        printf("minishell: export: `%s': not a valid identifier\n",ft_strndup2(key_val, eq_index + 1, exec));
+        return (-1);
+    }
+    else if (export_parser(key_val, exec) == -1)
+    {
+        printf("minishell: export: `%s': not a valid identifier\n",ft_strndup2((key_val + eq_index + 1), (ft_strlen(key_val) - eq_index), exec));
+        return (-1);
     }
     if (is_appended(key_val, '+') == 0)
-        ft_append(env, key_val, exec);
+        {printf("tebiiiii\n");
+        ft_append(env, key_val, exec);}
     else if (is_key(env,key_val, exec) == 0)
             ft_changeval(env, key_val, exec);
     else
     {
-            eq_index = get_eqindex(key_val, '=');
-            key =ft_strndup2(key_val, eq_index, exec);
-            if (!key)
-                return ;
-            value = ft_strdup2(key_val + eq_index + 1, exec);
-            if (!value)
-                return ;
-            env_fill(env, &key, &value, exec);
+        key =ft_strndup2(key_val, eq_index, exec);
+        if (!key)
+            return (2);
+        value = ft_strdup2(key_val + eq_index + 1, exec);
+        if (!value)
+            return (2);
+        env_fill(env, &key, &value, exec);
     }
+    return (0);
 }

@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:07:36 by aromani           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/04/27 19:48:20 by ilel-hla         ###   ########.fr       */
+=======
+/*   Updated: 2025/04/27 20:52:40 by aromani          ###   ########.fr       */
+>>>>>>> 037bb1f35c3706e29a0096afd861f030fc3ff76a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +32,8 @@ char    *ft_strdup2(const char *s, t_gc **exec)
     size_t  len;
     size_t  i;
 
+    if (!s)
+        return (NULL);
     len = strlen(s);
     new = ft_malloc(len + 1, exec);
     if (!new)
@@ -47,6 +53,8 @@ char    *ft_strndup2(const char *s, size_t n, t_gc **exec)
     char    *new;
     size_t  i;
 
+    if (!s)
+        return (NULL);
     new = ft_malloc(n + 1, exec);
     if (!new)
         return NULL;
