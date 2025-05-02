@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:26:34 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/29 16:00:45 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/02 15:23:32 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ static char	*pathchecker(char *c, char *paths, t_gc **exec)
 	size_t	i;
 
 	i = 0;
-	pth = ft_split(paths, ':');
+	pth = ft_split(paths, ':', exec);
 	if (!pth)
 		return (NULL);
 	while (pth[i])
 	{
 		if (ft_search2(c, '/') != -1)
-			tmp2 = ft_strdup(c);
+			tmp2 = ft_strdup(c, exec);
 		else
 			tmp2 = ft_strjoinv2(pth[i], c, exec);
 		if (access(tmp2, X_OK) != -1)
