@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:57:50 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/01 01:21:49 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/02 02:53:26 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ void cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec)
     t_command *cmd;
     char **my_env;
     int fd[2];
+    struct termios old_stdin;
 
     fd[0] = dup(0);
     fd[1] = dup(1);
+    tcgetattr(1,&old_stdin);
     my_env = env_converter(env, exec);
     if (!my_env)
         return ;
@@ -80,8 +82,9 @@ void cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec)
             single_command(cmd_list, my_env, exec);
     }else
         multi_cmd(my_env, cmd_list, exec);
-    while (wait(0) != -1)
-        ;
+    tcsetattr(1,0,&old_stdin);
     dup2(fd[0], 0);
     dup2(fd[1], 1);
+    while (wait(0) != -1)
+        ;
 }

@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:32:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/01 01:57:47 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/01 20:56:06 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,19 @@ void singel_pipe(char **env, t_command **cmd, char *path, t_gc **exec)
     {
         
         redirection_handel(cmd);
-        close(fd[0]);
-        dup2(fd[1],1);
-        close(fd[1]);
-        if (is_builtinns(*cmd))
+
+        if (is_builtinns(*cmd) == 0)
         {
             builtins_execuition(cmd, (*cmd)->env_ptr, exec);
         }
         else
         {
+            close(fd[0]);
+            dup2(fd[1],1);
+            close(fd[1]);
             if (path)
             {
+                printf("hi from execve runner\n");
                 if (execve(path,(*cmd)->cmd,env) < 0)
                     perror("");
             }
@@ -45,6 +47,7 @@ void singel_pipe(char **env, t_command **cmd, char *path, t_gc **exec)
     }
     else
     {
+        printf("hi from else pipe \n");
         close(fd[1]);
         dup2(fd[0], 0);
         close(fd[0]);
@@ -89,7 +92,6 @@ void multi_cmd(char **env, t_command **cmd,t_gc **exec)
 {
     t_command *tmp;
     char *path;
-    int flag = 0;
 
     tmp = *cmd;
     while (tmp && tmp->next)
@@ -100,13 +102,12 @@ void multi_cmd(char **env, t_command **cmd,t_gc **exec)
         if (!path)
         {
             printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
-            flag = -1;
         }
         singel_pipe(env, &tmp, path, exec);
         tmp = tmp->next;
     }
     if (tmp)
         last_command(&tmp,env,exec);
-    while (wait(0) != -1)
-        ;
 }
+
+//sigpipe

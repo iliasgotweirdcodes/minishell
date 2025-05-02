@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/01 00:56:13 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/01 20:37:25 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <signal.h>
 #include <stddef.h>
+#include <termios.h>
 
 # include "readline/readline.h"
 # include "readline/history.h"
@@ -88,7 +89,10 @@ void get_env(char **env, t_env **my_env, t_gc **exec);
 void cd_builtins(char *path, t_env **s_env, t_gc **exec);
 void echo_builtind(t_command *cmd);
 int export(t_env **my_env, t_command **cmd, t_gc **exec);
+ //int export(t_env **my_env, t_command **cmd, t_gc **exec);
+//int export(t_env **my_env, t_command **cmd, t_gc **exec, char **env);
 void env_builtins(t_env **my_env, t_gc **gc);
+//void env_builtins(char **my_env, t_gc **gc);
 void pwd_builtins(void);
 void    unset_builtins(t_env **env, char *key);
 void exit_builtins(t_gc **gc);

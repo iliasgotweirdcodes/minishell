@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/30 18:02:42 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/01 20:28:46 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,12 @@ char	*ft_strjoinv3(char *s1, char*s2,t_gc **exec)
 	i = 0;
 	j = 0;
 	str = ft_malloc(len(s1) + len(s2) + 1, exec);
-	if (!str)
+	if (!str || (!s1 && !s2))
 		return (NULL);
+    if (!s1)
+        return (ft_strdup2(s2,exec));
+    if(!s2)
+        return (ft_strdup2(s1,exec));
 	while (s1[i])
 	{
 		str[i] = s1[i];
@@ -202,7 +206,10 @@ char **env_converter(t_env **env,t_gc **exec)
 	tmp = *env;
 	while (tmp)
 	{
-		new_env[i] = ft_strjoinv3(ft_strjoinv3(tmp->key, "=", exec),tmp->value, exec);
+        if (tmp->value)
+		    new_env[i] = ft_strjoinv3(ft_strjoinv3(tmp->key, "=", exec),tmp->value, exec);
+        else
+            new_env[i] = ft_strdup2(tmp->key, exec);
 		if (!new_env[i])
 			return (NULL);
 		i++;
@@ -213,6 +220,20 @@ char **env_converter(t_env **env,t_gc **exec)
 }
  // ///////////////////////////////////////////////////////////////////////////////////////
 
+
+int sep_exist(char *str, char sep)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == sep)
+            return (1);
+        i++;
+    }
+    return (0);
+}
 
 int add_varenv(t_env **env, char *key_val, t_gc **exec)
 {
@@ -238,12 +259,23 @@ int add_varenv(t_env **env, char *key_val, t_gc **exec)
             ft_changeval(env, key_val, exec);
     else
     {
-        key =ft_strndup2(key_val, eq_index, exec);
-        if (!key)
-            return (2);
-        value = ft_strdup2(key_val + eq_index + 1, exec);
-        if (!value)
-            return (2);
+        //printf("eqindex %d \n",eq_index);
+        if (sep_exist(key_val, '=') == 0)
+        {
+            key = ft_strdup2(key_val,exec);
+            if (!key)
+                return (2);
+            value = NULL;
+        }
+        else
+        {
+            key =ft_strndup2(key_val, eq_index, exec);
+            if (!key)
+                return (2);
+            value = ft_strdup2(key_val + eq_index + 1, exec);
+            if (!value)
+                return (2);
+        }
         env_fill(env, &key, &value, exec);
     }
     return (0);
