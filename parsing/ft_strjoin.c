@@ -6,13 +6,13 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 19:53:24 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/27 16:30:15 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:09:33 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2, t_gc **gc)
 {
 	char	*result;
 	size_t	i;
@@ -21,10 +21,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)
-		return (ft_strdup(s2));
+		return (ft_strdup(s2, gc));
 	if (!s2)
-		return (ft_strdup(s1));
-	result = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+		return (ft_strdup(s1, gc));
+	result = ft_malloc(ft_strlen(s1) + ft_strlen(s2) + 1, gc);
 	if (!result)
 		return (NULL);
 	i = 0;
@@ -37,7 +37,5 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2 && j < ft_strlen(s2))
 		result[i++] = s2[j++];
 	result[ft_strlen(s1) + ft_strlen(s2)] = '\0';
-	return (free(s1), result);
+	return (result);
 }
-
-

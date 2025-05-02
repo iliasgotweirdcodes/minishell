@@ -6,14 +6,14 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:24:09 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/27 15:28:58 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:07:42 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../../minishell.h"
 
-char	*ft_substr(char *s, int start, size_t len)
+char	*ft_substr(char *s, int start, size_t len, t_gc **gc)
 {
 	size_t	i;
 	size_t	j;
@@ -24,9 +24,9 @@ char	*ft_substr(char *s, int start, size_t len)
 	if (!s)
 		return (NULL);
 	if (!len || (i >= ft_strlen(s)))
-		return (ft_strdup(""));
+		return (ft_strdup("", gc));
 	if (len > ft_strlen(start + s))
-		sub = malloc(ft_strlen(start + s) + 1);
+		sub = ft_malloc(ft_strlen(s) - i + 1, gc);
 	else
 		sub = malloc(len + 1);
 	if (!sub)
@@ -51,7 +51,7 @@ int	ft_search(char *str, char c)
 	return (0);
 }
 
-char	*ft_strdup(char *str)
+char	*ft_strdup(char *str, t_gc **gc)
 {
 	int		i;
 	char	*s;
@@ -59,7 +59,7 @@ char	*ft_strdup(char *str)
 	i = 0;
 	if (!str)
 		return (NULL);
-	s = malloc(ft_strlen(str) + 1);
+	s = ft_malloc(ft_strlen(str) + 1, gc);
 	while (str[i])
 	{
 		s[i] = str[i];

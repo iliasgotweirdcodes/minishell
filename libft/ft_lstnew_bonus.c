@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:29:26 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/24 21:42:46 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/30 23:42:51 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list	*ft_lstnew(void **content)
 {
 	t_list	*node;
 
-	node = (t_list *)malloc(sizeof(t_list));
+	node = (t_list *)malloc(sizeof(t_list), gc);
 	if (!node)
 		return (NULL);
 	node->content = content;

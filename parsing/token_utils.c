@@ -6,17 +6,17 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:48:25 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/24 17:27:13 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/04/29 21:30:26 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*ft_create_token(t_token_type type, char *value)
+t_token	*ft_create_token(t_token_type type, char *value , t_gc **gc)
 {
 	t_token	*new_token;
 
-	new_token = malloc(sizeof(t_token));
+	new_token = ft_malloc(sizeof(t_token), gc);
 	if (!new_token)
 		return (NULL);
 	new_token->type = type;
@@ -44,22 +44,22 @@ void	ft_add_token(t_token **token_list, t_token *new_token)
 	new_token->prev = tmp;
 }
 
-void	ft_clear_tokens(t_token **token_list)
-{
-	t_token	*tmp;
+// void	ft_clear_tokens(t_token **token_list)
+// {
+// 	t_token	*tmp;
 
-	if (!token_list || !*token_list)
-		return ;
-	while (*token_list)
-	{
-		tmp = (*token_list)->next;
-		free((*token_list)->value);
-		free(*token_list);
-		*token_list = tmp;
-	}
-}
+// 	if (!token_list || !*token_list)
+// 		return ;
+// 	while (*token_list)
+// 	{
+// 		tmp = (*token_list)->next;
+// 		free((*token_list)->value);
+// 		free(*token_list);
+// 		*token_list = tmp;
+// 	}
+// }
 
-char	*ft_strndup(const char *s, size_t n)
+char	*ft_strndup(const char *s, size_t n , t_gc **gc)
 {
 	char	*dup;
 	size_t	len;
@@ -70,7 +70,7 @@ char	*ft_strndup(const char *s, size_t n)
 	len = 0;
 	while (len < n && s[len])
 		len++;
-	dup = malloc(sizeof(char) * (len + 1));
+	dup = ft_malloc(len + 1, gc);
 	if (!dup)
 		return (NULL);
 	i = 0;
