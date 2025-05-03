@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/30 18:02:30 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/02 17:22:40 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,4 +131,4 @@ void cd_builtins(char *path, t_env **s_env, t_gc **gc)
     }
 }
 
-/// : in parent proccess : export with args && cd && exit && unset
+// : in parent proccess : export with args && cd && exit && unset

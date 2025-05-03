@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/02 02:58:09 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/02 18:02:24 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,11 @@ void env_builtins(t_env **my_env, t_gc **gc);
 void pwd_builtins(void);
 void    unset_builtins(t_env **env, char *key);
 void exit_builtins(t_gc **gc);
-void single_command(t_command **cmd, char **env, t_gc **exec);
-void cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec);
+int single_command(t_command **cmd, char **env, t_gc **exec);
+int cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec);
 void redirection_handel(t_command **t_cmd);
-void multi_cmd(char **env, t_command **cmd,t_gc **exec);
-void builtins_execuition(t_command **cmd, t_env **env, t_gc **exec);
+int multi_cmd(char **env, t_command **cmd,t_gc **exec);
+int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec);
 
 
 //parsing
