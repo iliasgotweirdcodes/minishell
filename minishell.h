@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/01 15:53:33 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:37:18 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,24 +116,24 @@ void	print_quote_error(void);
 void ft_putstr_fd(char *str, int fd);
 char	*ft_strchr(const char *s, int c);
 int	hanlde_here_doc(char *delimiter);
-void	prepare_cmd(t_command **cmd, t_token *tokens, t_gc **gc);
-void prepare_in_out(t_command **cmd, t_token *tokens , t_gc **gc);
+char	**prepare_cmd(t_token *tokens, t_gc **gc);
+char	*get_cmd(t_token *tokens, t_gc **gc);
+char	**prepare_in_out(t_token *tokens , t_gc **gc);
 
 //expansion
 void	expand_tokens(t_token *tokens, t_env *env, t_gc **gc);
 
 
 // list tools
-t_command	*ft_lstnew(char **content, t_gc **gc);
-// void	ft_lstadd_back(t_command **lst, t_command *new);
-// t_command	*ft_lstlast(t_command *lst);
-// void	ft_lstclear(t_command **lst, void (*del)(void*));
+t_command	*ft_lstnew(t_token	*tokens, t_gc **gc);
+void	create_cmd_list(t_token *tokens , t_command **cmd_list, t_gc **gc);
 
 //Garbage collector
 //void	ft_addnew(t_gc **gc, void * add);
 //t_gc	*struct_fill(t_gc *gc, void * add);
 void *ft_malloc(size_t size, t_gc **gc);
 void ft_gcfree(t_gc **gc);
+void ft_lstclear(t_command **lst, t_gc **gc);
 
 // general purpose
 void ft_putstr(char *str);
@@ -144,5 +144,6 @@ size_t	ft_strlen(char *str);
 char	**ft_split(char *s, char c , t_gc **gc);
 char	*ft_strjoin(char *s1, char *s2, t_gc **gc);
 int	ft_isalnum(int c);
+char	*ft_strtrim(char *s1, char const *set, t_gc **gc);
 
 #endif

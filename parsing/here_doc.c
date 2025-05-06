@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:28:34 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/24 16:06:11 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/03 20:41:54 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	hanlde_here_doc(char *delimiter)
 {
-	char *line;
-	int fd[2];
+	char	*line;
+	int		fd[2];
 
 	unlink("here_doc");
 	fd[0] = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0777);

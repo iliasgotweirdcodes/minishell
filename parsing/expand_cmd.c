@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:32:54 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/01 15:49:39 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/04 17:41:27 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,6 @@ char	*get_env_value(char *var_name, t_env *env)
 		current = current->next;
 	}
 	return (NULL);
-}
-
-char	*ft_strtrim(char *s1, char const *set, t_gc **gc)
-{
-	size_t	start;
-	size_t	end;
-	char	*result;
-
-	if (!s1 || !set)
-		return (NULL);
-	start = 0;
-	end = ft_strlen(s1);
-	while (s1[start] && ft_strchr(set, s1[start]))
-		start++;
-	while (end > start && ft_strchr(set, s1[end - 1]))
-		end--;
-	result = ft_substr(s1, start, end - start, gc);
-	return (result);
 }
 
 char	*append_char(char *str, char c, t_gc **gc)
@@ -63,9 +45,12 @@ char	*append_char(char *str, char c, t_gc **gc)
 	new_str = ft_malloc(len + 2, gc);
 	if (!new_str)
 		return (NULL);
-	i = -1;
-	while (++i < len)
+	i = 0;
+	while (i < len)
+	{
 		new_str[i] = str[i];
+		i++;
+	}
 	new_str[len] = c;
 	new_str[len + 1] = '\0';
 	return (new_str);

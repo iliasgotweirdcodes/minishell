@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:01:13 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/29 21:31:59 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/04 17:59:56 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,31 +79,25 @@ int handle_word(char *input, int i, t_token **token_list, t_gc **gc)
 
 t_token *ft_tokenization(char *input, t_gc **gc)
 {
-    t_token *token_list = NULL;
-    int i = 0;
-    int error = 0;
+    t_token *token_list;
+    int     i;
 
-    while (input[i] && !error)
+    token_list = NULL;
+    i = 0;
+    while (input[i])
     {
         while (input[i] == ' ')
             i++;
         if (!input[i])
-            break;
+            break ;
         if (is_shell_operator(input[i]))
             i = handle_operator(input, i, &token_list, gc);
         else
         {
-            int new_i = handle_word(input, i, &token_list, gc);
-            if (new_i == -1)
-                error = 1;
-            else
-                i = new_i;
+            i = handle_word(input, i, &token_list, gc);
+            if (i == -1)
+                return (NULL);
         }
-    }
-    if (error)
-    {
-        // ft_clear_tokens(&token_list);
-        return (NULL);
     }
     return (token_list);
 }

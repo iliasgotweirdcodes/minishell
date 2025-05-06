@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 18:07:14 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/25 16:40:36 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/03 16:54:05 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void *ft_malloc(size_t size, t_gc **gc)
         return (NULL);
     // if (ptr_exist(gc, add) == 1)
     //{
-    //    return (ptr) 
+    //    return (ptr)
     //}
     struct_fill(gc,ptr);
     return (ptr);
@@ -82,6 +82,8 @@ void ft_gcfree(t_gc **gc)
     t_gc *tmp;
     t_gc *tm;
 
+    if (!gc || !*gc)
+        return ;
     tmp = *gc;
     while (tmp)
     {
@@ -90,6 +92,7 @@ void ft_gcfree(t_gc **gc)
         tmp = tmp->next;
         free(tm);
     }
+    *gc = NULL;
 }
 
 // void f ()

@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 19:37:53 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/29 16:16:41 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/02 17:13:43 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**ft_free(char **str)
 	return (NULL);
 }
 
-char	**ft_allocation(char **str, char *s, char c)
+char	**ft_allocation(char **str, char *s, char c, t_gc **gc)
 {
 	size_t	i;
 	size_t	j;
@@ -64,7 +64,7 @@ char	**ft_allocation(char **str, char *s, char c)
 		end = start;
 		while (s[end] != c && s[end])
 			end++;
-		str[i] = (char *)malloc(sizeof(char) * (end - start + 1));
+		str[i] = (char *)ft_malloc(end - start + 1, gc);
 		if (!str[i])
 			return (ft_free(str), NULL);
 		j = 0;
@@ -88,7 +88,7 @@ char	**ft_split(char *s, char c , t_gc **gc)
 	str = (char **)ft_malloc(sizeof(char *) * len, gc);
 	if (!str)
 		return (NULL);
-	str = ft_allocation(str, s, c);
+	str = ft_allocation(str, s, c , gc);
 	if (!str)
 		return (ft_free(str), NULL);
 	return (str);

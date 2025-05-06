@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/01 15:39:11 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:50:37 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,47 @@ void	print_tokens(t_token *tokens)
 		i++;
 	}
 }
+void	print_in_out(t_command *cmd)
+{
+	t_command *current = cmd;
+	while (current)
+	{
+		if (current->in_out)
+		{
+			int i = 0;
+			while (current->in_out[i] != NULL)
+			{
+				printf("in_out[%d] = %s\n", i, current->in_out[i]);
+				i++;
+				}
+		}
+		current = current->next;
+	}
+}
+
+void	print_commands(t_command *cmd)
+{
+	t_command *current = cmd;
+	while (current)
+	{
+		if (current->cmd)
+		{
+			int i = 0;
+			while (current->cmd[i] != NULL)
+			{
+				printf("cmd[%d] = %s\n", i, current->cmd[i]);
+				i++;
+			}
+		}
+		current = current->next;
+	}
+}
 
 int main(int ac , char **av, char **env)
 {
 	char	*input;
 	t_token	*tokens = NULL;
 	t_command	*cmd = NULL;
-	// t_command	*in_out = NULL;
 	t_gc 	*gc = NULL;
 	t_gc 	*gc_env = NULL;
 	t_env	*m_env = NULL;
@@ -147,26 +181,14 @@ int main(int ac , char **av, char **env)
 		}
 		if (validate_syntax(tokens))
 		{
-			// ft_clear_tokens(&tokens);
 			free(input);
 			continue ;
 		}
-		// prepare_cmd(&cmd, tokens, &gc);
-		// prepare_in_out(&in_out, tokens, &gc);
-		// int i = 0;
-		// while(cmd->cmd[i])
-		// {
-		// 	printf("cmd->cmd[i] = %s , i = %d\n", cmd->cmd[i], i);
-		// 	i++;
-		// }
-		// i = 0;
-		// while (in_out->in_out[i])
-		// {
-		// 	printf("in_out->in_out[i] = %s , i = %d\n", in_out->in_out[i], i);
-		// 	i++;
-		// }
-		print_tokens(tokens);
-		// ft_clear_tokens(&tokens);
+		create_cmd_list(tokens, &cmd, &gc);
+		// print_commands(cmd);
+		// print_in_out(cmd);
+		ft_gcfree(&gc);
+		cmd = NULL;
 		free(input);
 	}
 	return (0);
