@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/06 16:50:37 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:53:41 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ int main(int ac , char **av, char **env)
 			continue ;
 		}
 		create_cmd_list(tokens, &cmd, &gc);
+		cmd_execuiter(&cmd, &m_env, &gc);
 		// print_commands(cmd);
 		// print_in_out(cmd);
 		ft_gcfree(&gc);
