@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/01 20:28:46 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/06 15:48:34 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,6 +234,8 @@ int sep_exist(char *str, char sep)
     }
     return (0);
 }
+
+
 
 int add_varenv(t_env **env, char *key_val, t_gc **exec)
 {

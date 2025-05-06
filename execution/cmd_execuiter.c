@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:57:50 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/02 18:09:51 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/06 15:57:49 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,17 @@ int cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec)
     t_command *cmd;
     char **my_env;
     int fd[2];
+    static int flag;
     //struct termios old_stdin;
 
     fd[0] = dup(0);
     fd[1] = dup(1);
     //tcgetattr(1,&old_stdin);
+    if (flag == 0)
+    {
+        unset_builtins(env,"OLDPWD");
+        flag = 1;
+    }
     my_env = env_converter(env, exec);
     if (!my_env)
         return (1);

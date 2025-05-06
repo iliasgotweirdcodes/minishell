@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/02 18:02:24 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/06 15:52:46 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int export(t_env **my_env, t_command **cmd, t_gc **exec);
 void env_builtins(t_env **my_env, t_gc **gc);
 //void env_builtins(char **my_env, t_gc **gc);
 void pwd_builtins(void);
+// void pwd_builtins(t_command **cmd);
+void ft_changeval(t_env **env, char *key_val, t_gc **exec);
 void    unset_builtins(t_env **env, char *key);
 void exit_builtins(t_gc **gc);
 int single_command(t_command **cmd, char **env, t_gc **exec);
@@ -100,6 +102,7 @@ int cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec);
 void redirection_handel(t_command **t_cmd);
 int multi_cmd(char **env, t_command **cmd,t_gc **exec);
 int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec);
+int is_key(t_env **env, char *key_val, t_gc **exec);
 
 
 //parsing
