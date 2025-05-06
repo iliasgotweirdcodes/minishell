@@ -3,18 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/05/04 19:37:18 by ilel-hla         ###   ########.fr       */
-=======
-/*   Updated: 2025/05/06 15:52:46 by aromani          ###   ########.fr       */
->>>>>>> 1dbfcb61cc00015dc5bc42e86b53ea9584f08bf2
+/*   Updated: 2025/05/06 16:54:50 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -41,7 +35,6 @@ typedef enum e_token_type {
 	DOUBLE_QUOTE,
 	SINGLE_QUOTE,
 } t_token_type;
-
 
 typedef struct s_env
 {
