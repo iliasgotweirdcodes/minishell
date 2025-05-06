@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/04/30 18:02:30 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/06 15:53:48 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void go_home(t_env **s_env, t_gc **gc)
     if(!home_path)
         return ;
     home_path = ft_strndup2(home_path + 5, ft_strlen(home_path) - 4, gc);
+    // printf("home path = %s\n",home_path);
     if (!home_path)
         return ;
     if (chdir(home_path) == -1)
@@ -106,7 +107,8 @@ void go_home(t_env **s_env, t_gc **gc)
 void cd_builtins(char *path, t_env **s_env, t_gc **gc)
 {
     char *pwd;
-    
+    char *old_path;
+    char *new_path;
     
     pwd = getcwd(NULL, 0);
     if (!pwd)
@@ -118,17 +120,32 @@ void cd_builtins(char *path, t_env **s_env, t_gc **gc)
     else if (get_len(pwd, '/') < cdcounter(path))
     {
         if (access(path, F_OK) == -1 && cdcounter(path) == -1)
+        {
             printf("minishell: cd: %s: No such file or directory", path);
+            return ;
+        }
         if (chdir("/") == -1)
-            perror("");
+            return (perror(""));
     }
     else
     {
-        if (access(path, F_OK) == -1)
-            printf("minishell: cd: %s: No such file or directory", path);
         if (chdir(path) == -1)
             perror("");
     }
+    //unset_builtins(s_env, "OLDPWD");
+    old_path = ft_strjoinv3("OLDPWD=", pwd, gc);
+    if (!old_path)
+        return (free(pwd));
+    if (is_key(s_env,old_path, gc) == 0)
+        ft_changeval(s_env, old_path, gc);
+    else
+        add_varenv(s_env, old_path, gc);
+    new_path = getcwd(NULL, 0);
+    if (!new_path)
+        return (free(pwd));
+    ft_changeval(s_env, ft_strjoinv3("PWD=",new_path, gc), gc);
+    free(new_path);
+    free(pwd);
 }
 
-/// : in parent proccess : export with args && cd && exit && unset
+// : in parent proccess : export with args && cd && exit && unset

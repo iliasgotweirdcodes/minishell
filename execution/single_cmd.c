@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:15:29 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/01 01:31:23 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/02 18:08:29 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void redirection_handel(t_command **t_cmd)
 }
 
 
-void single_command(t_command **cmd, char **env, t_gc **exec)
+int single_command(t_command **cmd, char **env, t_gc **exec)
 {
     pid_t id;
     char *str;
@@ -156,11 +156,11 @@ void single_command(t_command **cmd, char **env, t_gc **exec)
     if (!str)
     {
         printf("minishell: %s: command not found",(*cmd)->cmd[0]);
-        return ;
+        return (1);
     }
     id = fork();
     if (id < 0)
-        return (perror(""), exit(1));
+        return (perror(""), exit(1), 1);
     if (id == 0)
     {
         redirection_handel(cmd);
@@ -170,5 +170,7 @@ void single_command(t_command **cmd, char **env, t_gc **exec)
             exit(1);
         }
     }
-    return ;
+    // while (wait(0) != -1)
+    //     ;
+    return (0);
 }

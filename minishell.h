@@ -3,12 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/04 19:37:18 by ilel-hla         ###   ########.fr       */
+=======
+/*   Updated: 2025/05/06 15:52:46 by aromani          ###   ########.fr       */
+>>>>>>> 1dbfcb61cc00015dc5bc42e86b53ea9584f08bf2
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef MINISHELL_H
@@ -21,6 +26,7 @@
 # include <fcntl.h>
 # include <signal.h>
 #include <stddef.h>
+#include <termios.h>
 
 # include "readline/readline.h"
 # include "readline/history.h"
@@ -86,15 +92,21 @@ void get_env(char **env, t_env **my_env, t_gc **exec);
 void cd_builtins(char *path, t_env **s_env, t_gc **exec);
 void echo_builtind(t_command *cmd);
 int export(t_env **my_env, t_command **cmd, t_gc **exec);
+ //int export(t_env **my_env, t_command **cmd, t_gc **exec);
+//int export(t_env **my_env, t_command **cmd, t_gc **exec, char **env);
 void env_builtins(t_env **my_env, t_gc **gc);
+//void env_builtins(char **my_env, t_gc **gc);
 void pwd_builtins(void);
+// void pwd_builtins(t_command **cmd);
+void ft_changeval(t_env **env, char *key_val, t_gc **exec);
 void    unset_builtins(t_env **env, char *key);
 void exit_builtins(t_gc **gc);
-void single_command(t_command **cmd, char **env, t_gc **exec);
-void cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec);
+int single_command(t_command **cmd, char **env, t_gc **exec);
+int cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec);
 void redirection_handel(t_command **t_cmd);
-void multi_cmd(char **env, t_command **cmd,t_gc **exec);
-void builtins_execuition(t_command **cmd, t_env **env, t_gc **exec);
+int multi_cmd(char **env, t_command **cmd,t_gc **exec);
+int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec);
+int is_key(t_env **env, char *key_val, t_gc **exec);
 
 
 //parsing

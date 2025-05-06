@@ -207,6 +207,7 @@ int main(int argc, char *argv[], char **env) {
         // env_builtins(&env_struct, &gc);
         //pwd_builtins();
         // is_builtin(cmd_list);
+        //setup_signals();
         cmd_execuiter(&cmd_list, &env_struct, &gc);
         sleep(2);
         //printf("ergergergerge\n");

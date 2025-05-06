@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:32:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/01 01:57:47 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/02 18:13:55 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,23 @@ void singel_pipe(char **env, t_command **cmd, char *path, t_gc **exec)
     if (id == 0)
     {
         
-        redirection_handel(cmd);
         close(fd[0]);
         dup2(fd[1],1);
         close(fd[1]);
-        if (is_builtinns(*cmd))
+        redirection_handel(cmd);
+        if (is_builtinns(*cmd) == 0)
         {
             builtins_execuition(cmd, (*cmd)->env_ptr, exec);
+            exit(0);
         }
         else
         {
             if (path)
             {
+                // close(fd[0]);
+                // dup2(fd[1],1);
+                // close(fd[1]);
+                printf("hi from execve runner\n");
                 if (execve(path,(*cmd)->cmd,env) < 0)
                     perror("");
             }
@@ -45,6 +50,7 @@ void singel_pipe(char **env, t_command **cmd, char *path, t_gc **exec)
     }
     else
     {
+        printf("hi from else pipe \n");
         close(fd[1]);
         dup2(fd[0], 0);
         close(fd[0]);
@@ -54,7 +60,7 @@ void singel_pipe(char **env, t_command **cmd, char *path, t_gc **exec)
 
 
 
-void last_command(t_command **cmd, char **env, t_gc **exec)
+int last_command(t_command **cmd, char **env, t_gc **exec)
 {
     pid_t id;
     char *str;
@@ -63,11 +69,11 @@ void last_command(t_command **cmd, char **env, t_gc **exec)
     if (!str)
     {
         printf("minishell: %s: command not found",(*cmd)->cmd[0]);
-        return ;
+        return (1);
     }
     id = fork();
     if (id < 0)
-        return (perror(""), exit(1));
+        return (perror(""), exit(1), 1);
     if (id == 0)
     {
         redirection_handel(cmd);
@@ -82,14 +88,13 @@ void last_command(t_command **cmd, char **env, t_gc **exec)
             }
         }
     }
-    return ;
+    return (0);
 }
 
-void multi_cmd(char **env, t_command **cmd,t_gc **exec)
+int multi_cmd(char **env, t_command **cmd,t_gc **exec)
 {
     t_command *tmp;
     char *path;
-    int flag = 0;
 
     tmp = *cmd;
     while (tmp && tmp->next)
@@ -100,13 +105,13 @@ void multi_cmd(char **env, t_command **cmd,t_gc **exec)
         if (!path)
         {
             printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
-            flag = -1;
         }
         singel_pipe(env, &tmp, path, exec);
         tmp = tmp->next;
     }
     if (tmp)
         last_command(&tmp,env,exec);
-    while (wait(0) != -1)
-        ;
+    return (0);
 }
+
+//sigpipe
