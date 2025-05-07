@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:32:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/02 18:13:55 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/07 19:57:56 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void singel_pipe(char **env, t_command **cmd, char *path, t_gc **exec)
         perror("");
     if (id == 0)
     {
-        
+
         close(fd[0]);
         dup2(fd[1],1);
         close(fd[1]);
@@ -55,7 +55,7 @@ void singel_pipe(char **env, t_command **cmd, char *path, t_gc **exec)
         dup2(fd[0], 0);
         close(fd[0]);
     }
-    
+
 }
 
 
@@ -68,7 +68,7 @@ int last_command(t_command **cmd, char **env, t_gc **exec)
     str = last_path(env, (*cmd)->cmd, exec);
     if (!str)
     {
-        printf("minishell: %s: command not found",(*cmd)->cmd[0]);
+        printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
         return (1);
     }
     id = fork();

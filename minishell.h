@@ -6,9 +6,10 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/06 16:54:50 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:04:33 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -35,6 +36,8 @@ typedef enum e_token_type {
 	DOUBLE_QUOTE,
 	SINGLE_QUOTE,
 } t_token_type;
+
+extern int g_exit_status; // Global variable to hold the exit status
 
 typedef struct s_env
 {
@@ -118,7 +121,6 @@ void	print_quote_error(void);
 int		is_space(char c);
 int		is_redirection(t_token_type type);
 void	print_quote_error(void);
-void ft_putstr_fd(char *str, int fd);
 char	*ft_strchr(const char *s, int c);
 int	hanlde_here_doc(char *delimiter);
 char	**prepare_cmd(t_token *tokens, t_gc **gc);
@@ -136,19 +138,21 @@ void	create_cmd_list(t_token *tokens , t_command **cmd_list, t_gc **gc);
 //Garbage collector
 //void	ft_addnew(t_gc **gc, void * add);
 //t_gc	*struct_fill(t_gc *gc, void * add);
-void *ft_malloc(size_t size, t_gc **gc);
-void ft_gcfree(t_gc **gc);
-void ft_lstclear(t_command **lst, t_gc **gc);
+void	*ft_malloc(size_t size, t_gc **gc);
+void	ft_gcfree(t_gc **gc);
+void	ft_lstclear(t_command **lst, t_gc **gc);
 
 // general purpose
-void ft_putstr(char *str);
-int	ft_strcmp(const char *s1, const char *s2);
+void	ft_putstr(char *str);
+void	ft_putstr_fd(char *str, int fd);
+int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(char *str, t_gc **gc);
 char	*ft_substr(char *s, int start, size_t len, t_gc **gc);
 size_t	ft_strlen(char *str);
 char	**ft_split(char *s, char c , t_gc **gc);
 char	*ft_strjoin(char *s1, char *s2, t_gc **gc);
-int	ft_isalnum(int c);
+int		ft_isalnum(int c);
 char	*ft_strtrim(char *s1, char const *set, t_gc **gc);
+char	*ft_itoa(int n, t_gc **gc);
 
 #endif

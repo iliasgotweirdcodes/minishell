@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:32:54 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/04 17:41:27 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:59:02 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,39 @@ char	*append_char(char *str, char c, t_gc **gc)
 	return (new_str);
 }
 
-char	*handle_dollar(char *value, int *i, t_env *env, char *res, t_gc **gc)
+char    *handle_dollar(char *value, int *i, t_env *env, char *res, t_gc **gc)
 {
-	int		start;
-	char	*var_name;
-	char	*var_value;
-	char	*new_res;
+    int     start;
+    char    *var_name;
+    char    *var_value;
+    char    *new_res;
 
-	start = ++(*i);
-	while (value[*i] && (ft_isalnum(value[*i]) || value[*i] == '_'))
-		(*i)++;
-	var_name = ft_substr(value, start, *i - start, gc);
-	if (!var_name)
-		return (NULL);
-	var_value = get_env_value(var_name, env);
-	if (!var_value)
-		var_value = "";
-	new_res = ft_strjoin(res, var_value, gc);
-	return (new_res);
+    start = ++(*i);
+    // Check for $? (exit status variable)
+    if (value[start] == '?')
+    {
+        var_name = ft_strdup("?", gc); // Special case for $?
+        (*i)++; // Move past '?'
+    }
+    else
+    {
+        // Existing logic for environment variables
+        while (value[*i] && (ft_isalnum(value[*i]) || value[*i] == '_'))
+            (*i)++;
+        var_name = ft_substr(value, start, *i - start, gc);
+    }
+    if (!var_name)
+        return (NULL);
+    if (ft_strcmp(var_name, "?") == 0)
+        var_value = ft_itoa(g_exit_status, gc); // Convert exit status to string
+    else
+    {
+        var_value = get_env_value(var_name, env);
+        if (!var_value)
+            var_value = "";
+    }
+    new_res = ft_strjoin(res, var_value, gc);
+    return (new_res);
 }
 
 char	*process_quotes_and_vars(char *value, t_env *env, t_gc **gc)

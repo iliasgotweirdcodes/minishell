@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:15:29 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/02 18:08:29 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/07 19:58:02 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int keyred_counter(char **cmd)
     i = 0;
     while (cmd[i])
     {
-        if (ft_strcmp(cmd[i], "<") == 0 || ft_strcmp(cmd[i], ">") == 0 || 
+        if (ft_strcmp(cmd[i], "<") == 0 || ft_strcmp(cmd[i], ">") == 0 ||
             ft_strcmp(cmd[i], "<<") == 0 || ft_strcmp(cmd[i], ">>") == 0)
                 c++;
         i++;
@@ -137,13 +137,13 @@ void redirection_handel(t_command **t_cmd)
     //         fd = open((*t_cmd)->in_out[i + 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
     //          if (fd == -1)
     //             return ;
-    //         dup2(fd, 1); 
+    //         dup2(fd, 1);
     //         close(fd);
     //     }
     //     else if (ft_strcmp((*t_cmd)->in_out[i], "<<") == 0)
     //         dup2(heredoc_fd, 0);
     //     i++;
-    // }   
+    // }
 }
 
 
@@ -155,7 +155,7 @@ int single_command(t_command **cmd, char **env, t_gc **exec)
     str = last_path(env, (*cmd)->cmd, exec);
     if (!str)
     {
-        printf("minishell: %s: command not found",(*cmd)->cmd[0]);
+        printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
         return (1);
     }
     id = fork();
