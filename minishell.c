@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/07 22:58:51 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/07 23:00:54 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,9 @@ int main(int ac , char **av, char **env)
 		if (validate_syntax(&tokens) == 1)
 			continue ;
 		create_cmd_list(tokens, &cmd, &gc);
-		// printf(">>>>>>>>>>>>>>>>>>>>>>>%d  \n",cmd->here_docfd);
-		// cmd_execuiter(&cmd, &m_env, &gc);
+		cmd_execuiter(&cmd, &m_env, &gc_exec);
 		// ft_gcfree(&gc);
 		// cmd = NULL;
-   		cmd_execuiter(&cmd, &m_env, &gc_exec);
-		// print_commands(cmd);
-		// print_in_out(cmd);
-		 ft_gcfree(&gc);
-		cmd_execuiter(&cmd, &m_env, &gc_exec);
-		ft_gcfree(&gc);
-		cmd = NULL;
 		free(input);
 	}
 	return (0);
