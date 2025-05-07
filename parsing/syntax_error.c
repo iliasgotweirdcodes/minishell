@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 22:58:22 by ilel-hla          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/07 21:51:51 by ilel-hla         ###   ########.fr       */
+=======
+/*   Updated: 2025/05/07 20:19:24 by aromani          ###   ########.fr       */
+>>>>>>> b13c0cb159fe17d2d74ac12afa31ed1a66efd755
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +45,11 @@ int	validate_syntax(t_token **tokens)
     {
         if (current->type == HEREDOC && current->next && current->next->type == WORD)
         {
+<<<<<<< HEAD
             ft_handle_err_here_doc(current);
+=======
+            current->here_docfd = hanlde_here_doc(current->next->value);
+>>>>>>> b13c0cb159fe17d2d74ac12afa31ed1a66efd755
             if (current->next && current->next->type == WORD)
             {
                 prev = current->next;
