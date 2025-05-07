@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 16:25:14 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/07 19:08:12 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/07 20:11:31 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_command	*create_cmd_node(t_token *tokens, t_gc **gc)
 	node->in_out = prepare_in_out(tokens, gc);
 	node->next = NULL;
 	node->prev = NULL;
-	node->here_docfd = 0;
+	node->here_docfd = tokens->here_docfd;
 	return (node);
 }
 

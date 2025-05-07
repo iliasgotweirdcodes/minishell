@@ -6,13 +6,10 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/05/07 20:04:33 by ilel-hla         ###   ########.fr       */
-=======
-/*   Updated: 2025/05/07 14:40:38 by aromani          ###   ########.fr       */
->>>>>>> 66e3f7ecccf141143a261c02de9d27d3ea8ad006
+/*   Updated: 2025/05/07 20:09:02 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef MINISHELL_H
@@ -104,7 +101,7 @@ void redirection_handel(t_command **t_cmd);
 int multi_cmd(char **env, t_command **cmd,t_gc **exec);
 int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec);
 int is_key(t_env **env, char *key_val, t_gc **exec);
-char	*ft_itoa(int nbr);
+// char	*ft_itoa(int nbr);
 void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc);
 
 

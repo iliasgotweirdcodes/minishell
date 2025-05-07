@@ -6,13 +6,10 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:15:29 by aromani           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/05/07 19:58:02 by ilel-hla         ###   ########.fr       */
-=======
-/*   Updated: 2025/05/07 18:56:27 by aromani          ###   ########.fr       */
->>>>>>> 66e3f7ecccf141143a261c02de9d27d3ea8ad006
+/*   Updated: 2025/05/07 20:10:13 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../minishell.h"
 
@@ -135,7 +132,6 @@ void redirection_handel(t_command **t_cmd)
         dup2(red_out, 1);
         close(red_out);
     }
-<<<<<<< HEAD
     // (void)heredoc_fd;
     // // j = 0;
     // // while ((*t_cmd)->in_out[j])
@@ -162,8 +158,6 @@ void redirection_handel(t_command **t_cmd)
     //         dup2(heredoc_fd, 0);
     //     i++;
     // }
-=======
->>>>>>> 66e3f7ecccf141143a261c02de9d27d3ea8ad006
 }
 
 void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc)
@@ -182,7 +176,7 @@ void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc)
         if (val > 999)
             val = 1;
         val++;
-        new_val = ft_strjoinv3("SHLVL=", ft_itoa(val), gc);
+        new_val = ft_strjoinv3("SHLVL=", ft_itoa(val, gc), gc);
         ft_changeval(env, new_val, gc);
     }
 }

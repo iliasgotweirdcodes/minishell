@@ -6,13 +6,10 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/05/07 18:43:47 by ilel-hla         ###   ########.fr       */
-=======
-/*   Updated: 2025/05/07 18:58:32 by aromani          ###   ########.fr       */
->>>>>>> 66e3f7ecccf141143a261c02de9d27d3ea8ad006
+/*   Updated: 2025/05/07 20:09:17 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -62,11 +59,9 @@ int main(int ac , char **av, char **env)
 		if (validate_syntax(tokens))
 			continue ;
 		create_cmd_list(tokens, &cmd, &gc);
-<<<<<<< HEAD
 		cmd_execuiter(&cmd, &m_env, &gc);
 		// ft_gcfree(&gc);
 		// cmd = NULL;
-=======
 		printf("%d  \n",cmd->here_docfd);
    		cmd_execuiter(&cmd, &m_env, &gc_exec);
 		// print_commands(cmd);
@@ -74,7 +69,6 @@ int main(int ac , char **av, char **env)
 		 ft_gcfree(&gc);
 		cmd = NULL;
 		free(input);
->>>>>>> 66e3f7ecccf141143a261c02de9d27d3ea8ad006
 	}
 	return (0);
 }

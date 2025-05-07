@@ -20,9 +20,6 @@ SRC =  minishell.c parsing/signal.c parsing/tokenization.c parsing/token_utils.c
 		execution/cmd_execuiter.c execution/multiple_cmd.c \
 		execution/single_cmd.c \
 
-		execution/cmd_execuiter.c execution/multiple_cmd.c               \
-		execution/single_cmd.c        execution/builtins/utils/ft_itoa.c \
-
 # SRC =  execution/main.c parsing/signal.c parsing/tokenization.c parsing/token_utils.c parsing/helpers.c \
 # SRC =  minishell.c parsing/signal.c parsing/tokenization.c parsing/token_utils.c parsing/helpers.c \
 # 		parsing/error.c parsing/syntax_error.c parsing/syntax_utils.c execution/builtins/utils/utils_01.c \
