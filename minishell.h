@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/07 20:09:02 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:36:02 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,18 @@ void	ft_error(char *msg);
 int		is_operator(t_token_type type);
 int		is_quote(char c);
 int		is_space(char c);
-int		validate_syntax(t_token *tokens);
+int		validate_syntax(t_token **tokens);
 void	print_syntax_error(t_token *token);
 void	print_quote_error(void);
 int		is_space(char c);
 int		is_redirection(t_token_type type);
 void	print_quote_error(void);
 char	*ft_strchr(const char *s, int c);
-int	hanlde_here_doc(char *delimiter);
+int	ft_here_doc(char *delimiter);
+void	ft_handle_err_here_doc(t_token *tokens);
 char	**prepare_cmd(t_token *tokens, t_gc **gc);
 char	*get_cmd(t_token *tokens, t_gc **gc);
-char	**prepare_in_out(t_token *tokens , t_gc **gc);
+char    **prepare_in_out(t_token *tokens, t_command *cmd, t_gc **gc);
 char	*get_env_value(char *var_name, t_env *env);
 
 

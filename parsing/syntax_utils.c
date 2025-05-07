@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 00:17:02 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/04/23 00:17:06 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:48:50 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_space(char c)
 	return (c == ' ' || c == '\t' || c == '\n');
 }
 
-char	*get_operator_symbol(t_token_type type)
+char	*get_symbol(t_token_type type)
 {
 	if (type == PIPE)
 		return ("|");
@@ -47,7 +47,7 @@ void	print_syntax_error(t_token *token)
 		if (token->type == WORD)
 			value = token->value;
 		else
-			value = get_operator_symbol(token->type);
+			value = get_symbol(token->type);
 	}
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(value, 2);

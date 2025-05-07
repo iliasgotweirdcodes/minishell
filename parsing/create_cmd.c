@@ -1,52 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_tools.c                                       :+:      :+:    :+:   */
+/*   create_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/24 16:25:14 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/07 20:11:31 by ilel-hla         ###   ########.fr       */
+/*   Created: 2025/05/07 21:03:02 by ilel-hla          #+#    #+#             */
+/*   Updated: 2025/05/07 22:26:09 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*create_token_copy(t_token *src, t_gc **gc)
-{
-	t_token	*copy;
+// t_token	*token_copy(t_token *src, t_gc **gc)
+// {
+// 	t_token	*copy;
 
-	copy = ft_malloc(sizeof(t_token), gc);
-	if (!copy)
-		return (NULL);
-	copy->type = src->type;
-	copy->value = ft_strdup(src->value, gc);
-	copy->next = NULL;
-	return (copy);
-}
+// 	copy = ft_malloc(sizeof(t_token), gc);
+// 	if (!copy)
+// 		return (NULL);
+// 	copy->type = src->type;
+// 	copy->value = ft_strdup(src->value, gc);
+// 	copy->next = NULL;
+// 	return (copy);
+// }
 
-t_token	*split_cmd_tokens(t_token *start, t_token *end, t_gc **gc)
-{
-	t_token	*head;
-	t_token	**tail;
-	t_token	*current;
+// t_token	*split_cmd(t_token *start, t_token *end, t_gc **gc)
+// {
+// 	t_token	*head;
+// 	t_token	**tail;
+// 	t_token	*current;
 
-	head = NULL;
-	tail = &head;
-	current = start;
-	while (current && current != end)
-	{
-		*tail = create_token_copy(current, gc);
-		if (!*tail)
-			return (NULL);
-		tail = &(*tail)->next;
-		current = current->next;
-	}
-	return (head);
-}
+// 	head = NULL;
+// 	tail = &head;
+// 	current = start;
+// 	while (current && current != end)
+// 	{
+// 		*tail = token_copy(current, gc);
+// 		if (!*tail)
+// 			return (NULL);
+// 		tail = &(*tail)->next;
+// 		current = current->next;
+// 	}
+// 	return (head);
+// }
 
 
-t_command	*create_cmd_node(t_token *tokens, t_gc **gc)
+t_command	*create_cmd(t_token *tokens, t_gc **gc)
 {
 	t_command	*node;
 
@@ -54,14 +54,13 @@ t_command	*create_cmd_node(t_token *tokens, t_gc **gc)
 	if (!node)
 		return (NULL);
 	node->cmd = prepare_cmd(tokens, gc);
-	node->in_out = prepare_in_out(tokens, gc);
+	node->in_out = prepare_in_out(tokens, node, gc);
 	node->next = NULL;
 	node->prev = NULL;
-	node->here_docfd = tokens->here_docfd;
 	return (node);
 }
 
-void	cmd_list_add_back(t_command **lst, t_command *new_node)
+void	cmd_add_back(t_command **lst, t_command *new_node)
 {
 	t_command	*last;
 
@@ -88,8 +87,7 @@ void	create_cmd_list(t_token *tokens, t_command **cmds, t_gc **gc)
 		cmd_end = cmd_start;
 		while (cmd_end && cmd_end->type != PIPE)
 			cmd_end = cmd_end->next;
-		cmd_list_add_back(cmds, create_cmd_node(
-				split_cmd_tokens(cmd_start, cmd_end, gc), gc));
+		cmd_add_back(cmds, create_cmd(cmd_start, gc));
 		if (cmd_end && cmd_end->type == PIPE)
 			cmd_start = cmd_end->next;
 		else

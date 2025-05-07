@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 19:23:19 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/05 20:22:28 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:55:11 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char *get_in_out(t_token *tokens, t_gc **gc)
 }
 
 
-char	**prepare_in_out(t_token *tokens, t_gc **gc)
+char	**prepare_in_out(t_token *tokens, t_command *cmd, t_gc **gc)
 {
 	t_token	*current;
 	char	**in_out;
@@ -80,20 +80,22 @@ char	**prepare_in_out(t_token *tokens, t_gc **gc)
 	if (count == 0)
 		return (NULL);
 	in_out = ft_malloc(sizeof(char *) * (count + 1), gc);
-	if (!in_out)
-		return (NULL);
 	current = tokens;
 	i = 0;
+	if (!in_out)
+		return (NULL);
 	while (current)
 	{
 		if (is_redirection(current->type))
 		{
 			in_out[i++] = get_redir(current->type);
-			if (current->next && current->next->type == WORD)
+			if (current->type == HEREDOC)
+				cmd->here_docfd = current->here_docfd;
+			else if (current->next)
+			{
 				in_out[i++] = ft_strdup(current->next->value, gc);
-			else
-				in_out[i++] = ft_strdup("MISSING_FILE", gc);
-			current = current->next;
+				current = current->next;
+			}
 		}
 		current = current->next;
 	}

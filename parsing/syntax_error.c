@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 22:58:22 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/07 20:07:41 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/07 21:51:51 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,20 @@ int	is_operator(t_token_type type)
     return (0);
 }
 
-int	validate_syntax(t_token *tokens)
+int	validate_syntax(t_token **tokens)
 {
     t_token	*current;
     t_token	*prev;
 
-    current = tokens;
+    current = *tokens;
     prev = NULL;
-    if (!tokens)
-        return (0);
     if (current->type == PIPE)
         return (print_syntax_error(current), 1);
     while (current)
     {
-         if (current->type == HEREDOC && current->next && current->next->type == WORD)
+        if (current->type == HEREDOC && current->next && current->next->type == WORD)
         {
-            tokens->here_docfd = hanlde_here_doc(current->next->value);
+            ft_handle_err_here_doc(current);
             if (current->next && current->next->type == WORD)
             {
                 prev = current->next;
