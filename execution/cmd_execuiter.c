@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:57:50 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/07 14:53:29 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/07 20:54:01 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec)
     //tcsetattr(1,0,&old_stdin);
     dup2(fd[0], 0);
     dup2(fd[1], 1);
+    close(fd[0]);
+    close(fd[1]);
     while (wait(0) != -1)
         ;
     // printf("hunged place\n");

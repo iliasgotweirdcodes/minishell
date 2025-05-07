@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 16:25:14 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/07 20:11:31 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:27:22 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,5 @@ void	create_cmd_list(t_token *tokens, t_command **cmds, t_gc **gc)
 		else
 			cmd_start = NULL;
 	}
+	printf("%d--------->  \n",(*cmds)->here_docfd);
 }

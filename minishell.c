@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/07 20:09:17 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/07 21:51:05 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
+#include <string.h>
 
 int g_exit_status = 0;
 
@@ -25,7 +26,7 @@ int main(int ac , char **av, char **env)
 	t_gc 	*gc_env = NULL;
 	t_env	*m_env = NULL;
 
-	cmd = NULL;
+	// memset(cmd, 0, sizeof(t_command));
 	get_env(env, &m_env, &gc_env);
 	//execuiter function
 	chell_lvlhandel(av,&m_env,&gc_exec);
@@ -59,14 +60,8 @@ int main(int ac , char **av, char **env)
 		if (validate_syntax(tokens))
 			continue ;
 		create_cmd_list(tokens, &cmd, &gc);
-		cmd_execuiter(&cmd, &m_env, &gc);
-		// ft_gcfree(&gc);
-		// cmd = NULL;
-		printf("%d  \n",cmd->here_docfd);
-   		cmd_execuiter(&cmd, &m_env, &gc_exec);
-		// print_commands(cmd);
-		// print_in_out(cmd);
-		 ft_gcfree(&gc);
+		cmd_execuiter(&cmd, &m_env, &gc_exec);
+		ft_gcfree(&gc);
 		cmd = NULL;
 		free(input);
 	}

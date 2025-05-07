@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:32:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/07 20:09:26 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:52:11 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,11 @@ void singel_pipe(char **env, t_command **cmd, char *path, t_gc **exec)
         {
             if (path)
             {
-                // close(fd[0]);
-                // dup2(fd[1],1);
-                // close(fd[1]);
-                printf("hi from execve runner\n");
                 if (execve(path,(*cmd)->cmd,env) < 0)
                     perror("");
             }
+            close(fd[0]);
+            close(fd[1]);
             exit(1);
         }
     }
@@ -116,4 +114,8 @@ int multi_cmd(char **env, t_command **cmd,t_gc **exec)
     return (0);
 }
 
-//sigpipe
+// //sigpipe
+// while true; do
+// leaks minishell
+// sleep 10
+// done
