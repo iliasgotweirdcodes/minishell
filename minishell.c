@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/06 16:53:41 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/07 18:58:32 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,11 +146,14 @@ int main(int ac , char **av, char **env)
 	t_token	*tokens = NULL;
 	t_command	*cmd = NULL;
 	t_gc 	*gc = NULL;
+	t_gc 	*gc_exec = NULL;
 	t_gc 	*gc_env = NULL;
 	t_env	*m_env = NULL;
 
 	cmd = NULL;
 	get_env(env, &m_env, &gc_env);
+	//execuiter function
+	chell_lvlhandel(av,&m_env,&gc_exec);
 	(void)av;
 	if (ac != 1)
 	{
@@ -185,10 +188,11 @@ int main(int ac , char **av, char **env)
 			continue ;
 		}
 		create_cmd_list(tokens, &cmd, &gc);
-		cmd_execuiter(&cmd, &m_env, &gc);
+		printf("%d  \n",cmd->here_docfd);
+   		cmd_execuiter(&cmd, &m_env, &gc_exec);
 		// print_commands(cmd);
 		// print_in_out(cmd);
-		ft_gcfree(&gc);
+		 ft_gcfree(&gc);
 		cmd = NULL;
 		free(input);
 	}
