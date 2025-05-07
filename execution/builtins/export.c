@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:30 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/01 20:33:59 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/06 18:03:57 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int export(t_env **my_env, t_command **cmd, t_gc **exec)
             printf("declare -x %s",tmp->key);
             if (tmp->value)
                 printf("=\"%s\"\n",tmp->value);
+            else
+                printf("\n");
             tmp = tmp->next;
         }
         return (0);

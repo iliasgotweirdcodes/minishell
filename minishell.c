@@ -6,7 +6,11 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/07 18:43:47 by ilel-hla         ###   ########.fr       */
+=======
+/*   Updated: 2025/05/07 18:58:32 by aromani          ###   ########.fr       */
+>>>>>>> 66e3f7ecccf141143a261c02de9d27d3ea8ad006
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +24,14 @@ int main(int ac , char **av, char **env)
 	t_token	*tokens = NULL;
 	t_command	*cmd = NULL;
 	t_gc 	*gc = NULL;
+	t_gc 	*gc_exec = NULL;
 	t_gc 	*gc_env = NULL;
 	t_env	*m_env = NULL;
 
 	cmd = NULL;
 	get_env(env, &m_env, &gc_env);
+	//execuiter function
+	chell_lvlhandel(av,&m_env,&gc_exec);
 	(void)av;
 	if (ac != 1)
 	{
@@ -55,9 +62,19 @@ int main(int ac , char **av, char **env)
 		if (validate_syntax(tokens))
 			continue ;
 		create_cmd_list(tokens, &cmd, &gc);
+<<<<<<< HEAD
 		cmd_execuiter(&cmd, &m_env, &gc);
 		// ft_gcfree(&gc);
 		// cmd = NULL;
+=======
+		printf("%d  \n",cmd->here_docfd);
+   		cmd_execuiter(&cmd, &m_env, &gc_exec);
+		// print_commands(cmd);
+		// print_in_out(cmd);
+		 ft_gcfree(&gc);
+		cmd = NULL;
+		free(input);
+>>>>>>> 66e3f7ecccf141143a261c02de9d27d3ea8ad006
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:24:09 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/06 16:56:50 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/07 15:27:03 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 	i = 0;
 	st1 = (unsigned char *)s1;
 	st2 = (unsigned char *)s2;
+	if (!s1 || !s2)
+		return (1);
 	while (st1[i] || st2[i])
 	{
 		if (st1[i] != st2[i])

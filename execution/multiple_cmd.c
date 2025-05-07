@@ -6,7 +6,11 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:32:17 by aromani           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/07 19:57:56 by ilel-hla         ###   ########.fr       */
+=======
+/*   Updated: 2025/05/07 15:07:58 by aromani          ###   ########.fr       */
+>>>>>>> 66e3f7ecccf141143a261c02de9d27d3ea8ad006
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +103,13 @@ int multi_cmd(char **env, t_command **cmd,t_gc **exec)
     tmp = *cmd;
     while (tmp && tmp->next)
     {
-        printf("<<<<<<<<<hi from multi>>>>>>>>> cmd  =  %s \n",tmp->cmd[0]);
+        //printf("<<<<<<<<<hi from multi>>>>>>>>> cmd  =  %s \n",tmp->cmd[0]);
 
         path = last_path(env, tmp->cmd, exec);
         if (!path)
         {
-            printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
+            if (tmp->cmd != NULL)
+                printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
         }
         singel_pipe(env, &tmp, path, exec);
         tmp = tmp->next;

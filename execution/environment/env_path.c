@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:26:34 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/02 15:23:32 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/07 15:06:10 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,13 +143,14 @@ char	*last_path(char **env, char **arg, t_gc **exec)
 {
 	char	*path;
 	char	*str;
-	char	*tmp;
+	char	*tmp = NULL;
 
 	path = path_geter("PATH", env);
 	if (!path)
 		return (NULL);
 	str = ft_substrv3(path, (ft_search2(path, '=') + 1), ft_strlen(path), exec);
-	tmp = access_path(arg[0], str, exec);
+	if (arg != NULL)
+		tmp = access_path(arg[0], str, exec);
 	if (!tmp)
 		return (NULL);
 	return (tmp);

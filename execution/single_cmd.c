@@ -6,7 +6,11 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:15:29 by aromani           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/07 19:58:02 by ilel-hla         ###   ########.fr       */
+=======
+/*   Updated: 2025/05/07 18:56:27 by aromani          ###   ########.fr       */
+>>>>>>> 66e3f7ecccf141143a261c02de9d27d3ea8ad006
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +70,18 @@ int keyred_counter(char **cmd)
     return (c);
 }
 
+void error_printer(char *str)
+{
+    write(2, "minishell: ", 11);
+    perror(str);
+}
+
 void redirection_handel(t_command **t_cmd)
 {
     int i;
     int red_in;
     int red_out;
     t_command *tmp;
-    //int fd;
 
     i = 0;
     red_out = -2;
@@ -85,24 +94,32 @@ void redirection_handel(t_command **t_cmd)
             if(red_in != -2)
                 close(red_in);
             red_in = open(tmp->in_out[i + 1], O_RDONLY);
+            if (red_in == -1)
+                return (error_printer (tmp->in_out[i + 1]));
         }
         else if (ft_strcmp(tmp->in_out[i],">") == 0)
         {
             if (red_out != -2)
                 close(red_out);
             red_out = open(tmp->in_out[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+            if (!red_in)
+                return (error_printer (tmp->in_out[i + 1]));
         }
         else if (ft_strcmp(tmp->in_out[i], ">>") == 0)
         {
             if (red_out != -2)
                 close(red_out);
             red_out = open(tmp->in_out[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
+            if (red_out == -1)
+                return (error_printer (tmp->in_out[i + 1]));
         }
         else if (ft_strcmp(tmp->in_out[i], "<<") == 0)
         {
              if(red_in != -2)
                 close(red_in);
             red_in = tmp->here_docfd;
+            if (red_in == -1)
+                return (error_printer (tmp->in_out[i + 1]));
         }
         i++;
     }
@@ -118,6 +135,7 @@ void redirection_handel(t_command **t_cmd)
         dup2(red_out, 1);
         close(red_out);
     }
+<<<<<<< HEAD
     // (void)heredoc_fd;
     // // j = 0;
     // // while ((*t_cmd)->in_out[j])
@@ -144,27 +162,60 @@ void redirection_handel(t_command **t_cmd)
     //         dup2(heredoc_fd, 0);
     //     i++;
     // }
+=======
+>>>>>>> 66e3f7ecccf141143a261c02de9d27d3ea8ad006
 }
 
+void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc)
+{
+    int val = 0;
+    char *new_val = NULL;
+    char *key;
 
-int single_command(t_command **cmd, char **env, t_gc **exec)
+    if (ft_strcmp(cmd[0], "./minishell") == 0)
+    {
+        key = get_env_value("SHLVL",*env);
+        if (key)
+            val = atoi(key);
+        if (val < 0)
+            val = 0;
+        if (val > 999)
+            val = 1;
+        val++;
+        new_val = ft_strjoinv3("SHLVL=", ft_itoa(val), gc);
+        ft_changeval(env, new_val, gc);
+    }
+}
+int single_command(t_command **cmd, char **env, t_gc **exec, t_env **m_env)
 {
     pid_t id;
-    char *str;
+    char *path;
 
-    str = last_path(env, (*cmd)->cmd, exec);
-    if (!str)
+    if (!(*cmd)->cmd)
+    {
+        redirection_handel(cmd);
+        return (0);
+    }
+    path = last_path(env, (*cmd)->cmd, exec);
+    if (!path)
     {
         printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
         return (1);
     }
+    //need too delete it
+    (void)m_env;
+    // if (ft_strcmp(path, "./minishell") == 0)
+    // {
+    //     chell_lvlhandel(m_env, exec);
+    //     //printf("%s  \n",path);
+    // }
     id = fork();
     if (id < 0)
         return (perror(""), exit(1), 1);
     if (id == 0)
     {
         redirection_handel(cmd);
-        if (execve(str, (*cmd)->cmd, env) == -1)
+        if (execve(path, (*cmd)->cmd, env) == -1)
         {
             perror("execve :");
             exit(1);
