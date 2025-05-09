@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:57:50 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/08 15:33:39 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 15:20:17 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec)
     {
         if (is_builtinns(cmd) == 0)
         {
-            printf("hello from builtins \n");
             redirection_handel(cmd_list);
             builtins_execuition(cmd_list, s_env, exec);
         }

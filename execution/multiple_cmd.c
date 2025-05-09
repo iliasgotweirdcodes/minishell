@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:32:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/08 17:19:01 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 18:21:31 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void singel_pipe(t_command **cmd, char *path, t_gc **exec, t_env **s_env)
         {
             if (path)
             {
+                if (opendir(path) != NULL)
+                    return (error_printer(path), exit(126),1);
                 if (execve(path,(*cmd)->cmd,env) < 0)
                     perror("");
             }
@@ -51,7 +53,6 @@ void singel_pipe(t_command **cmd, char *path, t_gc **exec, t_env **s_env)
     }
     else
     {
-        printf("hi from else pipe \n");
         close(fd[1]);
         dup2(fd[0], 0);
         close(fd[0]);
@@ -85,6 +86,8 @@ int last_command(t_command **cmd, char **env, t_gc **exec, t_env **struct_env)
         if(is_builtinns(*cmd) != 0)
         {
             redirection_handel(cmd);
+            if (opendir(path) != NULL)
+                return (error_printer(path), exit(126),1);
             if (execve(str, (*cmd)->cmd, env) == -1)
             {
                 perror("execve :");

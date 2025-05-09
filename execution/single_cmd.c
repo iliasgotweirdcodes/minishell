@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:15:29 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/08 19:46:36 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 18:19:47 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,11 @@ void redirection_handel(t_command **t_cmd)
     }
     if (red_in != -2)
     {
-        printf("ana fd n : %d dapeet fe 0\n",red_in);
         dup2(red_in, 0);
         close(red_in);
     }
     if (red_out != -2)
     {
-        printf("ana fd n : %d dapeet fe 1\n",red_out);
         dup2(red_out, 1);
         close(red_out);
     }
@@ -222,7 +220,7 @@ void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc)
 }
 
 
-int single_command(t_command **cmd, char **env, t_gc **exec, t_env **m_env)
+int single_command(t_command **cmd, char **env, t_gc **exec)
 {
     pid_t id;
     char *path;
@@ -238,19 +236,15 @@ int single_command(t_command **cmd, char **env, t_gc **exec, t_env **m_env)
         printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
         return (1);
     }
-    //need too delete it
-    (void)m_env;
-    // if (ft_strcmp(path, "./minishell") == 0)
-    // {
-    //     chell_lvlhandel(m_env, exec);
-    //     //printf("%s  \n",path);
-    // }
+    
     id = fork();
     if (id < 0)
         return (perror(""), exit(1), 1);
     if (id == 0)
     {
         redirection_handel(cmd);
+        if (opendir(path) != NULL)
+            return (error_printer(path), exit(126),1);
         if (execve(path, (*cmd)->cmd, env) == -1)
         {
             perror("execve :");

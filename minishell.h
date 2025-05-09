@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/08 17:48:48 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 18:19:09 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <signal.h>
 #include <stddef.h>
 #include <termios.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 # include "readline/readline.h"
 # include "readline/history.h"
@@ -95,7 +97,7 @@ void ft_changeval(t_env **env, char *key_val, t_gc **exec);
 void    unset_builtins(t_env **env, char *key);
 void exit_builtins(t_gc **gc);
 // int single_command(t_command **cmd, char **env, t_gc **exec);
-int single_command(t_command **cmd, char **env, t_gc **exec, t_env **m_env);
+int single_command(t_command **cmd, char **env, t_gc **exec);
 int cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec);
 void redirection_handel(t_command **t_cmd);
 int multi_cmd(char **env, t_command **cmd,t_gc **exec, t_env **);

@@ -6,12 +6,13 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/08 20:26:51 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 17:58:42 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../minishell.h"
+#include <ctype.h>
 
 // int	ft_strcmp(const char *s1, const char *s2)
 // {
@@ -45,10 +46,14 @@ int sep_exist(char *str, char sep)
     return (0);
 }
 
+// int ft_isalnum(int c)
+// {
+//     if ()
+// }
+
 int export_parser(char *str, t_gc **exec)
 {
     int i = 0;
-    int j = 0;
     int e = 0;
     int e_index;
     char *key;
@@ -56,17 +61,18 @@ int export_parser(char *str, t_gc **exec)
     e_index = get_eqindex(str, '=');
     key = ft_strndup2(str, e_index , exec);
     i = 0;
+    if (!isalpha(key[i]) && key[i] != '_')
+        return (0);
     while (key[i])
     {
         if (key[i] == '+')
             e++;
-        if (key[i] == '+' && key[i + 1] != '=')
+        if (!isalnum(key[i]) && key[i] != '_' && key[i] != '+')
             return (0);
-        else if (!(key[i] >= 0 && key[i] <= 9) && !(key[i] >= 'a' && key[i] <= 'z') && !(key[i] >= 'A' && key[i] <= 'Z') && key[i] != '+')
-            j++;
         i++;
     }
-    if (j != 0 || e > 1)
+    
+    if (e > 1)
         return (0);
     return (1);
 }
@@ -179,10 +185,7 @@ void ft_changeval(t_env **env, char *key_val, t_gc **exec)
 
     eq_index = get_eqindex(key_val, '=');
     if (sep_exist(key_val, '=') == 0)
-    {
-        key = ft_strdup2(key_val, exec);
-        val = NULL;
-    }
+        return ;
     else
     {
         key = ft_strndup2(key_val, eq_index, exec);
@@ -275,20 +278,15 @@ int add_varenv(t_env **env, char *key_val, t_gc **exec)
         printf("minishell: export: `%s': not a valid identifier\n",ft_strndup2(key_val, eq_index + 1, exec));
         return (-1);
     }
-    else if (export_parser(key_val, exec) == -1)
-    {
-        printf("minishell: export: `%s': not a valid identifier\n",ft_strndup2((key_val + eq_index + 1), (ft_strlen(key_val) - eq_index), exec));
-        return (-1);
-    }
     if (is_appended(key_val, '+') == 0)
         ft_append(env, key_val, exec);
     else if (is_key(env,key_val, exec) == 0)
             ft_changeval(env, key_val, exec);
     else
     {
-        //printf("eqindex %d \n",eq_index);
         if (sep_exist(key_val, '=') == 0)
         {
+            printf("im here \n");
             key = ft_strdup2(key_val,exec);
             if (!key)
                 return (2);
@@ -296,7 +294,11 @@ int add_varenv(t_env **env, char *key_val, t_gc **exec)
         }
         else
         {
-            key =ft_strndup2(key_val, eq_index, exec);
+            printf("im here from last fun\n");
+            if (key_val[eq_index - 1] == '+')
+                key =ft_strndup2(key_val, eq_index - 1, exec);
+            else
+                key =ft_strndup2(key_val, eq_index , exec);
             if (!key)
                 return (2);
             value = ft_strdup2(key_val + eq_index + 1, exec);

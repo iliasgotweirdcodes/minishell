@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/08 20:20:47 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 17:29:17 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,15 @@ int main(int ac , char **av, char **env)
 		if (validate_syntax(tokens))
 			continue ;
 		create_cmd_list(tokens, &cmd, &gc);
+		int i;
+		i = 0;
+		
+		// while (cmd)
+		// {
+		// 	while (cmd->cmd[i])
+		// 		printf("%s  \n",cmd->cmd[i++]);
+		// 	cmd = cmd->next;
+		// }
 		cmd_execuiter(&cmd, &m_env, &gc_exec);
 		// res = get_valmustunseted(&m_env, &gc_exec);
 		// int i = 0;
