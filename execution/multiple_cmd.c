@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:32:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/09 18:29:54 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 21:01:41 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int singel_pipe(t_command **cmd, char *path, t_gc **exec, t_env **s_env)
             if (path)
             {
                 if (opendir(path) != NULL)
-                    return (error_printer(path), exit(126),1);
+                    return (error_printer(path, "is a directory\n", NULL), exit(126),1);
                 if (execve(path,(*cmd)->cmd,env) < 0)
                     perror("");
             }
@@ -70,7 +70,9 @@ int last_command(t_command **cmd, char **env, t_gc **exec, t_env **struct_env)
     path = last_path(env, (*cmd)->cmd, exec);
     if (!path && is_builtinns(*cmd) != 0)
     {
-        printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
+        if ((*cmd)->cmd)
+            error_printer((*cmd)->cmd[0], ": command not found\n", NULL);
+        //printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
         return (1);
     }
     if (is_builtinns(*cmd) == 0)
@@ -87,7 +89,7 @@ int last_command(t_command **cmd, char **env, t_gc **exec, t_env **struct_env)
         {
             redirection_handel(cmd);
             if (opendir(path) != NULL)
-                return (error_printer(path), exit(126),1);
+                return (error_printer(path, "is a directory\n", NULL), exit(126),1);
             if (execve(path, (*cmd)->cmd, env) == -1)
             {
                 perror("execve :");
@@ -112,7 +114,8 @@ int multi_cmd(char **env, t_command **cmd,t_gc **exec, t_env **s_env)
         if (!path && is_builtinns(tmp) != 0)
         {
             if (tmp->cmd != NULL)
-                printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
+                error_printer((*cmd)->cmd[0], ": command not found\n", NULL);
+            // printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
         }
         singel_pipe(&tmp, path, exec, s_env);
         tmp = tmp->next;

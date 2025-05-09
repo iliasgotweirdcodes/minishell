@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:15:29 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/09 18:19:47 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 21:02:16 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ int keyred_counter(char **cmd)
     return (c);
 }
 
-void error_printer(char *str)
-{
-    write(2, "minishell: ", 11);
-    perror(str);
-}
+// void error_printer(char *str)
+// {
+//     write(2, "minishell: ", 11);
+//     perror(str);
+// }
 
 void redirection_handel(t_command **t_cmd)
 {
@@ -92,7 +92,7 @@ void redirection_handel(t_command **t_cmd)
                 close(red_in);
             red_in = open(tmp->in_out[i + 1], O_RDONLY);
             if (red_in == -1)
-                return (error_printer (tmp->in_out[i + 1]));
+                return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL));
         }
         else if (ft_strcmp(tmp->in_out[i],">") == 0)
         {
@@ -100,7 +100,7 @@ void redirection_handel(t_command **t_cmd)
                 close(red_out);
             red_out = open(tmp->in_out[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
             if (!red_in)
-                return (error_printer (tmp->in_out[i + 1]));
+                return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL));
         }
         else if (ft_strcmp(tmp->in_out[i], ">>") == 0)
         {
@@ -108,7 +108,7 @@ void redirection_handel(t_command **t_cmd)
                 close(red_out);
             red_out = open(tmp->in_out[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
             if (red_out == -1)
-                return (error_printer (tmp->in_out[i + 1]));
+                return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL));
         }
         else if (ft_strcmp(tmp->in_out[i], "<<") == 0)
         {
@@ -116,7 +116,7 @@ void redirection_handel(t_command **t_cmd)
                 close(red_in);
             red_in = tmp->here_docfd;
             if (red_in == -1)
-                return (error_printer (tmp->in_out[i + 1]));
+                return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL));
         }
         i++;
     }
@@ -158,44 +158,44 @@ void redirection_handel(t_command **t_cmd)
     // }
 }
 
-char **get_valmustunseted(t_env **env, t_gc **exec)
-{
-    char **res = NULL;
-     char **m_env;
-    char *keys = NULL;
-    //t_env *tmp;
-    int i = 0;
-    m_env = env_converter(env,exec);
-    while (m_env[i])
-    {
-        printf("%s   \n", m_env[i]);
-        if (sep_exist(m_env[i],'=') != 1)
-            keys = ft_strjoinv3(ft_strjoinv3(keys, "+", exec), m_env[i], exec);
-        i++;
-    }
-    // while (tmp)
-    //     {
-    //         if (tmp->value)
-    //             printf("hello from debuger\n");
-    //         else
-    //             keys = ft_strjoinv3(ft_strjoinv3(keys, "+", exec), tmp->key, exec);
-    //         tmp = tmp->next;
-    //     }
-    // keys = ft_strdup("", exec);
-    // while (tmp)
-    // {
-    //     if (tmp->value && tmp->value[0] == '\0')
-    //         keys = ft_strjoinv3(ft_strjoinv3(keys, "+", exec), tmp->key, exec);
-    //     tmp = tmp->next;
-    // }
-       //printf("->>>>>>>>%s  \n",keys);
-    //    res = ft_split(keys, '+', exec);
-    //    if (!res)
-    //         return (NULL);
-    // while (res && res[i])
-    //     unset_builtins(env, res[i++]);
-    return (res);
-}
+// char **get_valmustunseted(t_env **env, t_gc **exec)
+// {
+//     char **res = NULL;
+//      char **m_env;
+//     char *keys = NULL;
+//     //t_env *tmp;
+//     int i = 0;
+//     m_env = env_converter(env,exec);
+//     while (m_env[i])
+//     {
+//         printf("%s   \n", m_env[i]);
+//         if (sep_exist(m_env[i],'=') != 1)
+//             keys = ft_strjoinv3(ft_strjoinv3(keys, "+", exec), m_env[i], exec);
+//         i++;
+//     }
+//     // while (tmp)
+//     //     {
+//     //         if (tmp->value)
+//     //             printf("hello from debuger\n");
+//     //         else
+//     //             keys = ft_strjoinv3(ft_strjoinv3(keys, "+", exec), tmp->key, exec);
+//     //         tmp = tmp->next;
+//     //     }
+//     // keys = ft_strdup("", exec);
+//     // while (tmp)
+//     // {
+//     //     if (tmp->value && tmp->value[0] == '\0')
+//     //         keys = ft_strjoinv3(ft_strjoinv3(keys, "+", exec), tmp->key, exec);
+//     //     tmp = tmp->next;
+//     // }
+//        //printf("->>>>>>>>%s  \n",keys);
+//     //    res = ft_split(keys, '+', exec);
+//     //    if (!res)
+//     //         return (NULL);
+//     // while (res && res[i])
+//     //     unset_builtins(env, res[i++]);
+//     return (res);
+// }
 
 void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc)
 {
@@ -232,8 +232,9 @@ int single_command(t_command **cmd, char **env, t_gc **exec)
     }
     path = last_path(env, (*cmd)->cmd, exec);
     if (!path)
-    {
-        printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
+    {        
+        error_printer((*cmd)->cmd[0], ": command not found\n", NULL);
+        // printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
         return (1);
     }
     
@@ -244,7 +245,7 @@ int single_command(t_command **cmd, char **env, t_gc **exec)
     {
         redirection_handel(cmd);
         if (opendir(path) != NULL)
-            return (error_printer(path), exit(126),1);
+            return (error_printer((*cmd)->cmd[0], ": command not found\n", NULL), exit(126),1);
         if (execve(path, (*cmd)->cmd, env) == -1)
         {
             perror("execve :");

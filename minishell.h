@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/09 18:28:56 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 22:35:18 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ int export(t_env **my_env, t_command **cmd, t_gc **exec);
 void env_builtins(t_env **my_env, t_gc **gc);
 void pwd_builtins(void);
 void ft_changeval(t_env **env, char *key_val, t_gc **exec);
-void    unset_builtins(t_env **env, char *key);
+int    unset_builtins(t_env **my_env, t_command **cmd, t_gc **exec);
+void    unset_management(t_env **env, char *key, t_gc **exec);
 void exit_builtins(t_gc **gc);
 // int single_command(t_command **cmd, char **env, t_gc **exec);
 int single_command(t_command **cmd, char **env, t_gc **exec);
@@ -105,10 +106,12 @@ int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec);
 int is_key(t_env **env, char *key_val, t_gc **exec);
 // char	*ft_itoa(int nbr);
 void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc);
-char ** get_valmustunseted(t_env **env, t_gc **exec);
+//char ** get_valmustunseted(t_env **env, t_gc **exec);
 int sep_exist(char *str, char sep);
-void error_printer(char *str);
-
+void error_printer(char *str, char* message, char *name);
+int export_parser(char *str, t_gc **exec);
+int	ft_isalpha(int c);
+int	ft_isalnum(int c);
 
 //parsing
 t_token *ft_tokenization(char *input, t_gc **gc);

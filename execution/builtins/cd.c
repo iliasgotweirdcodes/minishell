@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/06 15:53:48 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 21:05:06 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ void cd_builtins(char *path, t_env **s_env, t_gc **gc)
     {
         if (access(path, F_OK) == -1 && cdcounter(path) == -1)
         {
-            printf("minishell: cd: %s: No such file or directory", path);
+            error_printer(path, ": No such file or directory\n", "cd :");
+            //printf("minishell: cd: %s: No such file or directory", path);
             return ;
         }
         if (chdir("/") == -1)
@@ -130,7 +131,7 @@ void cd_builtins(char *path, t_env **s_env, t_gc **gc)
     else
     {
         if (chdir(path) == -1)
-            perror("");
+            error_printer(path, ": No such file or directory\n", "cd :");
     }
     //unset_builtins(s_env, "OLDPWD");
     old_path = ft_strjoinv3("OLDPWD=", pwd, gc);

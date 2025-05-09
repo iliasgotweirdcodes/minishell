@@ -18,7 +18,7 @@ SRC =  minishell.c parsing/signal.c parsing/tokenization.c parsing/token_utils.c
 		execution/builtins/unset.c execution/environment/env_manager.c   \
 		execution/environment/env_path.c execution/environment/get_env.c \
 		execution/cmd_execuiter.c execution/multiple_cmd.c \
-		execution/single_cmd.c \
+		execution/single_cmd.c  execution/error_printer.c execution/builtins/utils/utils_02.c\
 
 # SRC =  execution/main.c parsing/signal.c parsing/tokenization.c parsing/token_utils.c parsing/helpers.c \
 # SRC =  minishell.c parsing/signal.c parsing/tokenization.c parsing/token_utils.c parsing/helpers.c \

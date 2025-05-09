@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:57:50 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/09 18:27:46 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 22:25:54 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec)
     else if(ft_strcmp((*cmd)->cmd[0], "export") == 0)
         return (export(env, cmd, exec), 0);
     else if(ft_strcmp((*cmd)->cmd[0], "unset") == 0)
-        return (unset_builtins(env,(*cmd)->cmd[1]), 0);
+        return (unset_builtins(env, cmd, exec), 0);
     else if(ft_strcmp((*cmd)->cmd[0], "env") == 0)
         return (env_builtins(env,exec), 0);
     else if(ft_strcmp((*cmd)->cmd[0], "exit") == 0)
@@ -73,7 +73,7 @@ int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec)
     //tcgetattr(1,&old_stdin);
     if (flag == 0)
     {
-        unset_builtins(s_env,"OLDPWD");
+        unset_management(s_env, "OLDPWD", exec);
         flag = 1;
     }
     my_env = env_converter(s_env, exec);

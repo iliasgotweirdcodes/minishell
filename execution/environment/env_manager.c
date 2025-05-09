@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/09 17:58:42 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 22:35:58 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int sep_exist(char *str, char sep)
     return (0);
 }
 
+
+
 // int ft_isalnum(int c)
 // {
 //     if ()
@@ -59,19 +61,20 @@ int export_parser(char *str, t_gc **exec)
     char *key;
 
     e_index = get_eqindex(str, '=');
-    key = ft_strndup2(str, e_index , exec);
+    key = ft_strndup2(str, e_index, exec);
     i = 0;
-    if (!isalpha(key[i]) && key[i] != '_')
+    if (!ft_isalpha(key[i]) && key[i] != '_')
         return (0);
     while (key[i])
     {
         if (key[i] == '+')
             e++;
-        if (!isalnum(key[i]) && key[i] != '_' && key[i] != '+')
+        if (!ft_isalnum(key[i]) && key[i] != '_' && key[i] != '+' && key[i] != '=')
             return (0);
         i++;
     }
-    
+    if (e == 1 && sep_exist(str,'=') == 0)
+        return (0);
     if (e > 1)
         return (0);
     return (1);
@@ -126,7 +129,7 @@ int is_appended(char *str, char sep)
     i = 0;
     while (str[i])
     {
-        if (str[i] == sep && str[i - 1] != '=')
+        if (str && str[i] && str[i] == sep && str[i - 1] != '=' && str[i + 1] == '=')
             return (0);
         i++;
     }
@@ -168,11 +171,25 @@ void ft_append(t_env **env, char *key_val,t_gc **exec)
     if (!val)
         return ;
     get = *env;
+    eq_index = 0;
     while (get)
     {
         if (ft_strcmp(get->key, key) == 0)
+        {
             get->value = ft_strjoinv3(get->value, val, exec);
+            eq_index++;
+        }
         get = get->next;
+    }
+    if (eq_index == 0)
+    {
+            key = ft_strndup2(key_val, (size_t)get_eqindex(key_val, '+') , exec);
+            if (!key)
+                return ;
+            val = ft_strdup2("", exec);
+            if (!val)
+                return ;
+        env_fill(env, &key, &val, exec);
     }
 }
 
@@ -275,7 +292,8 @@ int add_varenv(t_env **env, char *key_val, t_gc **exec)
     eq_index = get_eqindex(key_val, '=');
     if (export_parser(key_val, exec) == 0)
     {
-        printf("minishell: export: `%s': not a valid identifier\n",ft_strndup2(key_val, eq_index + 1, exec));
+        error_printer(ft_strndup2(key_val, eq_index + 1, exec), ": not a valid identifier\n", "export: ");
+        //printf("minishell: export: `%s': not a valid identifier\n",ft_strndup2(key_val, eq_index + 1, exec));
         return (-1);
     }
     if (is_appended(key_val, '+') == 0)
@@ -286,7 +304,6 @@ int add_varenv(t_env **env, char *key_val, t_gc **exec)
     {
         if (sep_exist(key_val, '=') == 0)
         {
-            printf("im here \n");
             key = ft_strdup2(key_val,exec);
             if (!key)
                 return (2);
@@ -294,11 +311,10 @@ int add_varenv(t_env **env, char *key_val, t_gc **exec)
         }
         else
         {
-            printf("im here from last fun\n");
-            if (key_val[eq_index - 1] == '+')
-                key =ft_strndup2(key_val, eq_index - 1, exec);
-            else
-                key =ft_strndup2(key_val, eq_index , exec);
+            // if (key_val[eq_index - 1] == '+')
+            //     key =ft_strndup2(key_val, eq_index - 1, exec);
+            // else
+            key =ft_strndup2(key_val, eq_index , exec);
             if (!key)
                 return (2);
             value = ft_strdup2(key_val + eq_index + 1, exec);
