@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/09 18:19:09 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 18:28:56 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int is_key(t_env **env, char *key_val, t_gc **exec);
 void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc);
 char ** get_valmustunseted(t_env **env, t_gc **exec);
 int sep_exist(char *str, char sep);
+void error_printer(char *str);
 
 
 //parsing

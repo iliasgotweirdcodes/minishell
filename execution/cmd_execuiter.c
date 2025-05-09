@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:57:50 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/09 15:20:17 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/09 18:27:46 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec)
             builtins_execuition(cmd_list, s_env, exec);
         }
         else
-            single_command(cmd_list, my_env, exec, s_env);
+            single_command(cmd_list, my_env, exec);
     }else
         multi_cmd(my_env, cmd_list, exec,s_env);
     //tcsetattr(1,0,&old_stdin);
