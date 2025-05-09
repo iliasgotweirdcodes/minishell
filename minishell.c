@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/07 23:00:54 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:20:47 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 
 #include "minishell.h"
 #include <string.h>
 
 int g_exit_status = 0;
+
+
 
 int main(int ac , char **av, char **env)
 {
@@ -30,8 +31,8 @@ int main(int ac , char **av, char **env)
 	// memset(cmd, 0, sizeof(t_command));
 	get_env(env, &m_env, &gc_env);
 	//execuiter function
-	chell_lvlhandel(av,&m_env,&gc_exec);
-	(void)av;
+	chell_lvlhandel(av, &m_env, &gc_exec);
+	//mine
 	if (ac != 1)
 	{
 		write(2, "Usage: ./minishell\n", 20);
@@ -58,12 +59,16 @@ int main(int ac , char **av, char **env)
 				ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2);
 			continue ;
 		}
-		if (validate_syntax(&tokens) == 1)
+		if (validate_syntax(tokens))
 			continue ;
 		create_cmd_list(tokens, &cmd, &gc);
 		cmd_execuiter(&cmd, &m_env, &gc_exec);
-		// ft_gcfree(&gc);
-		// cmd = NULL;
+		// res = get_valmustunseted(&m_env, &gc_exec);
+		// int i = 0;
+		// while (res && res[i])
+		// 	printf("%s  \n",res[i++]);
+		ft_gcfree(&gc);
+		cmd = NULL;
 		free(input);
 	}
 	return (0);

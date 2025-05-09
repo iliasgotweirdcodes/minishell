@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/06 15:48:34 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/08 20:26:51 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@
 // 	}
 // 	return (0);
 // }
+
+int sep_exist(char *str, char sep)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == sep)
+            return (1);
+        i++;
+    }
+    return (0);
+}
 
 int export_parser(char *str, t_gc **exec)
 {
@@ -64,7 +78,7 @@ size_t len(char *str)
     i = 0;
     if (!str)
         return (i);
-    while (str[i])
+    while (str && str[i])
         i++;
     return (i);
 }
@@ -81,7 +95,7 @@ char	*ft_strjoinv3(char *s1, char*s2,t_gc **exec)
 	if (!str || (!s1 && !s2))
 		return (NULL);
     if (!s1)
-        return (ft_strdup2(s2,exec));
+        return (ft_strdup2(s2,exec));    
     if(!s2)
         return (ft_strdup2(s1,exec));
 	while (s1[i])
@@ -164,12 +178,20 @@ void ft_changeval(t_env **env, char *key_val, t_gc **exec)
     char *val;
 
     eq_index = get_eqindex(key_val, '=');
-    key = ft_strndup2(key_val, eq_index, exec);
-    if (!key)
-        return ;
-    val = ft_strdup2(key_val + eq_index + 1, exec);
-    if (!val)
-        return ;
+    if (sep_exist(key_val, '=') == 0)
+    {
+        key = ft_strdup2(key_val, exec);
+        val = NULL;
+    }
+    else
+    {
+        key = ft_strndup2(key_val, eq_index, exec);
+        if (!key)
+            return ;
+        val = ft_strdup2(key_val + eq_index + 1, exec);
+        if (!val)
+            return ;
+    }
     get = *env;
     while (get)
     {
@@ -179,20 +201,33 @@ void ft_changeval(t_env **env, char *key_val, t_gc **exec)
     }
 }
 // env _converter to get path as **
-int ft_sizer(t_env *env)
-{
-	t_env	*tmp;
-	size_t	i;
+// int ft_sizer(t_env *env)
+// {
+// 	t_env	*tmp;
+// 	size_t	i;
 
-    i =0;
-	tmp = env;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	return (i);
+//     i =0;
+// 	tmp = env;
+// 	while (tmp)
+// 	{
+// 		i++;
+// 		tmp = tmp->next;
+// 	}
+// 	return (i);
+// }
+
+size_t ft_sizer(t_env *env)
+{
+    size_t count = 0;
+    while (env)
+    {
+        if (env->value != NULL)
+            count++;
+        env = env->next;
+    }
+    return count;
 }
+
 char **env_converter(t_env **env,t_gc **exec)
 {
 	char	**new_env;
@@ -206,34 +241,25 @@ char **env_converter(t_env **env,t_gc **exec)
 	tmp = *env;
 	while (tmp)
 	{
-        if (tmp->value)
+        if (tmp->value != NULL)
+        {
 		    new_env[i] = ft_strjoinv3(ft_strjoinv3(tmp->key, "=", exec),tmp->value, exec);
-        else
-            new_env[i] = ft_strdup2(tmp->key, exec);
+            //new_env[i] = ft_strdup2(tmp->key, exec);
 		if (!new_env[i])
 			return (NULL);
 		i++;
+        }
 		tmp = tmp->next;
 	}
 	new_env[i] = NULL;
 	return (new_env);
 }
+
+
  // ///////////////////////////////////////////////////////////////////////////////////////
 
 
-int sep_exist(char *str, char sep)
-{
-    int i;
 
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == sep)
-            return (1);
-        i++;
-    }
-    return (0);
-}
 
 
 
@@ -255,8 +281,7 @@ int add_varenv(t_env **env, char *key_val, t_gc **exec)
         return (-1);
     }
     if (is_appended(key_val, '+') == 0)
-        {printf("tebiiiii\n");
-        ft_append(env, key_val, exec);}
+        ft_append(env, key_val, exec);
     else if (is_key(env,key_val, exec) == 0)
             ft_changeval(env, key_val, exec);
     else

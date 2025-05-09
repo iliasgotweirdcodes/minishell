@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:28:34 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/07 22:59:58 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:17:28 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../minishell.h"
 
-int	ft_here_doc(char *delimiter)
+int	hanlde_here_doc(char *delimiter)
 {
 	char	*line;
 	int		fd[2];
@@ -41,24 +40,4 @@ int	ft_here_doc(char *delimiter)
 		free(line);
 	}
 	return (fd[1]);
-}
-
-void	ft_handle_err_here_doc(t_token *tokens)
-{
-	t_token	*current;
-	int		fd;
-
-	fd = 0;
-	current = tokens;
-	while (current)
-	{
-		if (current->type == HEREDOC)
-		{
-			fd = ft_here_doc(current->next->value);
-			current->here_docfd = fd;
-			break ;
-		}
-		current = current->next;
-	}
-	close(fd);
 }

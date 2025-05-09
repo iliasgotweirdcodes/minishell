@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:48:25 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/07 21:04:10 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/02 17:18:51 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,21 @@ void	ft_add_token(t_token **token_list, t_token *new_token)
 	tmp->next = new_token;
 	new_token->prev = tmp;
 }
+
+// void	ft_clear_tokens(t_token **token_list)
+// {
+// 	t_token	*tmp;
+
+// 	if (!token_list || !*token_list)
+// 		return ;
+// 	while (*token_list)
+// 	{
+// 		tmp = (*token_list)->next;
+// 		free((*token_list)->value);
+// 		free(*token_list);
+// 		*token_list = tmp;
+// 	}
+// }
 
 char	*ft_strndup(const char *s, size_t n , t_gc **gc)
 {

@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/07 22:58:56 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/08 17:48:48 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 
 
@@ -99,11 +98,13 @@ void exit_builtins(t_gc **gc);
 int single_command(t_command **cmd, char **env, t_gc **exec, t_env **m_env);
 int cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec);
 void redirection_handel(t_command **t_cmd);
-int multi_cmd(char **env, t_command **cmd,t_gc **exec);
+int multi_cmd(char **env, t_command **cmd,t_gc **exec, t_env **);
 int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec);
 int is_key(t_env **env, char *key_val, t_gc **exec);
 // char	*ft_itoa(int nbr);
 void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc);
+char ** get_valmustunseted(t_env **env, t_gc **exec);
+int sep_exist(char *str, char sep);
 
 
 //parsing
@@ -116,18 +117,17 @@ void	ft_error(char *msg);
 int		is_operator(t_token_type type);
 int		is_quote(char c);
 int		is_space(char c);
-int		validate_syntax(t_token **tokens);
+int		validate_syntax(t_token *tokens);
 void	print_syntax_error(t_token *token);
 void	print_quote_error(void);
 int		is_space(char c);
 int		is_redirection(t_token_type type);
 void	print_quote_error(void);
 char	*ft_strchr(const char *s, int c);
-int	ft_here_doc(char *delimiter);
-void	ft_handle_err_here_doc(t_token *tokens);
+int	hanlde_here_doc(char *delimiter);
 char	**prepare_cmd(t_token *tokens, t_gc **gc);
 char	*get_cmd(t_token *tokens, t_gc **gc);
-char    **prepare_in_out(t_token *tokens, t_command *cmd, t_gc **gc);
+char	**prepare_in_out(t_token *tokens , t_gc **gc);
 char	*get_env_value(char *var_name, t_env *env);
 
 

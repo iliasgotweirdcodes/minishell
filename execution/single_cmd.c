@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:15:29 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/07 21:00:47 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/08 19:46:36 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,45 @@ void redirection_handel(t_command **t_cmd)
     // }
 }
 
+char **get_valmustunseted(t_env **env, t_gc **exec)
+{
+    char **res = NULL;
+     char **m_env;
+    char *keys = NULL;
+    //t_env *tmp;
+    int i = 0;
+    m_env = env_converter(env,exec);
+    while (m_env[i])
+    {
+        printf("%s   \n", m_env[i]);
+        if (sep_exist(m_env[i],'=') != 1)
+            keys = ft_strjoinv3(ft_strjoinv3(keys, "+", exec), m_env[i], exec);
+        i++;
+    }
+    // while (tmp)
+    //     {
+    //         if (tmp->value)
+    //             printf("hello from debuger\n");
+    //         else
+    //             keys = ft_strjoinv3(ft_strjoinv3(keys, "+", exec), tmp->key, exec);
+    //         tmp = tmp->next;
+    //     }
+    // keys = ft_strdup("", exec);
+    // while (tmp)
+    // {
+    //     if (tmp->value && tmp->value[0] == '\0')
+    //         keys = ft_strjoinv3(ft_strjoinv3(keys, "+", exec), tmp->key, exec);
+    //     tmp = tmp->next;
+    // }
+       //printf("->>>>>>>>%s  \n",keys);
+    //    res = ft_split(keys, '+', exec);
+    //    if (!res)
+    //         return (NULL);
+    // while (res && res[i])
+    //     unset_builtins(env, res[i++]);
+    return (res);
+}
+
 void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc)
 {
     int val = 0;
@@ -178,8 +217,11 @@ void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc)
         val++;
         new_val = ft_strjoinv3("SHLVL=", ft_itoa(val, gc), gc);
         ft_changeval(env, new_val, gc);
+        //get_valmustunseted(env, gc);
     }
 }
+
+
 int single_command(t_command **cmd, char **env, t_gc **exec, t_env **m_env)
 {
     pid_t id;

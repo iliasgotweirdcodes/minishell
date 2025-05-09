@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:01:13 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/07 21:04:35 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/04 17:59:56 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ int handle_word(char *input, int i, t_token **token_list, t_gc **gc)
         return (-1);
     value = ft_strndup(input + start, i - start, gc);
     if (!value)
+    {
+        // ft_clear_tokens(token_list);
         return (-1);
+    }
     ft_add_token(token_list, ft_create_token(WORD, value, gc));
     return (i);
 }

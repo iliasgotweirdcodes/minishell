@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:57:50 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/07 20:54:01 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/08 15:33:39 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec)
     return (1);
 }
 
+
+
 int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec)
 {
     t_command *cmd;
@@ -78,7 +80,6 @@ int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec)
     if (!my_env)
         return (1);
     cmd = *cmd_list;
-    cmd->env_ptr = s_env;
     if (ft_cmdsize(cmd_list) == 1)
     {
         if (is_builtinns(cmd) == 0)
@@ -90,7 +91,7 @@ int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec)
         else
             single_command(cmd_list, my_env, exec, s_env);
     }else
-        multi_cmd(my_env, cmd_list, exec);
+        multi_cmd(my_env, cmd_list, exec,s_env);
     //tcsetattr(1,0,&old_stdin);
     dup2(fd[0], 0);
     dup2(fd[1], 1);
