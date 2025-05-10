@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/09 22:35:58 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/10 15:38:36 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,7 +293,7 @@ int add_varenv(t_env **env, char *key_val, t_gc **exec)
     if (export_parser(key_val, exec) == 0)
     {
         error_printer(ft_strndup2(key_val, eq_index + 1, exec), ": not a valid identifier\n", "export: ");
-        //printf("minishell: export: `%s': not a valid identifier\n",ft_strndup2(key_val, eq_index + 1, exec));
+        
         return (-1);
     }
     if (is_appended(key_val, '+') == 0)
