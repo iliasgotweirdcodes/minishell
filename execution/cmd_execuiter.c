@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:57:50 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/11 18:26:05 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/11 21:38:35 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec)
     if (ft_strcmp((*cmd)->cmd[0], "cd") == 0 )
         status = cd_builtins((*cmd)->cmd[1], env, exec);
     else if(ft_strcmp((*cmd)->cmd[0], "echo") == 0)
-        status = echo_builtind(*cmd);
+        status = echo_builtind(cmd);
     else if(ft_strcmp((*cmd)->cmd[0], "pwd") == 0)
         status = pwd_builtins();
     else if(ft_strcmp((*cmd)->cmd[0], "export") == 0)
