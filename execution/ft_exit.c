@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 11:14:27 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/11 16:11:06 by aromani          ###   ########.fr       */
+/*   Created: 2025/05/11 15:54:04 by aromani           #+#    #+#             */
+/*   Updated: 2025/05/11 15:57:55 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
-int exit_builtins(t_gc **gc)
+void ft_exit(int status, t_gc **gc)
 {
+    g_exit_status = status;
     ft_gcfree(gc);
-    write(1, "exit\n", 5);
-    exit(EXIT_SUCCESS);
-    return (0);
+    exit(status);
 }

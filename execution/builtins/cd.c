@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/09 21:05:06 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/11 16:36:31 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void go_home(t_env **s_env, t_gc **gc)
         perror("");
 }
 
-void cd_builtins(char *path, t_env **s_env, t_gc **gc)
+int cd_builtins(char *path, t_env **s_env, t_gc **gc)
 {
     char *pwd;
     char *old_path;
@@ -112,7 +112,7 @@ void cd_builtins(char *path, t_env **s_env, t_gc **gc)
     
     pwd = getcwd(NULL, 0);
     if (!pwd)
-        return (perror(""));
+        return (perror(""), 1);
     if (!path)
     {
         go_home(s_env,gc);
@@ -121,32 +121,33 @@ void cd_builtins(char *path, t_env **s_env, t_gc **gc)
     {
         if (access(path, F_OK) == -1 && cdcounter(path) == -1)
         {
-            error_printer(path, ": No such file or directory\n", "cd :");
+            //error_printer(path, ": No such file or directory\n", "cd :");
             //printf("minishell: cd: %s: No such file or directory", path);
-            return ;
+            return (perror("cd"), 1);
         }
         if (chdir("/") == -1)
-            return (perror(""));
+            return (perror(""), 1);
     }
     else
     {
         if (chdir(path) == -1)
-            error_printer(path, ": No such file or directory\n", "cd :");
+            return (perror("cd"), 1);
     }
     //unset_builtins(s_env, "OLDPWD");
     old_path = ft_strjoinv3("OLDPWD=", pwd, gc);
     if (!old_path)
-        return (free(pwd));
+        return (free(pwd), 0);
     if (is_key(s_env,old_path, gc) == 0)
         ft_changeval(s_env, old_path, gc);
     else
         add_varenv(s_env, old_path, gc);
     new_path = getcwd(NULL, 0);
     if (!new_path)
-        return (free(pwd));
+        return (free(pwd), 0);
     ft_changeval(s_env, ft_strjoinv3("PWD=",new_path, gc), gc);
     free(new_path);
     free(pwd);
+    return (0);
 }
 
 // : in parent proccess : export with args && cd && exit && unset

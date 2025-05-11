@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/09 22:35:18 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/11 18:34:54 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,15 @@ int	add_varenv(t_env **env, char *key_val, t_gc **exec);
 char	*ft_strjoinv3(char *s1, char*s2,t_gc **exec);
 char **env_converter(t_env **env,t_gc **exec);
 void get_env(char **env, t_env **my_env, t_gc **exec);
-void cd_builtins(char *path, t_env **s_env, t_gc **exec);
-void echo_builtind(t_command *cmd);
+int cd_builtins(char *path, t_env **s_env, t_gc **exec);
+int echo_builtind(t_command *cmd);
 int export(t_env **my_env, t_command **cmd, t_gc **exec);
-void env_builtins(t_env **my_env, t_gc **gc);
-void pwd_builtins(void);
+int env_builtins(t_env **my_env, t_gc **gc);
+int pwd_builtins(void);
 void ft_changeval(t_env **env, char *key_val, t_gc **exec);
 int    unset_builtins(t_env **my_env, t_command **cmd, t_gc **exec);
-void    unset_management(t_env **env, char *key, t_gc **exec);
-void exit_builtins(t_gc **gc);
+int    unset_management(t_env **env, char *key, t_gc **exec);
+int exit_builtins(t_gc **gc);
 // int single_command(t_command **cmd, char **env, t_gc **exec);
 int single_command(t_command **cmd, char **env, t_gc **exec);
 int cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec);
@@ -135,7 +135,7 @@ char	**prepare_cmd(t_token *tokens, t_gc **gc);
 char	*get_cmd(t_token *tokens, t_gc **gc);
 char	**prepare_in_out(t_token *tokens , t_gc **gc);
 char	*get_env_value(char *var_name, t_env *env);
-
+void	sigint_handler(int sig);
 
 //expansion
 void	expand_tokens(t_token *tokens, t_env *env, t_gc **gc);

@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:15:29 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/09 21:02:16 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/11 17:16:33 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,35 +224,41 @@ int single_command(t_command **cmd, char **env, t_gc **exec)
 {
     pid_t id;
     char *path;
-
+    int status;
+    
+    status = 0;
     if (!(*cmd)->cmd)
     {
         redirection_handel(cmd);
         return (0);
     }
     path = last_path(env, (*cmd)->cmd, exec);
-    if (!path)
-    {        
-        error_printer((*cmd)->cmd[0], ": command not found\n", NULL);
-        // printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
-        return (1);
-    }
-    
     id = fork();
     if (id < 0)
         return (perror(""), exit(1), 1);
     if (id == 0)
     {
         redirection_handel(cmd);
+        if (!path)
+        {        
+            error_printer((*cmd)->cmd[0], ": command not found\n", NULL);
+            // printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
+            exit(127);
+        }
         if (opendir(path) != NULL)
-            return (error_printer((*cmd)->cmd[0], ": command not found\n", NULL), exit(126),1);
+            return (error_printer((*cmd)->cmd[0], ": is a directory\n", NULL), exit(126), 1);
         if (execve(path, (*cmd)->cmd, env) == -1)
         {
-            perror("execve :");
-            exit(1);
+            perror("execve");
+            exit(126);
         }
+    }
+    else
+    {
+        wait(&status); 
+        return  WEXITSTATUS(status);
     }
     // while (wait(0) != -1)
     //     ;
-    return (0);
+    return WEXITSTATUS(status);
 }

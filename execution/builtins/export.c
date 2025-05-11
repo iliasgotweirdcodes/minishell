@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:30 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/09 17:31:03 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/11 16:17:54 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int export(t_env **my_env, t_command **cmd, t_gc **exec)
     int i;
     int j;
     t_env *tmp;
+    int status;
     
+    status = 0;
     tmp = *my_env;
     if (!(*cmd)->cmd[1])
     {
@@ -30,15 +32,17 @@ int export(t_env **my_env, t_command **cmd, t_gc **exec)
                 printf("\n");
             tmp = tmp->next;
         }
-        return (0);
+        return (status);
     }
     j = 1;
     while ((*cmd) && (*cmd)->cmd && (*cmd)->cmd[j])
     {
         i = add_varenv(my_env, (*cmd)->cmd[j], exec);
         if (i == 2)
-            return (printf("error allocation\n"), 0);
+            return (printf("error allocation\n"), 1);
+        if (i == -1)
+            status = 1;
         j++;
     }
-    return (0);
+    return (status);
 }
