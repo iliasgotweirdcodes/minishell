@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:35 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/11 16:19:00 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/12 18:00:28 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int    unset_management(t_env **env, char *key, t_gc **exec)
     t_env *prev;
 
     if (!env || !*env || !key)
+        return (0);
+    if (ft_strcmp(key,"_") == 0)
         return (0);
     if (export_parser(key, exec) == 0 || unset_parser(key) == 0)
     { 

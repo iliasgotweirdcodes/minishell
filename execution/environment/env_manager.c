@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/11 16:12:13 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/12 18:29:01 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,11 +186,15 @@ void ft_append(t_env **env, char *key_val,t_gc **exec)
             key = ft_strndup2(key_val, (size_t)get_eqindex(key_val, '+') , exec);
             if (!key)
                 return ;
-            val = ft_strdup2("", exec);
+            val = ft_strdup2(key_val + (get_eqindex(key_val, '+') + 2), exec);
             if (!val)
                 return ;
         env_fill(env, &key, &val, exec);
     }
+    // if (is_key(env, key_val, exec) == 1)
+    // {
+        
+    // }
 }
 
 void ft_changeval(t_env **env, char *key_val, t_gc **exec)
@@ -278,13 +282,33 @@ char **env_converter(t_env **env,t_gc **exec)
 
  // ///////////////////////////////////////////////////////////////////////////////////////
 
+int is_this_(char *key_val, t_gc **exec)
+{
+    char *key;
+    int eq_index;
+
+    eq_index = get_eqindex(key_val, '=');
+    if (sep_exist(key_val, '+') == 1)
+    {
+        key = ft_strndup2(key_val, eq_index - 1 , exec);
+        if (!key)
+            return (2);
+    }
+    else 
+    {
+        key = ft_strndup2(key_val, eq_index , exec);
+        if (!key)
+            return (2);
+    }
+    if (ft_strcmp(key,"_") == 0)
+        return (0);
+    return (1);
+}
 
 
 
 
-
-int 
-add_varenv(t_env **env, char *key_val, t_gc **exec)
+int add_varenv(t_env **env, char *key_val, t_gc **exec)
 {
     int eq_index;
     char *key;
@@ -296,6 +320,8 @@ add_varenv(t_env **env, char *key_val, t_gc **exec)
         error_printer(ft_strndup2(key_val, eq_index + 1, exec), ": not a valid identifier\n", "export: ");
         return (-1);
     }
+    if (is_this_(key_val,exec) == 0)
+        return (0);
     if (is_appended(key_val, '+') == 0)
         ft_append(env, key_val, exec);
     else if (is_key(env,key_val, exec) == 0)
