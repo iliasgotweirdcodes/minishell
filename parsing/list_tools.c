@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 16:25:14 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/12 16:30:46 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/12 17:21:51 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_token	*create_token_copy(t_token *src, t_gc **gc)
 		return (NULL);
 	copy->type = src->type;
 	copy->value = ft_strdup(src->value, gc);
+	copy->here_docfd = src->here_docfd;
 	copy->next = NULL;
 	return (copy);
 }
@@ -45,10 +46,39 @@ t_token	*split_cmd_tokens(t_token *start, t_token *end, t_gc **gc)
 	return (head);
 }
 
+// int prepare_fd(t_token *token, t_command *cmd)
+// {
+// 	t_token *tmp1;
+// 	t_token *tmp2;
+
+// 	tmp1 = token;
+// 	tmp2 = NULL;
+// 	while (token)
+// 	{
+// 		if (token->type == HEREDOC)
+// 			tmp2 = token;
+// 		token = token->next;
+// 	}
+// 	// if (!tmp2)
+// 	// 	tmp2->here_docfd = -1;
+// 	// else
+// 	// {
+// 	cmd->here_docfd = tmp2->here_docfd;
+// 	while (tmp1 && tmp1 != tmp2)
+// 	{
+// 		if (tmp1->type == HEREDOC)
+// 			close(tmp1->here_docfd);
+// 		tmp1=tmp1->next;
+// 	}
+// 	// }
+// 	return (tmp2->here_docfd);
+// }
 
 t_command	*create_cmd_node(t_token *tokens, t_gc **gc)
 {
 	t_command	*node;
+	t_token *temp = tokens;
+    t_token *here = NULL;
 
 	node = ft_malloc(sizeof(t_command), gc);
 	if (!node)
@@ -57,7 +87,23 @@ t_command	*create_cmd_node(t_token *tokens, t_gc **gc)
 	node->in_out = prepare_in_out(tokens, gc);
 	node->next = NULL;
 	node->prev = NULL;
-	node->here_docfd = tokens->here_docfd;
+    while(tokens)
+    {
+        if (tokens->type == HEREDOC)
+            here = tokens;
+        tokens = tokens->next;
+    }
+    if (!here)
+        node->here_docfd = -1;
+    else {
+        node->here_docfd = here->here_docfd;
+        while(temp && temp != here)
+        {
+            if (temp->type == HEREDOC)
+                close(temp->here_docfd);
+            temp = temp->next;
+        }
+    }
 	return (node);
 }
 

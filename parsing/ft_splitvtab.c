@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:46:19 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/12 16:07:57 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/12 16:38:52 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ char	**ft_split_vtab(char *s, t_gc **gc)
 
 	if (!s)
 		return (NULL);
-    printf("%lu  \n", ft_countwords_vtab(s) + 1);
 	len = ft_countwords_vtab(s) + 1;
 	str = (char **)ft_malloc((8 * len), gc);
 	if (!str)

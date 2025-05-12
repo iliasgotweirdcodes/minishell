@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:15:29 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/11 17:16:33 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/12 17:23:20 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void redirection_handel(t_command **t_cmd)
              if(red_in != -2)
                 close(red_in);
             red_in = tmp->here_docfd;
+            //close(tmp->here_docfd);
             if (red_in == -1)
                 return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL));
         }
