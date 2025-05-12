@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:07:36 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/02 02:58:23 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/12 19:28:50 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,28 @@ void	env_fill(t_env **env, char **key, char **val, t_gc **exec)
     last->next = new_node;
 }
 
+void handel_null_env(t_env **my_env, t_gc **exec)
+{
+    char * pwd;
+    char *val;
+    char *key;
+    char *value;
+    size_t  eq_del;
+    
+    pwd = getcwd(NULL, 0);
+    if (!pwd)
+        return (perror(""), exit(1));
+    val = ft_strjoinv3("PWD=",pwd, exec);
+    add_varenv(my_env, val, exec);
+    add_varenv(my_env, "SHLVL=1", exec);
+    // add_varenv(my_env, "_=/usr/bin/env", exec);
+    val = ft_strdup2("_=/usr/bin/env", exec);
+    eq_del = get_eqindex(val, '=');
+    value = ft_strdup2(val + eq_del + 1, exec);
+    key = ft_strndup2(val ,eq_del, exec);
+    env_fill(my_env, &key, &value, exec);
+}
+
 void get_env(char **env, t_env **my_env, t_gc **exec)
 {
     size_t  i;
@@ -99,6 +121,11 @@ void get_env(char **env, t_env **my_env, t_gc **exec)
     char *value;
 
     i = 0;
+    if (env[i] == NULL)
+    {
+        handel_null_env(my_env,exec);
+        return ;
+    }
     while (env[i])
     {
         eq_del = get_eqindex(env[i], '=');

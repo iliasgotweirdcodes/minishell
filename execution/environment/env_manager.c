@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/12 18:29:01 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/12 19:24:46 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,10 +191,6 @@ void ft_append(t_env **env, char *key_val,t_gc **exec)
                 return ;
         env_fill(env, &key, &val, exec);
     }
-    // if (is_key(env, key_val, exec) == 1)
-    // {
-        
-    // }
 }
 
 void ft_changeval(t_env **env, char *key_val, t_gc **exec)

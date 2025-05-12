@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/12 16:00:30 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/12 19:49:27 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void error_printer(char *str, char* message, char *name);
 int export_parser(char *str, t_gc **exec);
 int	ft_isalpha(int c);
 int	ft_isalnum(int c);
+int	ft_revsrch(const char *s, int c);
 
 //parsing
 t_token *ft_tokenization(char *input, t_gc **gc);

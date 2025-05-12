@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 22:32:33 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/09 22:36:40 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/12 19:49:13 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,23 @@ int	ft_isalpha(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (1);
+	return (0);
+}
+
+int	ft_revsrch(const char *s, int c)
+{
+	int		i;
+	char	*p;
+
+	i = 0;
+	p = (char *)s;
+	while (s[i])
+		i++;
+	while (i >= 0)
+	{
+		if (p[i] == (char)c)
+			return (i);
+		i--;
+	}
 	return (0);
 }

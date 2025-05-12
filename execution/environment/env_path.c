@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:26:34 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/07 15:06:10 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/12 20:13:28 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,17 @@ char	*ft_strjoinv2(char *s1, char *s2, t_gc **exec)
 	str[i] = '\0';
 	return (str);
 }
-static char	*pathchecker(char *c, char *paths, t_gc **exec)
+
+static char	*pathchecker(char *c, char *paths, t_gc **exec, int flag)
 {
 	char	**pth;
 	char	*tmp2;
 	size_t	i;
 
+	
 	i = 0;
+	if (flag == 1)
+		paths = ft_strjoinv3(ft_strdup2("/bin", exec), ":", exec);
 	pth = ft_split(paths, ':', exec);
 	if (!pth)
 		return (NULL);
@@ -106,11 +110,11 @@ static char	*pathchecker(char *c, char *paths, t_gc **exec)
 	return (NULL);
 }
 
-static char	*access_path(char *cmd, char *path, t_gc **exec)
+static char	*access_path(char *cmd, char *path, t_gc **exec, int flag)
 {
 	char	*p;
 
-	p = pathchecker(cmd, path, exec);
+	p = pathchecker(cmd, path, exec, flag);
 	if (!p)
 		return (NULL);
 	else
@@ -144,13 +148,18 @@ char	*last_path(char **env, char **arg, t_gc **exec)
 	char	*path;
 	char	*str;
 	char	*tmp = NULL;
+	int flag;
 
+	flag = 0;
 	path = path_geter("PATH", env);
 	if (!path)
-		return (NULL);
+	{
+		path = path_geter("_", env);
+		flag = 1;
+	}
 	str = ft_substrv3(path, (ft_search2(path, '=') + 1), ft_strlen(path), exec);
 	if (arg != NULL)
-		tmp = access_path(arg[0], str, exec);
+		tmp = access_path(arg[0], str, exec, flag);
 	if (!tmp)
 		return (NULL);
 	return (tmp);
