@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/11 21:38:28 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/12 16:00:30 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,6 @@ char	*ft_strjoin(char *s1, char *s2, t_gc **gc);
 int		ft_isalnum(int c);
 char	*ft_strtrim(char *s1, char const *set, t_gc **gc);
 char	*ft_itoa(int n, t_gc **gc);
+char	**ft_split_vtab(char *s, t_gc **gc);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/11 16:58:39 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/12 16:31:42 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ int main(int ac , char **av, char **env)
 	t_gc 	*gc_exec = NULL;
 	t_gc 	*gc_env = NULL;
 	t_env	*m_env = NULL;
+	struct termios old_stdin;
 
 	// memset(cmd, 0, sizeof(t_command));
+	tcgetattr(1,&old_stdin);
 	get_env(env, &m_env, &gc_env);
 	//execuiter function
 	chell_lvlhandel(av, &m_env, &gc_exec);
@@ -41,6 +43,7 @@ int main(int ac , char **av, char **env)
 	setup_signals();
 	while (1)
 	{
+		//printf("khdkjhkgjsfjhgdf\n");
 		input = readline("minishell> ");
 		if (!input)
 		{
@@ -50,6 +53,7 @@ int main(int ac , char **av, char **env)
 		if (input)
 			add_history(input);
 		tokens = ft_tokenization(input, &gc);
+		printf("im hun ged here  \n");
 		expand_tokens(tokens, m_env, &gc);
 		if (!tokens)
 		{
@@ -67,6 +71,7 @@ int main(int ac , char **av, char **env)
 		// int i = 0;
 		// while (res && res[i])
 		// 	printf("%s  \n",res[i++]);
+		tcsetattr(1,0,&old_stdin);
 		ft_gcfree(&gc);
 		cmd = NULL;
 		free(input);

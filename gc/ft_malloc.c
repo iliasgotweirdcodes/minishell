@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 18:07:14 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/03 16:54:05 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:03:47 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void struct_fill(t_gc **gc, void *add)
     }
     new_node->address = add;
     new_node->next = NULL;
-    if (*gc == NULL)
+    if (gc && *gc == NULL)
     {
         *gc = new_node;
         return ;

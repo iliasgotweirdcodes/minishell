@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:01:13 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/04 17:59:56 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:32:22 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_token *ft_tokenization(char *input, t_gc **gc)
     i = 0;
     while (input[i])
     {
-        while (input[i] == ' ')
+        while (input[i] == ' ' || input[i] == '\t')
             i++;
         if (!input[i])
             break ;

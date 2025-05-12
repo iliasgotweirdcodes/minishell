@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 READLINE_COMPILE = -I$(shell brew --prefix readline)/include
 READLINE_LINK = -L$(shell brew --prefix readline)/lib -lreadline -lhistory
 
@@ -18,7 +18,7 @@ SRC =  minishell.c parsing/signal.c parsing/tokenization.c parsing/token_utils.c
 		execution/builtins/unset.c execution/environment/env_manager.c   \
 		execution/environment/env_path.c execution/environment/get_env.c \
 		execution/cmd_execuiter.c execution/multiple_cmd.c \
-		execution/single_cmd.c  execution/error_printer.c execution/builtins/utils/utils_02.c\
+		execution/single_cmd.c  execution/error_printer.c execution/builtins/utils/utils_02.c parsing/ft_splitvtab.c\
 
 # SRC =  execution/main.c parsing/signal.c parsing/tokenization.c parsing/token_utils.c parsing/helpers.c \
 # SRC =  minishell.c parsing/signal.c parsing/tokenization.c parsing/token_utils.c parsing/helpers.c \

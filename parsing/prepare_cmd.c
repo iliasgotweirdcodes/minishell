@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:54:52 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/06 16:50:08 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:07:12 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,11 @@ char	**prepare_cmd(t_token *tokens, t_gc **gc)
 	char	**str_cmd;
 	char	*cmd_line;
 
+	//printf("fucking tab \n");
 	cmd_line = get_cmd(tokens, gc);
 	if (!cmd_line)
 		return (NULL);
-	str_cmd = ft_split(cmd_line, ' ', gc);
+	str_cmd = ft_split_vtab(cmd_line, gc);
 	if (!str_cmd)
 		return (NULL);
 	return (str_cmd);
