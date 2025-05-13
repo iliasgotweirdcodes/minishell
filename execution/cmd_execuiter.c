@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:57:50 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/13 18:03:53 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 18:14:20 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec, t_gc **env_g
     //tcgetattr(1,&old_stdin);
     if (flag == 0)
     {
+        unset_management(s_env,"OLDPWD",env_gc);
         add_varenv(s_env, "OLDPWD", env_gc);
         ft_changeval(s_env,"_=/usr/bin/env", env_gc);
         flag = 1;
