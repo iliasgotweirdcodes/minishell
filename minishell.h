@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/13 16:30:55 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 17:53:55 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,18 +91,18 @@ void get_env(char **env, t_env **my_env, t_gc **exec);
 int cd_builtins(char *path, t_env **s_env, t_gc **exec);
 int echo_builtind(t_command **cmd);
 int export(t_env **my_env, t_command **cmd, t_gc **exec);
-int env_builtins(t_env **my_env, t_gc **gc);
+int env_builtins(t_env **my_env);
 int pwd_builtins(t_env **env);
 void ft_changeval(t_env **env, char *key_val, t_gc **exec);
 int    unset_builtins(t_env **my_env, t_command **cmd, t_gc **exec);
 int    unset_management(t_env **env, char *key, t_gc **exec);
-int exit_builtins(t_gc **gc);
+int exit_builtins(t_command **cmd,t_gc **exec_gc, t_gc **env_gc);
 // int single_command(t_command **cmd, char **env, t_gc **exec);
-int single_command(t_command **cmd, char **env, t_gc **exec);
-int cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec);
+int single_command(t_command **cmd, char **env, t_gc **env_gc);
+int cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec, t_gc **env_gc);
 int redirection_handel(t_command **t_cmd);
-int multi_cmd(char **env, t_command **cmd,t_gc **exec, t_env **);
-int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec);
+int multi_cmd(t_command **cmd,t_gc **exec, t_env **s_env, t_gc **env_gc);
+int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec, t_gc **gc_env);
 int is_key(t_env **env, char *key_val, t_gc **exec);
 // char	*ft_itoa(int nbr);
 void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc);
@@ -112,6 +112,7 @@ void error_printer(char *str, char* message, char *name);
 int export_parser(char *str, t_gc **exec);
 int	ft_isalpha(int c);
 int	ft_isalnum(int c);
+int	ft_isdigit(int c);
 int	ft_revsrch(const char *s, int c);
 
 //parsing

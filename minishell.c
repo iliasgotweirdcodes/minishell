@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/12 21:32:13 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 17:58:00 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int main(int ac , char **av, char **env)
 	tcgetattr(1,&old_stdin);
 	get_env(env, &m_env, &gc_env);
 	//execuiter function
-	chell_lvlhandel(av, &m_env, &gc_exec);
+	chell_lvlhandel(av, &m_env, &gc_env);
 	//mine
 	if (ac != 1)
 	{
@@ -65,13 +65,14 @@ int main(int ac , char **av, char **env)
 			continue ;
 		create_cmd_list(tokens, &cmd, &gc);
 		
-		g_exit_status = cmd_execuiter(&cmd, &m_env, &gc_exec);
+		g_exit_status = cmd_execuiter(&cmd, &m_env, &gc_exec, &gc_env);
 		// res = get_valmustunseted(&m_env, &gc_exec);
 		// int i = 0;
 		// while (res && res[i])
 		// 	printf("%s  \n",res[i++]);
 		tcsetattr(1,0,&old_stdin);
 		ft_gcfree(&gc);
+		ft_gcfree(&gc_exec);
 		cmd = NULL;
 		free(input);
 	}

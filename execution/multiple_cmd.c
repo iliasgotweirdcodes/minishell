@@ -6,24 +6,26 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:32:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/13 16:23:08 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 18:04:11 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
 
-int singel_pipe(t_command **cmd, char *path, t_gc **exec, t_env **s_env)
+int singel_pipe(t_command **cmd,t_gc **exec, t_env **s_env, t_gc **env_gc)
 {
     int id;
     int fd[2];
     char **env;
     int status;
     t_command *tmp;
+    char *path;
 
     status = 0;
     tmp = *cmd;
     env = env_converter(s_env, exec);
+    path = last_path(env, tmp->cmd, exec);
     if (pipe(fd) == -1)
         return (perror(""), exit(1), 1);
     id = fork();
@@ -45,7 +47,7 @@ int singel_pipe(t_command **cmd, char *path, t_gc **exec, t_env **s_env)
         }
         if (is_builtinns(*cmd) == 0)
         {
-            builtins_execuition(cmd, s_env, exec);
+            builtins_execuition(cmd, s_env, exec, env_gc);
             exit(0);
         }
         else
@@ -75,18 +77,20 @@ int singel_pipe(t_command **cmd, char *path, t_gc **exec, t_env **s_env)
 
 
 
-int last_command(t_command **cmd, char **env, t_gc **exec, t_env **struct_env)
+int last_command(t_command **cmd, t_gc **exec, t_env **struct_env, t_gc **env_gc)
 {
     pid_t id;
     char *path;
     int status;
+    char **env;
 
+    env = env_converter(struct_env,exec);
     status = 0;
     path = last_path(env, (*cmd)->cmd, exec);
     if (is_builtinns(*cmd) == 0)
     {
         redirection_handel(cmd);
-        builtins_execuition(cmd, struct_env, exec);
+        builtins_execuition(cmd, struct_env, exec, env_gc);
     }
     id = fork();
     if (id < 0)
@@ -121,19 +125,20 @@ int last_command(t_command **cmd, char **env, t_gc **exec, t_env **struct_env)
     // status = WEXITSTATUS(id);
 }
 
-int multi_cmd(char **env, t_command **cmd,t_gc **exec, t_env **s_env)
+int multi_cmd(t_command **cmd,t_gc **exec, t_env **s_env, t_gc **env_gc)
 {
     t_command *tmp;
-    char *path;
     int status;
+    char **env;
 
+    env = env_converter(s_env,exec);
     status = 0;
     tmp = *cmd;
     while (tmp && tmp->next)
     {
         //printf("<<<<<<<<<hi from multi>>>>>>>>> cmd  =  %s \n",tmp->cmd[0]);
 
-        path = last_path(env, tmp->cmd, exec);
+        
         // if (!path && is_builtinns(tmp) != 0)
         // {
         //     if (tmp->cmd != NULL)
@@ -141,11 +146,11 @@ int multi_cmd(char **env, t_command **cmd,t_gc **exec, t_env **s_env)
                 
         //     // printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
         // }
-        singel_pipe(&tmp, path, exec, s_env);
+        singel_pipe(&tmp, exec, s_env, env_gc);
         tmp = tmp->next;
     }
     if (tmp)
-        status = last_command(&tmp,env,exec,s_env);
+        status = last_command(&tmp,exec,s_env,env_gc);
   
     return (status);
 }

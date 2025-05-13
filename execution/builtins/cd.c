@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/13 16:29:54 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 17:43:49 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void go_home(t_env **s_env, t_gc **gc)
         perror("");
 }
 
-int cd_builtins(char *path, t_env **s_env, t_gc **gc)
+int cd_builtins(char *path, t_env **s_env, t_gc **gc_env)
 {
     char *pwd;
     char *old_path;
@@ -116,7 +116,7 @@ int cd_builtins(char *path, t_env **s_env, t_gc **gc)
         pwd = get_env_value("PWD", *s_env);
     if (!path)
     {
-        go_home(s_env,gc);
+        go_home(s_env,gc_env);
     }
     else if (get_len(pwd, '/') < cdcounter(path))
     {
@@ -155,17 +155,17 @@ int cd_builtins(char *path, t_env **s_env, t_gc **gc)
             return (error_printer(path, ": No such file or directory\n", "cd : "), 1);
     }
     //unset_builtins(s_env, "OLDPWD");
-    old_path = ft_strjoinv3("OLDPWD=", pwd, gc);
+    old_path = ft_strjoinv3("OLDPWD=", pwd, gc_env);
     if (!old_path)
         return (free(pwd), 0);
-    if (is_key(s_env,old_path, gc) == 0)
-        ft_changeval(s_env, old_path, gc);
+    if (is_key(s_env,old_path, gc_env) == 0)
+        ft_changeval(s_env, old_path, gc_env);
     else
-        add_varenv(s_env, old_path, gc);
+        add_varenv(s_env, old_path, gc_env);
     new_path = getcwd(NULL, 0);
     if (!new_path)
-        return (free(pwd), 0);
-    ft_changeval(s_env, ft_strjoinv3("PWD=",new_path, gc), gc);
+        new_path = pwd;
+    ft_changeval(s_env, ft_strjoinv3("PWD=",new_path, gc_env), gc_env);
     free(new_path);
     free(pwd);
     return (0);

@@ -6,16 +6,15 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:25 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/11 16:09:25 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 16:36:00 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int env_builtins(t_env **my_env, t_gc **gc)
+int env_builtins(t_env **my_env)
 {
      t_env *tmp;
-     (void)gc;
     
     tmp = *my_env;
     while (tmp)

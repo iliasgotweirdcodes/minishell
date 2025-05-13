@@ -6,13 +6,13 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:30 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/12 20:21:22 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 17:39:50 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int export(t_env **my_env, t_command **cmd, t_gc **exec)
+int export(t_env **my_env, t_command **cmd, t_gc **gc_env)
 {
     int i;
     int j;
@@ -40,7 +40,7 @@ int export(t_env **my_env, t_command **cmd, t_gc **exec)
     j = 1;
     while ((*cmd) && (*cmd)->cmd && (*cmd)->cmd[j])
     {
-        i = add_varenv(my_env, (*cmd)->cmd[j], exec);
+        i = add_varenv(my_env, (*cmd)->cmd[j], gc_env);
         if (i == 2)
             return (printf("error allocation\n"), 1);
         if (i == -1)

@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 22:32:33 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/12 19:49:13 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 16:39:33 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,12 @@ int	ft_revsrch(const char *s, int c)
 			return (i);
 		i--;
 	}
+	return (0);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
 	return (0);
 }

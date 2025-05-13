@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:57:50 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/13 16:31:29 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 18:03:53 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,25 @@ int is_builtinns(t_command *cmd)
     return (1);
 }
 
-int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec)
+int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec, t_gc **env_gc)
 {
     int status;
 
     status = 0;
     if (ft_strcmp((*cmd)->cmd[0], "cd") == 0 )
-        status = cd_builtins((*cmd)->cmd[1], env, exec);
+        status = cd_builtins((*cmd)->cmd[1], env, env_gc);
     else if(ft_strcmp((*cmd)->cmd[0], "echo") == 0)
         status = echo_builtind(cmd);
     else if(ft_strcmp((*cmd)->cmd[0], "pwd") == 0)
         status = pwd_builtins(env);
     else if(ft_strcmp((*cmd)->cmd[0], "export") == 0)
-        status = export(env, cmd, exec);
+        status = export(env, cmd, env_gc);
     else if(ft_strcmp((*cmd)->cmd[0], "unset") == 0)
         status = unset_builtins(env, cmd, exec);
     else if(ft_strcmp((*cmd)->cmd[0], "env") == 0)
-        status = env_builtins(env,exec);
+        status = env_builtins(env);
     else if(ft_strcmp((*cmd)->cmd[0], "exit") == 0)
-        status = exit_builtins(exec);
+        status = exit_builtins(cmd,exec, env_gc);
     else
         return (-1);
     //g_exit_status = status;
@@ -66,7 +66,7 @@ int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec)
 
 
 
-int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec)
+int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec, t_gc **env_gc)
 {
     t_command *cmd;
     char **my_env;
@@ -80,8 +80,8 @@ int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec)
     //tcgetattr(1,&old_stdin);
     if (flag == 0)
     {
-        add_varenv(s_env, "OLDPWD", exec);
-        ft_changeval(s_env,"_=/usr/bin/env", exec);
+        add_varenv(s_env, "OLDPWD", env_gc);
+        ft_changeval(s_env,"_=/usr/bin/env", env_gc);
         flag = 1;
     }
     my_env = env_converter(s_env, exec);
@@ -93,7 +93,7 @@ int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec)
         if (is_builtinns(cmd) == 0)
         {
             redirection_handel(cmd_list);
-            status = builtins_execuition(cmd_list, s_env, exec);
+            status = builtins_execuition(cmd_list, s_env, exec, env_gc);
         }
         else
         {
@@ -101,7 +101,7 @@ int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec)
             status = single_command(cmd_list, my_env, exec);
         }
     }else
-        status = multi_cmd(my_env, cmd_list, exec,s_env);
+        status = multi_cmd(cmd_list, exec,s_env, env_gc);
     //tcsetattr(1,0,&old_stdin);
     dup2(fd[0], 0);
     dup2(fd[1], 1);

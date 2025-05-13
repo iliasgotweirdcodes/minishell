@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:15:29 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/13 16:28:27 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 17:30:22 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc)
 }
 
 
-int single_command(t_command **cmd, char **env, t_gc **exec)
+int single_command(t_command **cmd, char **env, t_gc **env_gc)
 {
     pid_t id;
     char *path;
@@ -213,7 +213,7 @@ int single_command(t_command **cmd, char **env, t_gc **exec)
     //     status = redirection_handel(cmd);
     //     return (status);
     // }
-    path = last_path(env, (*cmd)->cmd, exec);
+    path = last_path(env, (*cmd)->cmd, env_gc);
     id = fork();
     if (id < 0)
         return (perror(""), exit(1), 1);
