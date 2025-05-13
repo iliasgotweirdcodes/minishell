@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/13 21:47:47 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/14 00:32:25 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void go_home(t_env **s_env, t_gc **gc)
 //     }
 // }
 
-int cd_builtins(char *path, t_env **s_env, t_gc **gc_env)
+int cd_builtins(t_command **cmd,char *path, t_env **s_env, t_gc **gc_env)
 {
     char *pwd;
     char *old_path;
@@ -124,21 +124,26 @@ int cd_builtins(char *path, t_env **s_env, t_gc **gc_env)
     char *new_path;
     static int flag;
     
-    //flag = 0;
     pwd = getcwd(NULL, 0);
     if (!pwd)
     {
         if (flag == 0)
         {
             flag++;
-            //printf("oiyiuyiu\n");
             error_printer(path, ": No such file or directory\n", "cd: ");
             return (1);
         }
-        else
-            perror("cd: error retrieving current directory: getcwd: cannot access parent directories:");
-        pwd = get_env_value("PWD", *s_env);
-        pwd = ft_strjoinv3(pwd,"/..",gc_env);
+        else 
+        {
+            perror("cd: error retrieving current directory: getcwd: cannot access parent directories");
+        }
+        //res = ft_strjoinv3(res ,"/..", gc_env);
+        //pwd = (*cmd)->pwd_sec;
+        pwd = ft_strjoinv2((*cmd)->pwd_sec, path, gc_env);
+        //pwd = ft_strjoin(pwd, path, gc_env);
+        //pwd = res;
+        //printf("cmd---->   %s  \n",res);
+        //pwd = (*cmd)->pwd_sec;
     }
     if (!path)
     {

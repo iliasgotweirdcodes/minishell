@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/13 17:58:00 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/14 00:46:00 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <string.h>
 
 int g_exit_status = 0;
+
+
 
 
 
@@ -28,8 +30,7 @@ int main(int ac , char **av, char **env)
 	t_gc 	*gc_env = NULL;
 	t_env	*m_env = NULL;
 	struct termios old_stdin;
-
-	// memset(cmd, 0, sizeof(t_command));
+	
 	tcgetattr(1,&old_stdin);
 	get_env(env, &m_env, &gc_env);
 	//execuiter function
@@ -64,7 +65,7 @@ int main(int ac , char **av, char **env)
 		if (validate_syntax(tokens))
 			continue ;
 		create_cmd_list(tokens, &cmd, &gc);
-		
+		pwd_set(&cmd, &m_env, &gc_exec);
 		g_exit_status = cmd_execuiter(&cmd, &m_env, &gc_exec, &gc_env);
 		// res = get_valmustunseted(&m_env, &gc_exec);
 		// int i = 0;

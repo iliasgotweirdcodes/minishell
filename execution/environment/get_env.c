@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:07:36 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/13 17:40:40 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/14 00:42:15 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void handel_null_env(t_env **my_env, t_gc **exec)
     value = ft_strdup2(val + eq_del + 1, exec);
     key = ft_strndup2(val ,eq_del, exec);
     env_fill(my_env, &key, &value, exec);
+    free(pwd);
 }
 
 void get_env(char **env, t_env **my_env, t_gc **exec)

@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:03:37 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/12 19:24:46 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 22:44:11 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,15 @@ char	*ft_strjoinv3(char *s1, char*s2,t_gc **exec)
 	int		i;
 	int		j;
 
+    if (!s1)
+        return (ft_strdup2(s2,exec));    
+    if(!s2)
+        return (ft_strdup2(s1,exec));
 	i = 0;
 	j = 0;
 	str = ft_malloc(len(s1) + len(s2) + 1, exec);
 	if (!str || (!s1 && !s2))
 		return (NULL);
-    if (!s1)
-        return (ft_strdup2(s2,exec));    
-    if(!s2)
-        return (ft_strdup2(s1,exec));
 	while (s1[i])
 	{
 		str[i] = s1[i];

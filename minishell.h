@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/13 17:53:55 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/14 00:45:47 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ typedef struct s_command {
     char **cmd;     // Actual command and its arguments
     char **in_out;   // Redirections and tokens
 	int here_docfd;   // for the heredoc fd
-	t_env **env_ptr;   //for holding the env pointer norminet
+	t_env **env_ptr; 
+	char *pwd_sec;  //for holding the env pointer norminet
 	struct s_command *next; // Pointer to the next command in the pipeline
 } t_command;
 
@@ -88,7 +89,7 @@ int	add_varenv(t_env **env, char *key_val, t_gc **exec);
 char	*ft_strjoinv3(char *s1, char*s2,t_gc **exec);
 char **env_converter(t_env **env,t_gc **exec);
 void get_env(char **env, t_env **my_env, t_gc **exec);
-int cd_builtins(char *path, t_env **s_env, t_gc **exec);
+int cd_builtins(t_command **cmd, char *path, t_env **s_env, t_gc **exec);
 int echo_builtind(t_command **cmd);
 int export(t_env **my_env, t_command **cmd, t_gc **exec);
 int env_builtins(t_env **my_env);
@@ -114,6 +115,11 @@ int	ft_isalpha(int c);
 int	ft_isalnum(int c);
 int	ft_isdigit(int c);
 int	ft_revsrch(const char *s, int c);
+char	*ft_strjoinv2(char *s1, char *s2, t_gc **exec);
+void pwd_set(t_command **cmd, t_env **env, t_gc **gc_exec);
+
+
+
 
 //parsing
 t_token *ft_tokenization(char *input, t_gc **gc);
