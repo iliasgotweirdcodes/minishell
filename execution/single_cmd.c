@@ -6,12 +6,13 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:15:29 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/12 19:30:15 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 16:28:27 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
+#include <errno.h>
 
 int	fcheck(char *av)
 {
@@ -73,7 +74,10 @@ int keyred_counter(char **cmd)
 //     perror(str);
 // }
 
-void redirection_handel(t_command **t_cmd)
+
+//cat << a >> a.tt << b >> b.t << c >> c.t
+
+int redirection_handel(t_command **t_cmd)
 {
     int i;
     int red_in;
@@ -86,21 +90,20 @@ void redirection_handel(t_command **t_cmd)
     tmp = *t_cmd;
     while (tmp->in_out && tmp->in_out[i])
     {
-        if (ft_strcmp(tmp->in_out[i],"<") == 0)
+        if (ft_strcmp(tmp->in_out[i], "<<") == 0)
+        {
+            red_in = tmp->here_docfd;
+            //close(tmp->here_docfd);
+            if (red_in == -1)
+                return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL), exit(1), 1);
+        }
+        else if (ft_strcmp(tmp->in_out[i],"<") == 0)
         {
             if(red_in != -2)
                 close(red_in);
             red_in = open(tmp->in_out[i + 1], O_RDONLY);
             if (red_in == -1)
-                return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL));
-        }
-        else if (ft_strcmp(tmp->in_out[i],">") == 0)
-        {
-            if (red_out != -2)
-                close(red_out);
-            red_out = open(tmp->in_out[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-            if (!red_in)
-                return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL));
+                return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL), exit(1), 1);
         }
         else if (ft_strcmp(tmp->in_out[i], ">>") == 0)
         {
@@ -108,55 +111,32 @@ void redirection_handel(t_command **t_cmd)
                 close(red_out);
             red_out = open(tmp->in_out[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
             if (red_out == -1)
-                return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL));
+                return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL), exit(1) ,1);
         }
-        else if (ft_strcmp(tmp->in_out[i], "<<") == 0)
+        else if (ft_strcmp(tmp->in_out[i],">") == 0)
         {
-             if(red_in != -2)
-                close(red_in);
-            red_in = tmp->here_docfd;
-            //close(tmp->here_docfd);
-            if (red_in == -1)
-                return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL));
+            if (red_out != -2)
+                close(red_out);
+            red_out = open(tmp->in_out[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+            if (red_out == -1)
+                return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL), exit(1), 1);
         }
-        i++;
+        i += 2;
     }
-    if (red_in != -2)
+    if (red_in > 0)
     {
-        dup2(red_in, 0);
+        // printf("red in == > %d \n", red_in);
+        if (dup2(red_in, STDIN_FILENO) == -1)
+            return (perror("red_in"), exit(1), 1); 
         close(red_in);
     }
-    if (red_out != -2)
+    if (red_out > 0)
     {
-        dup2(red_out, 1);
+        if (dup2(red_out, STDOUT_FILENO) == -1)
+            return (perror("red_in"), exit(1), 1); 
         close(red_out);
     }
-    // (void)heredoc_fd;
-    // // j = 0;
-    // // while ((*t_cmd)->in_out[j])
-    // // {
-    // red_count = keyred_counter((*t_cmd)->in_out);
-    // // }
-    // printf("%s \n", (*t_cmd)->in_out[i]);
-    // while ((*t_cmd)->in_out[i])
-    // {
-    //     if (ft_strcmp((*t_cmd)->in_out[i], "<"))
-    //     {
-    //         if (fcheck((*t_cmd)->in_out[i + 1]) == 1)
-    //             dup2(fd, 0);
-    //     }
-    //     if (ft_strcmp((*t_cmd)->in_out[i], ">"))
-    //     {
-    //         fd = open((*t_cmd)->in_out[i + 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
-    //          if (fd == -1)
-    //             return ;
-    //         dup2(fd, 1);
-    //         close(fd);
-    //     }
-    //     else if (ft_strcmp((*t_cmd)->in_out[i], "<<") == 0)
-    //         dup2(heredoc_fd, 0);
-    //     i++;
-    // }
+    return (0);
 }
 
 // char **get_valmustunseted(t_env **env, t_gc **exec)
@@ -228,21 +208,23 @@ int single_command(t_command **cmd, char **env, t_gc **exec)
     int status;
     
     status = 0;
-    if (!(*cmd)->cmd)
-    {
-        redirection_handel(cmd);
-        return (0);
-    }
+    // if (!(*cmd)->cmd)
+    // {
+    //     status = redirection_handel(cmd);
+    //     return (status);
+    // }
     path = last_path(env, (*cmd)->cmd, exec);
     id = fork();
     if (id < 0)
         return (perror(""), exit(1), 1);
     if (id == 0)
     {
-        redirection_handel(cmd);
+        status = redirection_handel(cmd);
+        
         if (!path)
         {        
             error_printer((*cmd)->cmd[0], ": command not found\n", NULL);
+        
             // printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
             exit(127);
         }

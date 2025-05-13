@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/12 16:38:31 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/12 21:32:13 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int main(int ac , char **av, char **env)
 		if (validate_syntax(tokens))
 			continue ;
 		create_cmd_list(tokens, &cmd, &gc);
+		
 		g_exit_status = cmd_execuiter(&cmd, &m_env, &gc_exec);
 		// res = get_valmustunseted(&m_env, &gc_exec);
 		// int i = 0;

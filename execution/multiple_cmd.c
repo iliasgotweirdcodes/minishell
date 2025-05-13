@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:32:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/11 18:22:27 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 16:23:08 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,6 @@ int multi_cmd(char **env, t_command **cmd,t_gc **exec, t_env **s_env)
 
 // //sigpipe
 // while true; do
-// leaks minishell
+// lsof -c minishell
 // sleep 10
 // done

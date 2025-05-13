@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/11 22:02:29 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 16:29:54 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int cd_builtins(char *path, t_env **s_env, t_gc **gc)
     
     pwd = getcwd(NULL, 0);
     if (!pwd)
-        return (perror(""), 1);
+        pwd = get_env_value("PWD", *s_env);
     if (!path)
     {
         go_home(s_env,gc);

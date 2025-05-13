@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:57:50 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/12 20:26:37 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 16:31:29 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec)
     else if(ft_strcmp((*cmd)->cmd[0], "echo") == 0)
         status = echo_builtind(cmd);
     else if(ft_strcmp((*cmd)->cmd[0], "pwd") == 0)
-        status = pwd_builtins();
+        status = pwd_builtins(env);
     else if(ft_strcmp((*cmd)->cmd[0], "export") == 0)
         status = export(env, cmd, exec);
     else if(ft_strcmp((*cmd)->cmd[0], "unset") == 0)
@@ -96,7 +96,10 @@ int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec)
             status = builtins_execuition(cmd_list, s_env, exec);
         }
         else
+        {
+            
             status = single_command(cmd_list, my_env, exec);
+        }
     }else
         status = multi_cmd(my_env, cmd_list, exec,s_env);
     //tcsetattr(1,0,&old_stdin);
