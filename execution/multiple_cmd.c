@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:32:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/13 18:04:11 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 21:52:47 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,17 @@ int last_command(t_command **cmd, t_gc **exec, t_env **struct_env, t_gc **env_gc
     env = env_converter(struct_env,exec);
     status = 0;
     path = last_path(env, (*cmd)->cmd, exec);
-    if (is_builtinns(*cmd) == 0)
-    {
-        redirection_handel(cmd);
-        builtins_execuition(cmd, struct_env, exec, env_gc);
-    }
     id = fork();
     if (id < 0)
         return (perror(""), exit(1), 1);
     if (id == 0)
     {
-        if(is_builtinns(*cmd) != 0)
+        if (is_builtinns(*cmd) == 0)
+        {
+            redirection_handel(cmd);
+            builtins_execuition(cmd, struct_env, exec, env_gc);
+        }
+        else 
         {
             redirection_handel(cmd);
             if (!path && is_builtinns(*cmd) != 0)

@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/13 17:43:49 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/13 21:47:47 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,16 +104,42 @@ void go_home(t_env **s_env, t_gc **gc)
         perror("");
 }
 
+// int walk_pathhandel(char *path, t_env **s_env,t_gc **gc_env)
+// {
+//     static int flag;
+
+//     if (flag == 0)
+//     {
+//         flag++;
+//         error_printer(path, ": No such file or directory\n", "cd: ");
+//         return 
+//     }
+// }
+
 int cd_builtins(char *path, t_env **s_env, t_gc **gc_env)
 {
     char *pwd;
     char *old_path;
     char *old_Pwd;
     char *new_path;
+    static int flag;
     
+    //flag = 0;
     pwd = getcwd(NULL, 0);
     if (!pwd)
+    {
+        if (flag == 0)
+        {
+            flag++;
+            //printf("oiyiuyiu\n");
+            error_printer(path, ": No such file or directory\n", "cd: ");
+            return (1);
+        }
+        else
+            perror("cd: error retrieving current directory: getcwd: cannot access parent directories:");
         pwd = get_env_value("PWD", *s_env);
+        pwd = ft_strjoinv3(pwd,"/..",gc_env);
+    }
     if (!path)
     {
         go_home(s_env,gc_env);
@@ -166,8 +192,9 @@ int cd_builtins(char *path, t_env **s_env, t_gc **gc_env)
     if (!new_path)
         new_path = pwd;
     ft_changeval(s_env, ft_strjoinv3("PWD=",new_path, gc_env), gc_env);
-    free(new_path);
-    free(pwd);
+    //free(new_path);
+    if (flag == 0)
+        free(pwd);
     return (0);
 }
 
