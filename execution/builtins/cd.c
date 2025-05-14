@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/14 00:32:25 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/14 17:20:56 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,27 +119,30 @@ void go_home(t_env **s_env, t_gc **gc)
 int cd_builtins(t_command **cmd,char *path, t_env **s_env, t_gc **gc_env)
 {
     char *pwd;
+    //char *old = NULL;
     char *old_path;
     char *old_Pwd;
     char *new_path;
     static int flag;
     
     pwd = getcwd(NULL, 0);
-    if (!pwd)
+    if (!pwd && path)
     {
         if (flag == 0)
         {
             flag++;
             error_printer(path, ": No such file or directory\n", "cd: ");
+            //old = ft_strdup2(get_env_value("OLDPWD", *s_env), gc_env);
             return (1);
         }
-        else 
-        {
-            perror("cd: error retrieving current directory: getcwd: cannot access parent directories");
-        }
+        // else if (ft_strcmp(old, pwd) != 0)
+        // {
+        //     perror("cd: error retrieving current directory: getcwd: cannot access parent directories");
+        // }
+        pwd = ft_strjoinv2((*cmd)->pwd_sec, path, gc_env);
         //res = ft_strjoinv3(res ,"/..", gc_env);
         //pwd = (*cmd)->pwd_sec;
-        pwd = ft_strjoinv2((*cmd)->pwd_sec, path, gc_env);
+        //pwd = ft_strjoinv2((*cmd)->pwd_sec, path, gc_env);
         //pwd = ft_strjoin(pwd, path, gc_env);
         //pwd = res;
         //printf("cmd---->   %s  \n",res);
@@ -186,7 +189,7 @@ int cd_builtins(t_command **cmd,char *path, t_env **s_env, t_gc **gc_env)
             return (error_printer(path, ": No such file or directory\n", "cd : "), 1);
     }
     //unset_builtins(s_env, "OLDPWD");
-    old_path = ft_strjoinv3("OLDPWD=", pwd, gc_env);
+    old_path = ft_strjoinv3("OLDPWD=", get_env_value("PWD",*s_env), gc_env);
     if (!old_path)
         return (free(pwd), 0);
     if (is_key(s_env,old_path, gc_env) == 0)
@@ -199,7 +202,10 @@ int cd_builtins(t_command **cmd,char *path, t_env **s_env, t_gc **gc_env)
     ft_changeval(s_env, ft_strjoinv3("PWD=",new_path, gc_env), gc_env);
     //free(new_path);
     if (flag == 0)
+    {
         free(pwd);
+        free(new_path);
+    }
     return (0);
 }
 

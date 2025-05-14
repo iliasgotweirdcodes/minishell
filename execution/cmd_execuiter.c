@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:57:50 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/14 00:44:19 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/14 17:08:46 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,16 @@ void pwd_set(t_command **cmd, t_env **env, t_gc **gc_exec)
 	char *pwd;
 
 	pwd = ft_strdup2(get_env_value("PWD", *env), gc_exec);
+    old_pwd = ft_strdup2(get_env_value("OLPWD", *env), gc_exec);
 	tmp = *cmd;
 	while (tmp)
 	{
 		if (pwd)
 			tmp->pwd_sec = pwd;
+        if (old_pwd && old_pwd[0] == '\0')
+            tmp->oldpwd_set = NULL;
+        else
+            tmp->oldpwd_set = old_pwd;
 		tmp = tmp->next;
 	}
 	old_pwd = pwd;
@@ -88,7 +93,7 @@ void param_adds(t_env **s_env, t_gc **env_gc)
     
     pwd = getcwd(NULL, 0);
     if (!pwd)
-        return ;
+        perror("") ;
     pwd_path = ft_strjoinv3("PWD=", pwd, env_gc);
     add_varenv(s_env,pwd_path, env_gc);
     unset_management(s_env,"OLDPWD",env_gc);
@@ -102,17 +107,11 @@ int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec, t_gc **env_g
     t_command *cmd;
     char **my_env;
     int fd[2];
-    static int flag;
     int status;
 
     status = 0;
     fd[0] = dup(0);
     fd[1] = dup(1);
-    if (flag == 0)
-    {
-        param_adds(s_env, env_gc);
-        flag = 1;
-    }
     my_env = env_converter(s_env, exec);
     if (!my_env)
         return (1);

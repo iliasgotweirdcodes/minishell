@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/14 00:45:47 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/14 16:30:03 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ typedef struct s_command {
     char **cmd;     // Actual command and its arguments
     char **in_out;   // Redirections and tokens
 	int here_docfd;   // for the heredoc fd
-	t_env **env_ptr; 
-	char *pwd_sec;  //for holding the env pointer norminet
+	char *oldpwd_set; // holdind the old pwd 
+	char *pwd_sec;  // hlding the pwd
 	struct s_command *next; // Pointer to the next command in the pipeline
 } t_command;
 
@@ -117,6 +117,7 @@ int	ft_isdigit(int c);
 int	ft_revsrch(const char *s, int c);
 char	*ft_strjoinv2(char *s1, char *s2, t_gc **exec);
 void pwd_set(t_command **cmd, t_env **env, t_gc **gc_exec);
+void param_adds(t_env **s_env, t_gc **env_gc);
 
 
 

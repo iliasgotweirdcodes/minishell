@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:27 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/14 00:36:34 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/14 17:17:34 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,20 @@ int exit_parser(char *str)
 
 int exit_builtins(t_command **cmd,t_gc **exec_gc, t_gc **env_gc)
 {
-    // int i;
+    int status;
     // // t_command *tmp;
     // // tmp = *cmd;
     // i = cmd_sizer(*cmd);
     // // while (tmp->cmd && tmp->cmd[i])
     // //     printf("----> %s",tmp->cmd[i++]);
     write(1, "exit\n", 5);
+    if ((*cmd)->cmd && (*cmd)->cmd[1] == NULL)
+    {
+        //ft_gcfree(exec_gc);
+        //ft_gcfree(env_gc);
+        printf("exit from here \n");
+        exit(0);
+    }
     if ((*cmd)->cmd && exit_parser((*cmd)->cmd[1]) == 0)
     {
         error_printer((*cmd)->cmd[1],": numeric argument required\n","exit");
@@ -62,7 +69,10 @@ int exit_builtins(t_command **cmd,t_gc **exec_gc, t_gc **env_gc)
         //ft_gcfree(exec_gc);
         return (1);
     }
-    //ft_gcfree(exec_gc);
-    exit(EXIT_SUCCESS);
-    return (0);
+    ft_gcfree(exec_gc);
+    ft_gcfree(env_gc);
+    status = atoi((*cmd)->cmd[1]);
+    status = (status % 256);
+    exit(status);
+    return (status);
 }

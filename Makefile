@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 READLINE_COMPILE = -I$(shell brew --prefix readline)/include
 READLINE_LINK = -L$(shell brew --prefix readline)/lib -lreadline -lhistory
 
