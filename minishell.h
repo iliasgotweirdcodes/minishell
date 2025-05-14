@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/14 21:53:33 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/14 23:19:08 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,10 +147,11 @@ char	*get_env_value(char *var_name, t_env *env);
 void	sigint_handler(int sig);
 t_token	*parse_cmd(char *input, t_env *m_env, t_gc **gc);
 char	**ft_split_quotes(char *s, t_gc **gc);
+void	expand_tokens(t_token **tokens, t_env *env, t_gc **gc);
+char	*get_env_value(char *var_name, t_env *env);
+char	*ft_charjoin(char *str, char c, t_gc **gc);
 
 
-//expansion
-void	expand_tokens(t_token *tokens, t_env *env, t_gc **gc);
 
 
 // list tools

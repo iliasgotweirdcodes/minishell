@@ -6,13 +6,10 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/05/14 21:37:45 by ilel-hla         ###   ########.fr       */
-=======
-/*   Updated: 2025/05/14 20:38:06 by aromani          ###   ########.fr       */
->>>>>>> 6638cb28a8ec910fd0d06d6a08202b539570e669
+/*   Updated: 2025/05/14 22:33:51 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #include "minishell.h"
@@ -61,13 +58,10 @@ int main(int ac , char **av, char **env)
 	t_gc 	*gc_env = NULL;
 	t_env	*m_env = NULL;
 	struct termios old_stdin;
-<<<<<<< HEAD
 	//atexit(f);
 
-=======
-	atexit(f);
-	
->>>>>>> 6638cb28a8ec910fd0d06d6a08202b539570e669
+	// atexit(f);
+
 	tcgetattr(1,&old_stdin);
 	get_env(env, &m_env, &gc_env);
 	//execuiter function

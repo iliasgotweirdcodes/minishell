@@ -6,55 +6,11 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:32:54 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/14 22:26:05 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/14 23:18:58 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*get_env_value(char *var_name, t_env *env)
-{
-	t_env	*current;
-
-	current = env;
-	while (current)
-	{
-		if (ft_strcmp(current->key, var_name) == 0)
-			return (current->value);
-		current = current->next;
-	}
-	return (NULL);
-}
-
-char	*ft_charjoin(char *str, char c, t_gc **gc)
-{
-	char	*new_str;
-	int		len;
-	int		i;
-
-	if (!str)
-	{
-		new_str = ft_malloc(2, gc);
-		if (!new_str)
-			return (NULL);
-		new_str[0] = c;
-		new_str[1] = '\0';
-		return (new_str);
-	}
-	len = ft_strlen(str);
-	new_str = ft_malloc(len + 2, gc);
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		new_str[i] = str[i];
-		i++;
-	}
-	new_str[len] = c;
-	new_str[len + 1] = '\0';
-	return (new_str);
-}
 
 char    *handle_dollar(char *value, int *i, t_env *env, char *res, t_gc **gc)
 {
@@ -157,12 +113,12 @@ char	*expand_variable(char *value, t_env *env, t_gc **gc)
 	return (temp);
 }
 
-void	expand_tokens(t_token *tokens, t_env *env, t_gc **gc)
+void	expand_tokens(t_token **tokens, t_env *env, t_gc **gc)
 {
 	t_token	*current;
 	char	*expanded;
 
-	current = tokens;
+	current = *tokens;
 	while (current)
 	{
 		if (current->type == WORD)

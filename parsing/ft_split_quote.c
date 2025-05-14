@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 21:40:17 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/14 22:13:30 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/14 23:01:47 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char *ft_fill_str(char *str, t_gc **gc)
 	{
 		if (!quote && (str[j] == '\'' || str[j] == '\"'))
 		{
+
 			quote = str[j];
 			j++;
 			while (str[j] && str[j] != quote)

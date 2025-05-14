@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:17:39 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/14 21:37:11 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/14 23:20:53 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_token	*parse_cmd(char *input, t_env *m_env, t_gc **gc)
 {
 	t_token	*tokens;
-	(void)m_env;
+
 	tokens = ft_tokenization(input, gc);
 	if (!tokens)
 	{
@@ -25,9 +25,9 @@ t_token	*parse_cmd(char *input, t_env *m_env, t_gc **gc)
 	}
 	if (validate_syntax(tokens))
 	{
-		// ft_gc_free(gc);
+		ft_gcfree(gc);
 		return (NULL);
 	}
-	expand_tokens(tokens, m_env, gc);
+	expand_tokens(&tokens, m_env, gc);
 	return (tokens);
 }
