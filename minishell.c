@@ -6,7 +6,11 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/14 21:37:45 by ilel-hla         ###   ########.fr       */
+=======
+/*   Updated: 2025/05/14 20:38:06 by aromani          ###   ########.fr       */
+>>>>>>> 6638cb28a8ec910fd0d06d6a08202b539570e669
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +61,13 @@ int main(int ac , char **av, char **env)
 	t_gc 	*gc_env = NULL;
 	t_env	*m_env = NULL;
 	struct termios old_stdin;
+<<<<<<< HEAD
 	//atexit(f);
 
+=======
+	atexit(f);
+	
+>>>>>>> 6638cb28a8ec910fd0d06d6a08202b539570e669
 	tcgetattr(1,&old_stdin);
 	get_env(env, &m_env, &gc_env);
 	//execuiter function
@@ -77,6 +86,7 @@ int main(int ac , char **av, char **env)
 		if (!input)
 		{
 			write(1, "\033[1A\033[2Kminishell> exit\n", 25);
+			ft_gcfree(&gc_env);
 			break ;
 		}
 		if (input)
