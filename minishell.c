@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/14 17:21:52 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/14 20:38:06 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int main(int ac , char **av, char **env)
 	t_gc 	*gc_env = NULL;
 	t_env	*m_env = NULL;
 	struct termios old_stdin;
-	//atexit(f);
+	atexit(f);
 	
 	tcgetattr(1,&old_stdin);
 	get_env(env, &m_env, &gc_env);
@@ -52,6 +52,7 @@ int main(int ac , char **av, char **env)
 		if (!input)
 		{
 			write(1, "\033[1A\033[2Kminishell> exit\n", 25);
+			ft_gcfree(&gc_env);
 			break ;
 		}
 		if (input)
