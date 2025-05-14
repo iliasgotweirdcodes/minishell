@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/14 17:21:52 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/14 21:37:45 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,32 @@
 
 int g_exit_status = 0;
 
-
+void print_command(t_command *cmd)
+{
+	while (cmd)
+	{
+		printf("---------------------------------------------\n");
+		char **arr = cmd->cmd;
+		char **in_out = cmd->in_out;
+		int i = 0;
+		int j = 0;
+		while (arr && arr[i])
+		{
+			printf("Command[%d]: %s\n", i, arr[i]);
+			i++;
+		}
+		while (in_out && in_out[j])
+		{
+			printf("In/Out[%d]: %s\n", j, in_out[j]);
+			j++;
+		}
+		if (cmd->here_docfd != -1) {
+			printf("Here_doc_fd: %d\n", cmd->here_docfd);
+		}
+		cmd = cmd->next;
+		printf("---------------------------------------------\n");
+	}
+}
 void f(){
 	system("leaks minishell");
 }
@@ -33,7 +58,7 @@ int main(int ac , char **av, char **env)
 	t_env	*m_env = NULL;
 	struct termios old_stdin;
 	//atexit(f);
-	
+
 	tcgetattr(1,&old_stdin);
 	get_env(env, &m_env, &gc_env);
 	//execuiter function
@@ -56,19 +81,9 @@ int main(int ac , char **av, char **env)
 		}
 		if (input)
 			add_history(input);
-		tokens = ft_tokenization(input, &gc);
-		expand_tokens(tokens, m_env, &gc);
-		if (!tokens)
-		{
-			if (tokens == NULL && ft_strchr(input, '\''))
-				ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2);
-			else if (tokens == NULL && ft_strchr(input, '\"'))
-				ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2);
-			continue ;
-		}
-		if (validate_syntax(tokens))
-			continue ;
+		tokens = parse_cmd(input, m_env, &gc);
 		create_cmd_list(tokens, &cmd, &gc);
+		print_command(cmd);
 		pwd_set(&cmd, &m_env, &gc_exec);
 		g_exit_status = cmd_execuiter(&cmd, &m_env, &gc_exec, &gc_env);
 		// res = get_valmustunseted(&m_env, &gc_exec);

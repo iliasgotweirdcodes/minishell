@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splitvtab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:46:19 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/12 16:38:52 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/14 18:19:55 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,6 @@ size_t	ft_countwords_vtab(char *s)
 	}
 	return (count);
 }
-
-// char	**ft_free(char **str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (str)
-// 	{
-// 		while (i >= 0)
-// 		{
-// 			free(str[i]);
-// 			i--;
-// 		}
-// 		free(str);
-// 	}
-// 	return (NULL);
-// }
 
 char	**ft_allocation_vtab(char **str, char *s, t_gc **gc)
 {

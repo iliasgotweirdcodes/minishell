@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:32:54 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/07 19:59:02 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/14 22:26:05 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_env_value(char *var_name, t_env *env)
 	return (NULL);
 }
 
-char	*append_char(char *str, char c, t_gc **gc)
+char	*ft_charjoin(char *str, char c, t_gc **gc)
 {
 	char	*new_str;
 	int		len;
@@ -64,15 +64,13 @@ char    *handle_dollar(char *value, int *i, t_env *env, char *res, t_gc **gc)
     char    *new_res;
 
     start = ++(*i);
-    // Check for $? (exit status variable)
     if (value[start] == '?')
     {
-        var_name = ft_strdup("?", gc); // Special case for $?
-        (*i)++; // Move past '?'
+        var_name = ft_strdup("?", gc);
+        (*i)++;
     }
     else
     {
-        // Existing logic for environment variables
         while (value[*i] && (ft_isalnum(value[*i]) || value[*i] == '_'))
             (*i)++;
         var_name = ft_substr(value, start, *i - start, gc);
@@ -80,7 +78,7 @@ char    *handle_dollar(char *value, int *i, t_env *env, char *res, t_gc **gc)
     if (!var_name)
         return (NULL);
     if (ft_strcmp(var_name, "?") == 0)
-        var_value = ft_itoa(g_exit_status, gc); // Convert exit status to string
+        var_value = ft_itoa(g_exit_status, gc);
     else
     {
         var_value = get_env_value(var_name, env);
@@ -110,7 +108,7 @@ char	*process_quotes_and_vars(char *value, t_env *env, t_gc **gc)
 				quote = 1;
 			i++;
 		}
-		else if (value[i] == '"' && quote != 1)
+		else if (value[i] == '\"' && quote != 1)
 		{
 			if (quote == 2)
 				quote = 0;
@@ -120,13 +118,18 @@ char	*process_quotes_and_vars(char *value, t_env *env, t_gc **gc)
 		}
 		else if (value[i] == '$' && quote != 1)
 		{
+			if (value[i + 1] == '$')
+			{
+				result = ft_charjoin(result, '$', gc);
+				i += 2;
+			}
 			result = handle_dollar(value, &i, env, result, gc);
 			if (!result)
 				break ;
 		}
 		else
 		{
-			result = append_char(result, value[i], gc);
+			result = ft_charjoin(result, value[i], gc);
 			i++;
 		}
 	}
