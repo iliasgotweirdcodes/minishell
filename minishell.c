@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/15 21:55:08 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/15 21:58:08 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void print_command(t_command *cmd)
 	while (cmd)
 	{
 		printf("---------------------------------------------\n");
-		char **arr = cmd->cmd;
+		char **cmnd = cmd->cmd;
 		char **in_out = cmd->in_out;
 		int i = 0;
 		int j = 0;
-		while (arr && arr[i])
+		while (cmnd && cmnd[i])
 		{
 			printf("Command[%d]: %s\n", i, arr[i]);
 			i++;
@@ -35,7 +35,8 @@ void print_command(t_command *cmd)
 			printf("In/Out[%d]: %s\n", j, in_out[j]);
 			j++;
 		}
-		if (cmd->here_docfd != -1) {
+		if (cmd->here_docfd != -1)
+		{
 			printf("Here_doc_fd: %d\n", cmd->here_docfd);
 		}
 		cmd = cmd->next;
