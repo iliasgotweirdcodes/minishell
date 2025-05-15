@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 20:48:32 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/15 21:25:57 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/15 22:11:54 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_remove_quotes(char *str, t_gc **gc)
 	len = ft_strlen(str);
 	if (len < 2)
 		return (ft_strdup(str, gc));
-	while (len > 1 && (str[0] == '\'' || str[0] == '\"'))
+	if (str[0] == '\'' || str[0] == '\"')
 	{
 		quote = str[0];
 		left = count_lquotes(str, quote);
@@ -56,8 +56,6 @@ char	*ft_remove_quotes(char *str, t_gc **gc)
 			str = str + left;
 			len = len - 2 * left;
 		}
-		else
-			break;
 	}
 	new_str = (char *)ft_malloc(len + 1, gc);
 	if (!new_str)

@@ -6,10 +6,9 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/15 21:58:08 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/15 22:07:28 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 #include <string.h>
@@ -27,7 +26,7 @@ void print_command(t_command *cmd)
 		int j = 0;
 		while (cmnd && cmnd[i])
 		{
-			printf("Command[%d]: %s\n", i, arr[i]);
+			printf("Command[%d]: %s\n", i, cmnd[i]);
 			i++;
 		}
 		while (in_out && in_out[j])

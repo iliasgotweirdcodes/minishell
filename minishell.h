@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/15 21:55:20 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/15 22:04:30 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ typedef struct s_token {
 
 typedef struct s_command {
 	struct s_command *prev; // Pointer to the previous command in the pipeline
-    char **cmd;     // Actual command and its arguments
-    char **in_out;   // Redirections and tokens
+	char **cmd;     // Actual command and its arguments
+	char **in_out;   // Redirections and tokens
 	int here_docfd;   // for the heredoc fd
 	char *oldpwd_set; // holdind the old pwd
 	char *pwd_sec;  // hlding the pwd

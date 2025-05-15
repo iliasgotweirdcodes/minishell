@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:32:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/15 16:51:19 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/15 22:05:55 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int singel_pipe(t_command **cmd,t_gc **exec, t_env **s_env, t_gc **env_gc)
         return (perror(""), exit(1), 1);
     if (id == 0)
     {
-        
+
         close(fd[0]);
         dup2(fd[1],1);
         close(fd[1]);
@@ -68,9 +68,9 @@ int singel_pipe(t_command **cmd,t_gc **exec, t_env **s_env, t_gc **env_gc)
         close(fd[1]);
         dup2(fd[0], 0);
         close(fd[0]);
-        //waitpid(id,&status, 0); 
+        //waitpid(id,&status, 0);
     }
-    
+
     return WEXITSTATUS(status);
 }
 
@@ -96,7 +96,7 @@ int last_command(t_command **cmd, t_gc **exec, t_env **struct_env, t_gc **env_gc
             redirection_handel(cmd);
             exit(builtins_execuition(cmd, struct_env, exec, env_gc));
         }
-        else 
+        else
         {
             redirection_handel(cmd);
             if (!path && is_builtinns(*cmd) != 0)
@@ -117,7 +117,7 @@ int last_command(t_command **cmd, t_gc **exec, t_env **struct_env, t_gc **env_gc
     }
     else
     {
-        waitpid(id,&status, 0); 
+        waitpid(id,&status, 0);
     }
 
     return WEXITSTATUS(status);
@@ -137,12 +137,12 @@ int multi_cmd(t_command **cmd,t_gc **exec, t_env **s_env, t_gc **env_gc)
     {
         //printf("<<<<<<<<<hi from multi>>>>>>>>> cmd  =  %s \n",tmp->cmd[0]);
 
-        
+
         // if (!path && is_builtinns(tmp) != 0)
         // {
         //     if (tmp->cmd != NULL)
         //         error_printer((*cmd)->cmd[0], ": command not found\n", NULL);
-                
+
         //     // printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
         // }
         singel_pipe(&tmp, exec, s_env, env_gc);
@@ -150,7 +150,6 @@ int multi_cmd(t_command **cmd,t_gc **exec, t_env **s_env, t_gc **env_gc)
     }
     if (tmp)
         status = last_command(&tmp,exec,s_env,env_gc);
-  
     return (status);
 }
 
