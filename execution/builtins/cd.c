@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:14:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/14 17:20:56 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/15 20:07:13 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int cd_builtins(t_command **cmd,char *path, t_env **s_env, t_gc **gc_env)
 {
     char *pwd;
     //char *old = NULL;
-    char *old_path;
+    char *old_path = NULL;
     char *old_Pwd;
     char *new_path;
     static int flag;
@@ -170,15 +170,17 @@ int cd_builtins(t_command **cmd,char *path, t_env **s_env, t_gc **gc_env)
         {
             return (error_printer("OLDPWD ","not set\n","cd: "), 1);
         }
-        else if (ft_strcmp(pwd, old_path) != 0)
+        else if (ft_strcmp(pwd, old_Pwd) != 0)
         {
             ft_putstr_fd(old_Pwd, 1);
             ft_putstr_fd("\n", 1);
             if (chdir(old_Pwd) == -1)
                 return (perror("cd"), 1);
-        }else
+        }
+        else
         {
             ft_putstr_fd(pwd, 1);
+            ft_putstr_fd("\n", 1);
             if (chdir(pwd) == -1)
                 return (perror("cd"), 1);
         }

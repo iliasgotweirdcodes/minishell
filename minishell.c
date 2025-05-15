@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/15 17:36:01 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/15 18:15:59 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int main(int ac , char **av, char **env)
 			add_history(input);
 		tokens = parse_cmd(input, m_env, &gc);
 		create_cmd_list(tokens, &cmd, &gc);
-		print_command(cmd);
+		//print_command(cmd);
 		pwd_set(&cmd, &m_env, &gc_exec);
 		g_exit_status = cmd_execuiter(&cmd, &m_env, &gc_exec, &gc_env);
 		// res = get_valmustunseted(&m_env, &gc_exec);
