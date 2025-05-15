@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:32:17 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/14 00:37:32 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/15 16:51:19 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ int singel_pipe(t_command **cmd,t_gc **exec, t_env **s_env, t_gc **env_gc)
         }
         if (is_builtinns(*cmd) == 0)
         {
-            builtins_execuition(cmd, s_env, exec, env_gc);
-            exit(0);
+            exit(builtins_execuition(cmd, s_env, exec, env_gc));
         }
         else
         {
@@ -95,7 +94,7 @@ int last_command(t_command **cmd, t_gc **exec, t_env **struct_env, t_gc **env_gc
         if (is_builtinns(*cmd) == 0)
         {
             redirection_handel(cmd);
-            builtins_execuition(cmd, struct_env, exec, env_gc);
+            exit(builtins_execuition(cmd, struct_env, exec, env_gc));
         }
         else 
         {
@@ -157,6 +156,6 @@ int multi_cmd(t_command **cmd,t_gc **exec, t_env **s_env, t_gc **env_gc)
 
 // //sigpipe
 // while true; do
-// leaks minishell
+// lsof -c minishell
 // sleep 10
 // done

@@ -1,0 +1,23 @@
+➜  minishell git:(master) ✗ ./minishell
+minishell> cat << .
+> hh
+> 
+hh
+minishell> cat << .
+> 
+
+minishell> cat << .
+> 
+minishell> cat << .
+> 
+minishell> cat << .
+> 
+minishell> cat << .
+> 
+minishell> cat << .
+> 
+minishell> cat << .
+> 
+minishell> 
+
+============================================================================

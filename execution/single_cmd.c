@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:15:29 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/13 17:30:22 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/15 17:32:19 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ int redirection_handel(t_command **t_cmd)
         {
             red_in = tmp->here_docfd;
             //close(tmp->here_docfd);
-            if (red_in == -1)
+            if (red_in == -100) // signal handel
+                return (exit(1), 1);
+            if (red_in == -1 )
                 return (error_printer (tmp->in_out[i + 1], "Is a directory\n", NULL), exit(1), 1);
         }
         else if (ft_strcmp(tmp->in_out[i],"<") == 0)
@@ -127,13 +129,13 @@ int redirection_handel(t_command **t_cmd)
     {
         // printf("red in == > %d \n", red_in);
         if (dup2(red_in, STDIN_FILENO) == -1)
-            return (perror("red_in"), exit(1), 1); 
+            return (perror(""), exit(1), 1); 
         close(red_in);
     }
     if (red_out > 0)
     {
         if (dup2(red_out, STDOUT_FILENO) == -1)
-            return (perror("red_in"), exit(1), 1); 
+            return (perror(""), exit(1), 1); 
         close(red_out);
     }
     return (0);
@@ -200,40 +202,56 @@ void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc)
     }
 }
 
-
-int single_command(t_command **cmd, char **env, t_gc **env_gc)
+int single_command(t_command **cmd, t_gc **exec_gc, t_gc **env_gc, t_env **s_env)
 {
     pid_t id;
     char *path;
     int status;
+    char **env;
     
-    status = 0;
     // if (!(*cmd)->cmd)
     // {
     //     status = redirection_handel(cmd);
     //     return (status);
     // }
+    env = env_converter(s_env,exec_gc);
     path = last_path(env, (*cmd)->cmd, env_gc);
+    status = 0;
     id = fork();
     if (id < 0)
         return (perror(""), exit(1), 1);
     if (id == 0)
     {
-        status = redirection_handel(cmd);
         
-        if (!path)
-        {        
-            error_printer((*cmd)->cmd[0], ": command not found\n", NULL);
-        
-            // printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
+        if (!path && is_builtinns(*cmd) != 0)
+        {
+            if ((*cmd)->cmd != NULL)
+                error_printer((*cmd)->cmd[0], ": command not found\n", NULL);
             exit(127);
+            // printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
         }
+        if (is_builtinns(*cmd) == 0 && is_inparent(*cmd) == 1)
+        {
+            redirection_handel(cmd);
+            exit(builtins_execuition(cmd, s_env, exec_gc, env_gc));
+        }
+        else
+        {
+            status = redirection_handel(cmd);
+        // if (!path)
+        // {        
+        //     error_printer((*cmd)->cmd[0], ": command not found\n", NULL);
+        
+        //     // printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
+        //     exit(127);
+        // }
         if (opendir(path) != NULL)
             return (error_printer((*cmd)->cmd[0], ": is a directory\n", NULL), exit(126), 1);
         if (execve(path, (*cmd)->cmd, env) == -1)
         {
             perror("execve");
             exit(126);
+        }
         }
     }
     else
