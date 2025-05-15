@@ -6,13 +6,13 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 20:48:32 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/15 22:11:54 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/15 22:16:27 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	count_lquotes(const char *str, char quote)
+int	count_lquotes(char *str, char quote)
 {
 	int	count;
 
@@ -22,7 +22,7 @@ int	count_lquotes(const char *str, char quote)
 	return (count);
 }
 
-int	count_rquotes(const char *str, int len, char quote)
+int	count_rquotes(char *str, int len, char quote)
 {
 	int	count;
 
