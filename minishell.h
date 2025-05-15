@@ -6,9 +6,10 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/15 17:10:08 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/15 17:36:06 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 
@@ -69,7 +70,7 @@ typedef struct s_command {
     char **cmd;     // Actual command and its arguments
     char **in_out;   // Redirections and tokens
 	int here_docfd;   // for the heredoc fd
-	char *oldpwd_set; // holdind the old pwd 
+	char *oldpwd_set; // holdind the old pwd
 	char *pwd_sec;  // hlding the pwd
 	struct s_command *next; // Pointer to the next command in the pipeline
 } t_command;
@@ -148,9 +149,13 @@ char	*get_cmd(t_token *tokens, t_gc **gc);
 char	**prepare_in_out(t_token *tokens , t_gc **gc);
 char	*get_env_value(char *var_name, t_env *env);
 void	sigint_handler(int sig);
+t_token	*parse_cmd(char *input, t_env *m_env, t_gc **gc);
+char	**ft_split_quotes(char *s, t_gc **gc);
+void	expand_tokens(t_token **tokens, t_env *env, t_gc **gc);
+char	*get_env_value(char *var_name, t_env *env);
+char	*ft_charjoin(char *str, char c, t_gc **gc);
 
-//expansion
-void	expand_tokens(t_token *tokens, t_env *env, t_gc **gc);
+
 
 
 // list tools
