@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 19:23:19 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/05 20:22:28 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:26:14 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ char	**prepare_in_out(t_token *tokens, t_gc **gc)
 			in_out[i++] = get_redir(current->type);
 			if (current->next && current->next->type == WORD)
 				in_out[i++] = ft_strdup(current->next->value, gc);
-			else
-				in_out[i++] = ft_strdup("MISSING_FILE", gc);
 			current = current->next;
 		}
 		current = current->next;

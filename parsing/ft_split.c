@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 19:37:53 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/02 17:13:43 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/15 19:02:25 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,6 @@ size_t	ft_countwords(char *s, char c)
 	return (count);
 }
 
-char	**ft_free(char **str)
-{
-	int	i;
-
-	i = 0;
-	if (str)
-	{
-		while (i >= 0)
-		{
-			free(str[i]);
-			i--;
-		}
-		free(str);
-	}
-	return (NULL);
-}
-
 char	**ft_allocation(char **str, char *s, char c, t_gc **gc)
 {
 	size_t	i;
@@ -66,7 +49,7 @@ char	**ft_allocation(char **str, char *s, char c, t_gc **gc)
 			end++;
 		str[i] = (char *)ft_malloc(end - start + 1, gc);
 		if (!str[i])
-			return (ft_free(str), NULL);
+			return (NULL);
 		j = 0;
 		while (start < end)
 			str[i][j++] = s[start++];
@@ -90,6 +73,6 @@ char	**ft_split(char *s, char c , t_gc **gc)
 		return (NULL);
 	str = ft_allocation(str, s, c , gc);
 	if (!str)
-		return (ft_free(str), NULL);
+		return (NULL);
 	return (str);
 }

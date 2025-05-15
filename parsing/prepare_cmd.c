@@ -6,9 +6,10 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:54:52 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/15 18:24:38 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/15 20:14:55 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../minishell.h"
 
@@ -74,6 +75,8 @@ char	**prepare_cmd(t_token *tokens, t_gc **gc)
 	// 	printf("str_cmd[%d]: %s\n", i, str_cmd[i]);
 	// 	i++;
 	// }
+	printf("cmd_line = %s\n", cmd_line);
+	str_cmd = ft_split_quotes(cmd_line, gc);
 	if (!str_cmd)
 		return (NULL);
 	return (str_cmd);
