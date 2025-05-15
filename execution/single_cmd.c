@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:15:29 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/15 17:32:19 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/15 21:55:00 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,13 @@ int redirection_handel(t_command **t_cmd)
     {
         // printf("red in == > %d \n", red_in);
         if (dup2(red_in, STDIN_FILENO) == -1)
-            return (perror(""), exit(1), 1); 
+            return (perror(""), exit(1), 1);
         close(red_in);
     }
     if (red_out > 0)
     {
         if (dup2(red_out, STDOUT_FILENO) == -1)
-            return (perror(""), exit(1), 1); 
+            return (perror(""), exit(1), 1);
         close(red_out);
     }
     return (0);
@@ -180,7 +180,7 @@ int redirection_handel(t_command **t_cmd)
 //     return (res);
 // }
 
-void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc)
+void shell_lvlhandle(char **cmd,t_env **env, t_gc **gc)
 {
     int val = 0;
     char *new_val = NULL;
@@ -208,7 +208,7 @@ int single_command(t_command **cmd, t_gc **exec_gc, t_gc **env_gc, t_env **s_env
     char *path;
     int status;
     char **env;
-    
+
     // if (!(*cmd)->cmd)
     // {
     //     status = redirection_handel(cmd);
@@ -222,7 +222,7 @@ int single_command(t_command **cmd, t_gc **exec_gc, t_gc **env_gc, t_env **s_env
         return (perror(""), exit(1), 1);
     if (id == 0)
     {
-        
+
         if (!path && is_builtinns(*cmd) != 0)
         {
             if ((*cmd)->cmd != NULL)
@@ -239,9 +239,9 @@ int single_command(t_command **cmd, t_gc **exec_gc, t_gc **env_gc, t_env **s_env
         {
             status = redirection_handel(cmd);
         // if (!path)
-        // {        
+        // {
         //     error_printer((*cmd)->cmd[0], ": command not found\n", NULL);
-        
+
         //     // printf("minishell: %s: command not found\n",(*cmd)->cmd[0]);
         //     exit(127);
         // }
@@ -256,7 +256,7 @@ int single_command(t_command **cmd, t_gc **exec_gc, t_gc **env_gc, t_env **s_env
     }
     else
     {
-        wait(&status); 
+        wait(&status);
         return  WEXITSTATUS(status);
     }
     // while (wait(0) != -1)

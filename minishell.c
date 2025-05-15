@@ -6,11 +6,9 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/15 20:11:44 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/15 21:55:08 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 
 #include "minishell.h"
@@ -67,7 +65,7 @@ int main(int ac , char **av, char **env)
 	get_env(env, &m_env, &gc_env);
 	//execuiter function
 	param_adds(&m_env, &gc_env);
-	chell_lvlhandel(av, &m_env, &gc_env);
+	shell_lvlhandle(av, &m_env, &gc_env);
 	//mine
 	if (ac != 1)
 	{
@@ -88,7 +86,7 @@ int main(int ac , char **av, char **env)
 			add_history(input);
 		tokens = parse_cmd(input, m_env, &gc);
 		create_cmd_list(tokens, &cmd, &gc);
-		print_command(cmd);
+		//print_command(cmd);
 		pwd_set(&cmd, &m_env, &gc_exec);
 		g_exit_status = cmd_execuiter(&cmd, &m_env, &gc_exec, &gc_env);
 		// res = get_valmustunseted(&m_env, &gc_exec);

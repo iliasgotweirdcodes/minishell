@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/15 21:41:38 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/15 21:55:20 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int multi_cmd(t_command **cmd,t_gc **exec, t_env **s_env, t_gc **env_gc);
 int builtins_execuition(t_command **cmd, t_env **env, t_gc **exec, t_gc **gc_env);
 int is_key(t_env **env, char *key_val, t_gc **exec);
 // char	*ft_itoa(int nbr);
-void chell_lvlhandel(char **cmd,t_env **env, t_gc **gc);
+void shell_lvlhandle(char **cmd,t_env **env, t_gc **gc);
 //char ** get_valmustunseted(t_env **env, t_gc **exec);
 int sep_exist(char *str, char sep);
 void error_printer(char *str, char* message, char *name);
