@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 22:57:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/14 22:57:56 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/15 20:46:27 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,3 +55,4 @@ char	*ft_charjoin(char *str, char c, t_gc **gc)
 	new_str[len + 1] = '\0';
 	return (new_str);
 }
+

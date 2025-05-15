@@ -6,16 +6,30 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 21:40:17 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/15 19:07:07 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/15 21:38:02 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+int	howmanyqoutes(char *str, int i, char quote)
+{
+	int	count;
+
+	count = 0;
+	while (str[i] && str[i] == quote)
+	{
+		count++;
+		i++;
+	}
+	return (count);
+}
+
 size_t	countwords(char *str)
 {
 	size_t	count;
 	int		i;
+	int		quote_count;
 	char	quote;
 
 	count = 0;
@@ -29,10 +43,19 @@ size_t	countwords(char *str)
 		count++;
 		if (str[i] == '\'' || str[i] == '\"')
 		{
-			quote = str[i++];
-			while (str[i] && str[i] != quote)
+			quote = str[i];
+			quote_count = howmanyqoutes(str, i, quote);
+			i += quote_count;
+			while (str[i])
+			{
+				if (str[i] == quote && howmanyqoutes(str, i, quote) == quote_count)
+				{
+					i += quote_count;
+					break;
+				}
 				i++;
-			if (str[i] == quote)
+			}
+			while (str[i] && !is_space(str[i]))
 				i++;
 		}
 		else
@@ -44,18 +67,28 @@ size_t	countwords(char *str)
 	return (count);
 }
 
-int	word_length(char *str)
+size_t	word_length(char *str)
 {
-	int		len;
+	size_t	len;
+	int		quote_count;
 	char	quote;
 
 	len = 0;
 	if (str[len] == '\'' || str[len] == '\"')
 	{
-		quote = str[len++];
-		while (str[len] && str[len] != quote)
+		quote = str[len];
+		quote_count = howmanyqoutes(str, len, quote);
+		len += quote_count;
+		while (str[len])
+		{
+			if (str[len] == quote && howmanyqoutes(str, len, quote) == quote_count)
+			{
+				len += quote_count;
+				break;
+			}
 			len++;
-		if (str[len] == quote)
+		}
+		while (str[len] && !is_space(str[len]))
 			len++;
 		return (len);
 	}
@@ -66,17 +99,15 @@ int	word_length(char *str)
 
 char	*ft_fill_str(char *str, t_gc **gc)
 {
-	int		i;
-	int		j;
+	size_t	len;
+	size_t	i;
 	char	*new_str;
-	int		len;
 
-	i = 0;
-	j = 0;
 	len = word_length(str);
 	new_str = (char *)ft_malloc(len + 1, gc);
 	if (!new_str)
 		return (NULL);
+	i = 0;
 	while (i < len)
 	{
 		new_str[i] = str[i];
@@ -92,7 +123,7 @@ char	**ft_split_quotes(char *s, t_gc **gc)
 	size_t	len;
 	size_t	i;
 	size_t	j;
-	int		wlen;
+	size_t	wlen;
 
 	if (!s)
 		return (NULL);

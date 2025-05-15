@@ -3,15 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/15 17:36:06 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/15 21:41:38 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -26,7 +23,6 @@
 #include <termios.h>
 #include <sys/types.h>
 #include <dirent.h>
-
 # include "readline/readline.h"
 # include "readline/history.h"
 
@@ -76,7 +72,6 @@ typedef struct s_command {
 } t_command;
 
 
-void	setup_signals(void);
 
 //execution
 int is_builtinns(t_command *cmd);
@@ -123,14 +118,11 @@ void param_adds(t_env **s_env, t_gc **env_gc);
 int cmd_sizer(t_command *cmd);
 int is_inparent(t_command *cmd);
 
-
-
-
 //parsing
+void	setup_signals(void);
 t_token *ft_tokenization(char *input, t_gc **gc);
 void	ft_add_token(t_token **token_list, t_token *new_token);
 t_token	*ft_create_token(t_token_type type, char *value , t_gc **gc);
-// void	ft_clear_tokens(t_token **token_list);
 char	*ft_strndup(const char *s, size_t n, t_gc **gc);
 void	ft_error(char *msg);
 int		is_operator(t_token_type type);
@@ -143,7 +135,7 @@ int		is_space(char c);
 int		is_redirection(t_token_type type);
 void	print_quote_error(void);
 char	*ft_strchr(const char *s, int c);
-int	hanlde_here_doc(char *delimiter);
+int		hanlde_here_doc(char *delimiter);
 char	**prepare_cmd(t_token *tokens, t_gc **gc);
 char	*get_cmd(t_token *tokens, t_gc **gc);
 char	**prepare_in_out(t_token *tokens , t_gc **gc);
@@ -154,17 +146,11 @@ char	**ft_split_quotes(char *s, t_gc **gc);
 void	expand_tokens(t_token **tokens, t_env *env, t_gc **gc);
 char	*get_env_value(char *var_name, t_env *env);
 char	*ft_charjoin(char *str, char c, t_gc **gc);
-
-
-
-
-// list tools
-t_command	*ft_lstnew(t_token	*tokens, t_gc **gc);
+char	*ft_remove_quotes(char *str, t_gc **gc);
+void	remove_quotes(char **str, t_gc **gc);
 void	create_cmd_list(t_token *tokens , t_command **cmd_list, t_gc **gc);
 
 //Garbage collector
-//void	ft_addnew(t_gc **gc, void * add);
-//t_gc	*struct_fill(t_gc *gc, void * add);
 void	*ft_malloc(size_t size, t_gc **gc);
 void	ft_gcfree(t_gc **gc);
 void	ft_lstclear(t_command **lst, t_gc **gc);

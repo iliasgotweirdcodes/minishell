@@ -1,23 +1,51 @@
 ➜  minishell git:(master) ✗ ./minishell
 minishell> cat << .
 > hh
-> 
+>
 hh
 minishell> cat << .
-> 
+>
 
 minishell> cat << .
-> 
+>
 minishell> cat << .
-> 
+>
 minishell> cat << .
-> 
+>
 minishell> cat << .
-> 
+>
 minishell> cat << .
-> 
+>
 minishell> cat << .
-> 
-minishell> 
+>
+minishell>
 
 ============================================================================
+
+minishell> """"""echo"""""" l
+minishell: : is a directory
+minishell>
+bash-3.2$  """"""echo"""""" l
+l
+bash-3.2$
+=============================================================================
+
+bash-3.2$ ""ls -la
+total 952
+drwxr-xr-x  16 ilel-hla  2024_khouribga     544 May 15 21:53 .
+drwxr-xr-x  23 ilel-hla  2024_khouribga     782 May 14 23:25 ..
+-rw-r--r--   1 ilel-hla  2024_khouribga    6148 May 14 18:03 .DS_Store
+drwxr-xr-x  15 ilel-hla  2024_khouribga     510 May 15 19:09 .git
+drwxr-xr-x   4 ilel-hla  2024_khouribga     136 May 14 18:03 .vscode
+-rw-r--r--   1 ilel-hla  2024_khouribga    1404 May 15 21:39 Makefile
+-rw-r--r--   1 ilel-hla  2024_khouribga     508 May 15 20:10 TODO
+-rw-r--r--   1 ilel-hla  2024_khouribga   10293 May 14 18:03 builtins.tldr
+-rw-r--r--   1 ilel-hla  2024_khouribga    5963 May 14 18:03 cur.tldr
+drwxr-xr-x  10 ilel-hla  2024_khouribga     340 May 15 21:53 execution
+drwxr-xr-x   3 ilel-hla  2024_khouribga     102 May 15 21:53 gc
+-rw-r--r--   1 ilel-hla  2024_khouribga    2695 May 15 20:11 minishell.c
+-rw-r--r--   1 ilel-hla  2024_khouribga    6532 May 15 21:41 minishell.h
+drwxr-xr-x  22 ilel-hla  2024_khouribga     748 May 15 21:53 parsing
+-rw-r--r--   1 ilel-hla  2024_khouribga     158 May 14 18:03 plan.txt
+-rw-r--r--   1 ilel-hla  2024_khouribga  430509 May 14 18:03 tldraw.tldr
+bash-3.2$ 

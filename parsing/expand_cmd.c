@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:32:54 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/15 18:06:59 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/15 19:53:46 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,42 @@ char    *handle_dollar(char *value, int *i, t_env *env, char *res, t_gc **gc)
     return (new_res);
 }
 
-char	*process_quotes_and_vars(char *value, t_env *env, t_gc **gc)
+char	*expand_dollar(char *str, int *i, t_env *env, t_gc **gc)
+{
+	int		start;
+	int		len;
+	char	*var;
+	char	*val;
+
+	(*i)++;
+	start = *i;
+	len = 0;
+	if (str[start] == '?')
+	{
+		(*i)++;
+		return(ft_strdup(ft_itoa(0, gc), gc));
+	}
+	if (str[start] == '$')
+	{
+		(*i)++;
+		return (ft_strdup("$", gc));
+	}
+	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
+	{
+		(*i)++;
+		len++;
+	}
+	var = ft_substr(str, start, len, gc);
+	val = get_env_value(var, env);
+	return (ft_strdup(val, gc));
+}
+
+char	*expand_variable(char *value, t_env *env, t_gc **gc)
 {
 	char	*result;
 	int		i;
 	int		quote;
+	char	*expanded;
 
 	result = NULL;
 	i = 0;
@@ -62,6 +93,7 @@ char	*process_quotes_and_vars(char *value, t_env *env, t_gc **gc)
 				quote = 0;
 			else
 				quote = 1;
+			result = ft_charjoin(result, value[i], gc);
 			i++;
 		}
 		else if (value[i] == '\"' && quote != 1)
@@ -70,18 +102,13 @@ char	*process_quotes_and_vars(char *value, t_env *env, t_gc **gc)
 				quote = 0;
 			else
 				quote = 2;
+			result = ft_charjoin(result, value[i], gc);
 			i++;
 		}
 		else if (value[i] == '$' && quote != 1)
 		{
-			if (value[i + 1] == '$')
-			{
-				result = ft_charjoin(result, '$', gc);
-				i += 2;
-			}
-			result = handle_dollar(value, &i, env, result, gc);
-			if (!result)
-				break ;
+			expanded = expand_dollar(value, &i, env, gc);
+			result = ft_strjoin(result, expanded, gc);
 		}
 		else
 		{
@@ -90,27 +117,6 @@ char	*process_quotes_and_vars(char *value, t_env *env, t_gc **gc)
 		}
 	}
 	return (result);
-}
-
-char	*expand_variable(char *value, t_env *env, t_gc **gc)
-{
-	char	*expanded;
-	int		quote_type;
-	char	*temp;
-
-	quote_type = 0;
-	if (value[0] == '"' && value[ft_strlen(value) - 1] == '"')
-		quote_type = 2;
-	else if (value[0] == '\'' && value[ft_strlen(value) - 1] == '\'')
-		quote_type = 1;
-	expanded = process_quotes_and_vars(value, env, gc);
-	if (quote_type == 1)
-		temp = ft_strtrim(expanded, "'", gc);
-	else if (quote_type == 2)
-		temp = ft_strtrim(expanded, "\"", gc);
-	else
-		temp = ft_strdup(expanded, gc);
-	return (temp);
 }
 
 void	expand_tokens(t_token **tokens, t_env *env, t_gc **gc)
