@@ -6,7 +6,7 @@
 /*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:57:50 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/14 17:08:46 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/15 17:29:27 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,20 @@ void pwd_set(t_command **cmd, t_env **env, t_gc **gc_exec)
 	t_command *tmp;
 	static char *old_pwd;
 	char *pwd;
-
+    // static int i;
+    
+    // pwd = getcwd(NULL, 0);
+    // if (pwd)
+    // {
+    //     free(pwd);
+    //     pwd = NULL;
+    // }
+    // else
+    // {
+    //     i++;
+    //     if (i > 1)
+    //         perror("cwd");
+    // }
 	pwd = ft_strdup2(get_env_value("PWD", *env), gc_exec);
     old_pwd = ft_strdup2(get_env_value("OLPWD", *env), gc_exec);
 	tmp = *cmd;
@@ -102,6 +115,18 @@ void param_adds(t_env **s_env, t_gc **env_gc)
     free(pwd);
 }
 
+int is_inparent(t_command *cmd)
+{
+    if (!cmd->cmd)
+        return (1);
+    if ((ft_strcmp(cmd->cmd[0], "cd") == 0 
+        || (ft_strcmp(cmd->cmd[0], "export") == 0 && cmd_sizer(cmd) > 1)
+        || ft_strcmp(cmd->cmd[0], "unset") == 0
+        || ft_strcmp(cmd->cmd[0], "exit") == 0))
+            return (0);
+    return (1);
+}
+
 int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec, t_gc **env_gc)
 {
     t_command *cmd;
@@ -118,13 +143,13 @@ int cmd_execuiter(t_command **cmd_list, t_env **s_env, t_gc **exec, t_gc **env_g
     cmd = *cmd_list;
     if (ft_cmdsize(cmd_list) == 1)
     {
-        if (is_builtinns(cmd) == 0)
+        if (is_builtinns(cmd) == 0 && is_inparent(cmd) == 0)
         {
             redirection_handel(cmd_list);
             status = builtins_execuition(cmd_list, s_env, exec, env_gc);
         }
         else
-            status = single_command(cmd_list, my_env, exec);
+            status = single_command(cmd_list, exec, env_gc, s_env);
     }else
         status = multi_cmd(cmd_list, exec,s_env, env_gc);
     dup2(fd[0], 0);

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/14 23:19:08 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:36:06 by aromani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 
@@ -99,7 +100,8 @@ int    unset_builtins(t_env **my_env, t_command **cmd, t_gc **exec);
 int    unset_management(t_env **env, char *key, t_gc **exec);
 int exit_builtins(t_command **cmd,t_gc **exec_gc, t_gc **env_gc);
 // int single_command(t_command **cmd, char **env, t_gc **exec);
-int single_command(t_command **cmd, char **env, t_gc **env_gc);
+// int single_command(t_command **cmd, char **env, t_gc **env_gc);
+int single_command(t_command **cmd, t_gc **exec_gc, t_gc **env_gc, t_env **s_env);
 int cmd_execuiter(t_command **cmd_list, t_env **env, t_gc **exec, t_gc **env_gc);
 int redirection_handel(t_command **t_cmd);
 int multi_cmd(t_command **cmd,t_gc **exec, t_env **s_env, t_gc **env_gc);
@@ -118,6 +120,8 @@ int	ft_revsrch(const char *s, int c);
 char	*ft_strjoinv2(char *s1, char *s2, t_gc **exec);
 void pwd_set(t_command **cmd, t_env **env, t_gc **gc_exec);
 void param_adds(t_env **s_env, t_gc **env_gc);
+int cmd_sizer(t_command *cmd);
+int is_inparent(t_command *cmd);
 
 
 
