@@ -8,7 +8,7 @@ READLINE_LINK = -L$(shell brew --prefix readline)/lib -lreadline -lhistory
 
 
 SRC =  minishell.c parsing/signal.c parsing/tokenization.c parsing/token_utils.c parsing/helpers.c \
-		parsing/error.c parsing/syntax_error.c parsing/syntax_utils.c  parsing/ft_split_quote.c\
+		parsing/error.c parsing/syntax_error.c parsing/syntax_utils.c parsing/ft_split_quote.c parsing/ft_split_quotes_utils.c\
 		parsing/here_doc.c parsing/list_tools.c parsing/prepare_cmd.c parsing/prepare_in_out.c \
 		parsing/expand_cmd.c parsing/ft_split.c  parsing/ft_strjoin.c gc/ft_malloc.c parsing/ft_itoa.c\
 		execution/builtins/utils/utils_01.c parsing/parsing.c parsing/expand_utils.c parsing/ft_splitvtab.c\

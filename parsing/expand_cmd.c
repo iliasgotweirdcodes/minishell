@@ -6,44 +6,11 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:32:54 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/15 22:07:10 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/17 18:18:52 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// char    *handle_dollar(char *value, int *i, t_env *env, char *res, t_gc **gc)
-// {
-//     int     start;
-//     char    *var_name;
-//     char    *var_value;
-//     char    *new_res;
-
-//     start = ++(*i);
-//     if (value[start] == '?')
-//     {
-//         var_name = ft_strdup("?", gc);
-//         (*i)++;
-//     }
-//     else
-//     {
-//         while (value[*i] && (ft_isalnum(value[*i]) || value[*i] == '_'))
-//             (*i)++;
-//         var_name = ft_substr(value, start, *i - start, gc);
-//     }
-//     if (!var_name)
-//         return (NULL);
-//     if (ft_strcmp(var_name, "?") == 0)
-//         var_value = ft_itoa(g_exit_status, gc);
-//     else
-//     {
-//         var_value = get_env_value(var_name, env);
-//         if (!var_value)
-//             var_value = "";
-//     }
-//     new_res = ft_strjoin(res, var_value, gc);
-//     return (new_res);
-// }
 
 char	*expand_dollar(char *str, int *i, t_env *env, t_gc **gc)
 {

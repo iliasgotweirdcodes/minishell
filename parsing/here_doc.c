@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromani <aromani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:28:34 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/15 17:36:20 by aromani          ###   ########.fr       */
+/*   Updated: 2025/05/17 16:40:27 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
 
-void siginthandel(int sig)
+void siginthandle(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -38,7 +38,7 @@ int	hanlde_here_doc(char *delimiter)
 	id = fork();
 	if (id == 0)
 	{
-		signal(SIGINT, siginthandel);
+		signal(SIGINT, siginthandle);
 		while (1)
 		{
 			line = readline("> ");
@@ -52,7 +52,7 @@ int	hanlde_here_doc(char *delimiter)
 			{
 				free(line);
 				close(fd[0]);
-				 exit(0);
+				exit(0);
 				//break;
 			}
 			write(fd[0], line, ft_strlen(line));
@@ -61,8 +61,8 @@ int	hanlde_here_doc(char *delimiter)
 		}
 }
 	// wait(&status);
-	else 
-		waitpid(id,&status, 0); 
+	else
+		waitpid(id,&status, 0);
 	status = WEXITSTATUS(status);
 	if (status == 1)
 	{
@@ -71,5 +71,5 @@ int	hanlde_here_doc(char *delimiter)
 		return(-100); // in case of ctr + c signal
 	}
 	return (close(fd[0]),fd[1]);
-	return (fd[1]);
+	// return (fd[1]);
 }

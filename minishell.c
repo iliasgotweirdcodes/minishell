@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:31:11 by aromani           #+#    #+#             */
-/*   Updated: 2025/05/15 22:07:28 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/17 16:31:08 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int main(int ac , char **av, char **env)
 			add_history(input);
 		tokens = parse_cmd(input, m_env, &gc);
 		create_cmd_list(tokens, &cmd, &gc);
-		//print_command(cmd);
+		print_command(cmd);
 		pwd_set(&cmd, &m_env, &gc_exec);
 		g_exit_status = cmd_execuiter(&cmd, &m_env, &gc_exec, &gc_env);
 		// res = get_valmustunseted(&m_env, &gc_exec);

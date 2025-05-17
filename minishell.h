@@ -6,7 +6,7 @@
 /*   By: ilel-hla <ilel-hla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:45:36 by ilel-hla          #+#    #+#             */
-/*   Updated: 2025/05/15 22:04:30 by ilel-hla         ###   ########.fr       */
+/*   Updated: 2025/05/17 17:19:27 by ilel-hla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,9 @@ char	*get_env_value(char *var_name, t_env *env);
 void	sigint_handler(int sig);
 t_token	*parse_cmd(char *input, t_env *m_env, t_gc **gc);
 char	**ft_split_quotes(char *s, t_gc **gc);
+int		skip_spaces(char *s, int i);
+int		word_len(char *s);
+int		count_words(char *s);
 void	expand_tokens(t_token **tokens, t_env *env, t_gc **gc);
 char	*get_env_value(char *var_name, t_env *env);
 char	*ft_charjoin(char *str, char c, t_gc **gc);
@@ -153,7 +156,7 @@ void	create_cmd_list(t_token *tokens , t_command **cmd_list, t_gc **gc);
 //Garbage collector
 void	*ft_malloc(size_t size, t_gc **gc);
 void	ft_gcfree(t_gc **gc);
-void	ft_lstclear(t_command **lst, t_gc **gc);
+// void	ft_lstclear(t_command **lst, t_gc **gc);
 
 // general purpose
 void	ft_putstr(char *str);

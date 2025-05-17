@@ -48,4 +48,34 @@ drwxr-xr-x   3 ilel-hla  2024_khouribga     102 May 15 21:53 gc
 drwxr-xr-x  22 ilel-hla  2024_khouribga     748 May 15 21:53 parsing
 -rw-r--r--   1 ilel-hla  2024_khouribga     158 May 14 18:03 plan.txt
 -rw-r--r--   1 ilel-hla  2024_khouribga  430509 May 14 18:03 tldraw.tldr
-bash-3.2$ 
+bash-3.2$
+==========================================================================
+
+ ➜  minishell git:(master) ✗ ./minishell
+minishell> << a > file
+> hhhh
+> kjjj
+> a
+---------------------------------------------
+In/Out[0]: <<
+In/Out[1]: a
+In/Out[2]: >
+In/Out[3]: file
+Here_doc_fd: 4
+---------------------------------------------
+minishell>
+this should create an empty file named file
+
+==================================================================================
+
+➜  minishell git:(master) ✗ ./minishell
+minishell> echo "'$USER'"
+>  echo "'ilel-hla'"
+---------------------------------------------
+Command[0]: echo
+Command[1]: ilel-hla
+---------------------------------------------
+ilel-hla
+minishell>
+
+==================================================================================
